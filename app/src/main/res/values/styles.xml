@@ -1,0 +1,44 @@
+<resources>
+
+
+    <style name="activity_style" parent="base_activity_style"></style>
+
+    <style name="activity_style_main" parent="activity_style">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="swipe_activity_style" parent="base_swipe_activity_style"></style>
+
+    <style name="app_theme" parent="AppBaseTheme"></style>
+    <!-- 上面进出动画样式 -->
+    <style name="slide_top_bottom_animation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_top</item>
+    </style>
+
+    <style name="alpha_animation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/alpha_in</item>
+        <item name="android:windowExitAnimation">@anim/alpha_out</item>
+    </style>
+
+    <style name="main_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textColor">@drawable/text_selector_main_menu</item>
+        <item name="android:textSize">11dp</item>
+    </style>
+
+    <style name="common_list_view">
+        <item name="android:listSelector">@color/trans</item>
+        <item name="android:cacheColorHint">@color/trans</item>
+        <item name="android:divider">@color/trans</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+</resources>

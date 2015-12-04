@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/v_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_status_bar"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="首页"
+                android:textColor="@color/black_333333"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:src="@drawable/home_title_search" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_dfdfdd" />
+
+    <cn.common.ui.widgt.MainTabViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_dfdfdd" />
+
+    <cn.common.ui.widgt.TabRadioGroup
+        android:id="@+id/rg_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_bottom_menu_height"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_menu_home"
+            style="@style/main_menu"
+            android:checked="true"
+            android:drawableTop="@drawable/rb_selector_home"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/rb_menu_trolley"
+            style="@style/main_menu"
+            android:drawableTop="@drawable/rb_selector_trolley"
+            android:text="团购" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/rb_menu_group"
+                style="@style/main_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableTop="@drawable/rb_selector_group"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="购物车" />
+
+            <TextView
+                android:id="@+id/tv_message_num"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:paddingBottom="3dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <RadioButton
+            android:id="@+id/rb_menu_mine"
+            style="@style/main_menu"
+            android:drawableTop="@drawable/rb_selector_mine"
+            android:text="我的" />
+
+    </cn.common.ui.widgt.TabRadioGroup>
+
+</LinearLayout>
