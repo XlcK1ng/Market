@@ -1,8 +1,6 @@
 package com.buybuyall.market.ui;
 
-import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,6 +18,7 @@ public abstract class CommonTitleActivity extends BaseTitleActivity {
     protected View getTitleLayoutView() {
         View title = inflate(R.layout.view_common_title);
         initTitleBar(title);
+        setBackgroundColor(getColor(R.color.background_white));
         return title;
     }
 
