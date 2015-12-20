@@ -110,7 +110,6 @@ public abstract class BaseTitleActivity extends BaseSwipeBackFragmentActivity {
     private void setTitleLayout(View view) {
         mFlTitle.setPadding(0, 0, 0, 0);
         mFlTitle.addView(view, new FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
-        ChangeThemeUtils.adjustStatusBar(view, this);
     }
 
 }

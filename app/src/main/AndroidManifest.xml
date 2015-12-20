@@ -24,7 +24,7 @@
             android:theme="@style/activity_style_main" />
         <activity
             android:name=".ui.SearchActivity"
-            android:theme="@style/activity_style_main" />
+            android:theme="@style/swipe_activity_style" />
     </application>
 
 </manifest>

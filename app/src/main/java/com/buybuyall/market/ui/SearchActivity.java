@@ -15,7 +15,6 @@ public class SearchActivity extends StateActivity {
     @Override
     protected void initView() {
         View view = new View(this);
-        view.setBackgroundColor(Color.BLACK);
         setContentView(view);
     }
 }
