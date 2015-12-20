@@ -8,46 +8,26 @@ import android.widget.TextView;
 
 import com.buybuyall.market.R;
 
-import cn.common.ui.activity.BaseWorkerFragmentActivity;
+import cn.common.ui.activity.BaseTitleActivity;
 import cn.common.ui.widgt.ChangeThemeUtils;
 
-public abstract class CommonTitleActivity extends BaseWorkerFragmentActivity {
+public abstract class CommonTitleActivity extends BaseTitleActivity {
     protected ImageButton ibBack;
     protected TextView tvTitle;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initView();
-        initData();
-        initEvent();
-    }
-
-    protected void initEvent() {
-    }
-
-    protected void initData() {
-    }
-
-    protected abstract void initView();
 
     @Override
-    public void setContentView(View view) {
-        if (view != null) {
-            super.setContentView(R.layout.activity_common_title);
-            FrameLayout layout = (FrameLayout) findViewById(R.id.root_content);
-            if (layout.getChildCount() > 0) {
-                layout.removeAllViews();
-            }
-            layout.addView(view, new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-            initTitleBar();
-        }
+    protected View getTitleLayoutView() {
+        View title = inflate(R.layout.view_common_title);
+        initTitleBar(title);
+        return title;
     }
 
-    private void initTitleBar() {
-        ibBack = (ImageButton) findViewById(R.id.ib_back);
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        ChangeThemeUtils.adjustStatusBar(findViewById(R.id.iv_status_bar), this);
+
+    private void initTitleBar(View title) {
+        ibBack = (ImageButton) title.findViewById(R.id.ib_back);
+        tvTitle = (TextView) title.findViewById(R.id.tv_title);
+        ChangeThemeUtils.adjustStatusBar(title.findViewById(R.id.iv_status_bar), this);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,10 +37,6 @@ public abstract class CommonTitleActivity extends BaseWorkerFragmentActivity {
         });
     }
 
-    @Override
-    public void setTitle(int titleId) {
-        setTitle(getString(titleId));
-    }
 
     @Override
     public void setTitle(CharSequence title) {

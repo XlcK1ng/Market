@@ -15,7 +15,7 @@ import cn.common.ui.widgt.ChangeThemeUtils;
 public abstract class BaseTitleActivity extends BaseSwipeBackFragmentActivity {
     private FrameLayout mFlTitle;
 
-    private static final int MSG_UI_INITDATA = 10000;
+    private static final int MSG_UI_INIT_DATA = 10000;
 
     private FrameLayout mFlContent;
 
@@ -34,7 +34,7 @@ public abstract class BaseTitleActivity extends BaseSwipeBackFragmentActivity {
         setTitleLayout(getTitleLayoutView());
         initView();
         initEvent();
-        sendEmptyUiMessage(MSG_UI_INITDATA);
+        sendEmptyUiMessage(MSG_UI_INIT_DATA);
     }
 
     protected void setBackgroundColor(int color) {
@@ -57,7 +57,7 @@ public abstract class BaseTitleActivity extends BaseSwipeBackFragmentActivity {
     @Override
     public void handleUiMessage(Message msg) {
         switch (msg.what) {
-            case MSG_UI_INITDATA:
+            case MSG_UI_INIT_DATA:
                 initData();
                 break;
         }
