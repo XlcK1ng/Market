@@ -8,8 +8,13 @@
         android:id="@+id/v_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_status_bar"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/trans_30000000" />
 
         <RelativeLayout
             android:layout_width="match_parent"

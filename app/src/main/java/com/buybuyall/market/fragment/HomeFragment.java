@@ -2,14 +2,12 @@ package com.buybuyall.market.fragment;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ListView;
 
 import cn.common.ui.activity.BaseWorkerFragmentActivity;
 import cn.common.ui.fragment.BaseWorkerFragment;
 
-/**
- * Created by Administrator on 2015/11/22.
- */
-public class HomeFragment extends BaseWorkerFragment {
+public class HomeFragment extends StateFragment {
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -19,5 +17,11 @@ public class HomeFragment extends BaseWorkerFragment {
         View view = new View(getActivity());
         view.setBackgroundColor(Color.GRAY);
         setContentView(view);
+        showLoadingView();
+    }
+
+    @Override
+    public void reLoadData() {
+
     }
 }

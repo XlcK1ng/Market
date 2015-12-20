@@ -45,7 +45,6 @@ public class MainActivity extends BaseWorkerFragmentActivity
 
 
     private long lastClickTime;
-    private View vStatus;
 
     @Override
     public void onBackPressed() {
@@ -69,7 +68,6 @@ public class MainActivity extends BaseWorkerFragmentActivity
 
     private void initView() {
         setContentView(R.layout.activity_main);
-//        vStatus = findViewById(R.id.v_status);
         vpContent = (MainTabViewPager) findViewById(R.id.vp_content);
         rgMenu = (TabRadioGroup) findViewById(R.id.rg_menu);
         rbHome = (RadioButton) findViewById(R.id.rb_menu_home);
@@ -77,7 +75,7 @@ public class MainActivity extends BaseWorkerFragmentActivity
         rbGroup = (RadioButton) findViewById(R.id.rb_menu_group);
         rbMine = (RadioButton) findViewById(R.id.rb_menu_mine);
         vpContent.setOffscreenPageLimit(4);
-        ChangeThemeUtils.adjustStatusBar(findViewById(R.id.v_title), this);
+        ChangeThemeUtils.adjustStatusBar(findViewById(R.id.iv_status_bar), this);
 
     }
 

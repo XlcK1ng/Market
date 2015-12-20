@@ -22,6 +22,9 @@
         <activity
             android:name=".ui.MainActivity"
             android:theme="@style/activity_style_main" />
+        <activity
+            android:name=".ui.SearchActivity"
+            android:theme="@style/activity_style_main" />
     </application>
 
 </manifest>

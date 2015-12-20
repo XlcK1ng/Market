@@ -1,12 +1,21 @@
 package com.buybuyall.market.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import cn.common.ui.activity.BaseWorkerFragmentActivity;
 
-public class SearchActivity extends BaseWorkerFragmentActivity {
+public class SearchActivity extends StateActivity {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void reLoadData() {
+    }
+
+    @Override
+    protected void initView() {
+        View view = new View(this);
+        view.setBackgroundColor(Color.BLACK);
+        setContentView(view);
     }
 }
