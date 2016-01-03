@@ -50,6 +50,11 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     public void setData(List<T> list) {
         if (list != null && list.size() > 0) {
             mDataList = list;
+        }
+    }
+    public void setDataAndNotifyDataSetChanged(List<T> list) {
+        if (list != null && list.size() > 0) {
+            mDataList = list;
             notifyDataSetChanged();
         }
     }

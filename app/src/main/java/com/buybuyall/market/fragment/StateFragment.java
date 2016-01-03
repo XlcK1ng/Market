@@ -25,6 +25,12 @@ public abstract class StateFragment extends BaseWorkerFragment implements Status
         }
     }
 
+    public void showContentView() {
+        if (mStatusView != null) {
+            mStatusView.showContentView();
+        }
+    }
+
     public void showFailView() {
         if (mStatusView != null) {
             mStatusView.showFailView();

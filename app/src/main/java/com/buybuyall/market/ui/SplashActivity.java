@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.buybuyall.market.R;
 import com.buybuyall.market.logic.InitSharedData;
 
 import cn.common.ui.activity.BaseWorkerFragmentActivity;
@@ -45,9 +46,9 @@ public class SplashActivity extends BaseWorkerFragmentActivity {
         mIvSplash = new ImageView(this);
 //        mIvSplash.setImageResource(R.drawable.loading_page_ishoe);
         mIvSplash.setScaleType(ImageView.ScaleType.FIT_XY);
-        mIvSplash.setBackgroundColor(Color.BLUE);
+        mIvSplash.setImageResource(R.drawable.test);
         setContentView(mIvSplash);
-        sendEmptyUiMessage(MSG_MAIN);
+        sendEmptyUiMessageDelayed(MSG_MAIN,500);
 //        if (InitSharedData.hasLogin() && !TextUtils.isEmpty(InitSharedData.getDeviceData())) {
 //            lastTime = System.currentTimeMillis();
 //            sendEmptyBackgroundMessage(MSG_BACK_AUTO_LOGIN);

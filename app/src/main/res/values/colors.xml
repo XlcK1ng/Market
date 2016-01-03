@@ -31,6 +31,8 @@
     <color name="trans_90000000">#90000000</color>
     <color name="trans_60000000">#60000000</color>
     <color name="trans_30000000">#30000000</color>
+    <color name="trans_10000000">#10000000</color>
+    <color name="trans_20000000">#20000000</color>
     <color name="divider_list">@color/gray_dfdfdd</color>
     <color name="divider_other">@color/gray_dbd6d6</color>
     <color name="divider_menu">@color/gray_dfdfdf</color>

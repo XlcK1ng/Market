@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_gray"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/test">
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:minHeight="45dp"
+                android:minWidth="160dp"
+                android:text="登录百百购"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_logged"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <cn.common.ui.widgt.RoundImageView
+                    android:id="@+id/riv_avatar"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/test" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="jake 陈"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/text_content" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_tab_has_buy_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:text="已购商品"
+                        android:textColor="@drawable/text_selector_user_center_tab"
+                        android:textSize="@dimen/text_content" />
+
+                    <View
+                        android:id="@+id/line_has_buy_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/orange_d06048" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_tab_user_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:text="个人中心"
+                        android:textColor="@drawable/text_selector_user_center_tab"
+                        android:textSize="@dimen/text_content" />
+
+                    <View
+                        android:id="@+id/line_user_center"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/orange_d06048" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/lv_has_buy_goods"
+                style="@style/common_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_user_center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <com.buybuyall.market.widget.CommonItemView
+                        android:id="@+id/civ_my_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item_height"
+                        android:background="@drawable/bg_selector_item"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:icon_src="@drawable/img_my_order"
+                        app:title_text="我的订单" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/divider_list" />
+
+                    <com.buybuyall.market.widget.CommonItemView
+                        android:id="@+id/civ_my_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item_height"
+                        android:background="@drawable/bg_selector_item"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:icon_src="@drawable/img_my_group"
+                        app:title_text="我的拼团" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/divider_list" />
+
+                    <com.buybuyall.market.widget.CommonItemView
+                        android:id="@+id/civ_my_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item_height"
+                        android:background="@drawable/bg_selector_item"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:icon_src="@drawable/img_my_address"
+                        app:title_text="我的地址" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/divider_list" />
+
+                    <com.buybuyall.market.widget.CommonItemView
+                        android:id="@+id/civ_coupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item_height"
+                        android:background="@drawable/bg_selector_item"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:icon_src="@drawable/img_coupon"
+                        app:title_text="优惠券" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/orange_d06048" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <com.buybuyall.market.widget.CommonItemView
+                        android:id="@+id/civ_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item_height"
+                        android:background="@drawable/bg_selector_item"
+                        android:paddingLeft="10dp"
+
+                        android:paddingRight="10dp"
+                        app:icon_src="@drawable/img_question"
+                        app:title_text="常见问题" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/divider_list" />
+
+                    <com.buybuyall.market.widget.CommonItemView
+                        android:id="@+id/civ_contact_us"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item_height"
+                        android:background="@drawable/bg_selector_item"
+                        android:paddingLeft="10dp"
+
+                        android:paddingRight="10dp"
+                        app:icon_src="@drawable/img_contact_us"
+                        app:title_text="联系我们" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+</ScrollView>

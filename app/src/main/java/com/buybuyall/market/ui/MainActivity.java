@@ -9,12 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.buybuyall.market.MarketApplication;
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
+import com.buybuyall.market.fragment.GroupsFragment;
 import com.buybuyall.market.fragment.HomeFragment;
+import com.buybuyall.market.fragment.UserCenterFragment;
 import com.buybuyall.market.logic.BroadcastActions;
 import com.buybuyall.market.utils.ToastUtil;
 
@@ -41,10 +45,12 @@ public class MainActivity extends BaseWorkerFragmentActivity
 
     private RadioButton rbMine;
 
-    private RadioButton rbHealth;
+    private RadioButton rbTrolley;
 
-
+    private boolean hasSetChecked = false;
     private long lastClickTime;
+    private TextView tvTitle;
+    private ImageView ivSearch;
 
     @Override
     public void onBackPressed() {
@@ -63,15 +69,17 @@ public class MainActivity extends BaseWorkerFragmentActivity
         initView();
         initEvent();
         sendEmptyUiMessage(MSG_UI_INIT_DATA);
-        vpContent.setCanScroll(false);
+//        vpContent.setCanScroll(false);
     }
 
     private void initView() {
         setContentView(R.layout.activity_main);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        ivSearch = (ImageView) findViewById(R.id.iv_search);
         vpContent = (MainTabViewPager) findViewById(R.id.vp_content);
         rgMenu = (TabRadioGroup) findViewById(R.id.rg_menu);
         rbHome = (RadioButton) findViewById(R.id.rb_menu_home);
-        rbHealth = (RadioButton) findViewById(R.id.rb_menu_trolley);
+        rbTrolley = (RadioButton) findViewById(R.id.rb_menu_trolley);
         rbGroup = (RadioButton) findViewById(R.id.rb_menu_group);
         rbMine = (RadioButton) findViewById(R.id.rb_menu_mine);
         vpContent.setOffscreenPageLimit(4);
@@ -94,7 +102,6 @@ public class MainActivity extends BaseWorkerFragmentActivity
     private void initData() {
         vpContent.setAdapter(
                 new CommonFragmentPagerAdapter(getSupportFragmentManager(), getFragments()));
-        //初始化设备信息
     }
 
     @Override
@@ -110,9 +117,9 @@ public class MainActivity extends BaseWorkerFragmentActivity
     private ArrayList<Fragment> getFragments() {
         ArrayList<Fragment> list = new ArrayList<Fragment>();
         list.add(HomeFragment.newInstance());
+        list.add(GroupsFragment.newInstance());
         list.add(HomeFragment.newInstance());
-        list.add(HomeFragment.newInstance());
-        list.add(HomeFragment.newInstance());
+        list.add(UserCenterFragment.newInstance());
         return list;
     }
 
@@ -127,21 +134,90 @@ public class MainActivity extends BaseWorkerFragmentActivity
 
     @Override
     public void onPageSelected(int position) {
-        switch (vpContent.getCurrentItem()) {
+        changeMenu(-1);
+    }
+
+    @Override
+    public void onCheckedChanged(TabRadioGroup group, int checkedId) {
+        changeMenu(checkedId);
+    }
+
+    private void changeMenu(int checkedId) {
+        if (hasSetChecked) {
+            hasSetChecked = false;
+        } else {
+            hasSetChecked = true;
+            int id = getMenuId(checkedId);
+            if (checkedId > 0) {
+                vpContent.setCurrentItem(id, false);
+            } else {
+                rgMenu.check(id);
+            }
+            changeTitle(id);
+        }
+    }
+
+    private void changeTitle(int id) {
+        switch (id) {
             case 0:
-                rbHome.setChecked(true);
+            case R.id.rb_menu_home:
+                tvTitle.setText("首页");
+                ivSearch.setVisibility(View.VISIBLE);
                 break;
             case 1:
-                rbGroup.setChecked(true);
+            case R.id.rb_menu_trolley:
+                tvTitle.setText("团购");
+                ivSearch.setVisibility(View.GONE);
                 break;
             case 2:
-                rbMine.setChecked(true);
+            case R.id.rb_menu_group:
+                tvTitle.setText("购物车");
+                ivSearch.setVisibility(View.GONE);
                 break;
             case 3:
-                rbHealth.setChecked(true);
+            case R.id.rb_menu_mine:
+                tvTitle.setText("我的");
+                ivSearch.setVisibility(View.GONE);
                 break;
         }
     }
+
+    private int getMenuId(int checkedId) {
+        int id = checkedId > 0 ? checkedId : 0;
+        if (checkedId > 0) {
+            switch (checkedId) {
+                case R.id.rb_menu_home:
+                    id = 0;
+                    break;
+                case R.id.rb_menu_trolley:
+                    id = 1;
+                    break;
+                case R.id.rb_menu_group:
+                    id = 2;
+                    break;
+                case R.id.rb_menu_mine:
+                    id = 3;
+                    break;
+            }
+        } else {
+            switch (vpContent.getCurrentItem()) {
+                case 0:
+                    id = R.id.rb_menu_home;
+                    break;
+                case 1:
+                    id = R.id.rb_menu_trolley;
+                    break;
+                case 2:
+                    id = R.id.rb_menu_group;
+                    break;
+                case 3:
+                    id = R.id.rb_menu_mine;
+                    break;
+            }
+        }
+        return id;
+    }
+
 
     @Override
     public void setupBroadcastActions(List<String> actionList) {
@@ -158,26 +234,5 @@ public class MainActivity extends BaseWorkerFragmentActivity
                 vpContent.setCurrentItem(0, false);
             }
         }
-    }
-
-    @Override
-    public void onCheckedChanged(TabRadioGroup group, int checkedId) {
-        int position = 0;
-        switch (checkedId) {
-            case R.id.rb_menu_home:
-                position = 0;
-                break;
-            case R.id.rb_menu_group:
-                position = 1;
-                break;
-            case R.id.rb_menu_trolley:
-                position = 2;
-                break;
-            case R.id.rb_menu_mine:
-                position = 3;
-                break;
-
-        }
-        vpContent.setCurrentItem(position, false);
     }
 }
