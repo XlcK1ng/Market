@@ -50,7 +50,7 @@ public abstract class BaseHttpClientRequest<T> {
 
     private String mSvc;
 
-    private Hashtable<String, String> mParams;
+    protected Hashtable<String, String> mParams;
 
     private Class<?> mClazz;
 
@@ -230,10 +230,10 @@ public abstract class BaseHttpClientRequest<T> {
         return entity;
     }
 
-    private String getGetRequestParams() {
+    protected String getGetRequestParams() {
         if (mParams != null && mParams.size() >= 0) {
             StringBuilder builder = new StringBuilder();
-            builder.append("&");
+            builder.append("?");
             final Set<String> keys = mParams.keySet();
             for (String key : keys) {
                 builder.append(key).append("=").append(mParams.get(key)).append("&");
