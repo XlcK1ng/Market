@@ -23,7 +23,7 @@ public class HttpRequest<T> extends BaseHttpClientRequest<T> {
 
     @Override
     protected String getServerUrl() {
-        return UrlManager.URL.URL_HEAD;
+        return UrlManager.SERVER_URL;
     }
 
     @Override
@@ -35,13 +35,11 @@ public class HttpRequest<T> extends BaseHttpClientRequest<T> {
     protected String getGetRequestParams() {
         if (mParams != null && mParams.size() >= 0) {
             StringBuilder builder = new StringBuilder();
-            builder.append("?");
             final Set<String> keys = mParams.keySet();
             for (String key : keys) {
                 builder.append(key).append("=").append(mParams.get(key)).append("/");
             }
-            builder.deleteCharAt(builder.length() - 1);
-            builder.append(UrlManager.URL.KEY_CODE);
+            builder.append(UrlManager.KEY_CODE);
             return builder.toString();
         }
         return null;

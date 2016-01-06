@@ -1,18 +1,24 @@
 package com.buybuyall.market.fragment;
 
 import android.os.Message;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.HomeGoodsAdapter;
+import com.buybuyall.market.entity.AdvInfo;
 import com.buybuyall.market.entity.GoodsInfo;
+import com.buybuyall.market.logic.UrlManager;
+import com.buybuyall.market.logic.http.HttpRequest;
+import com.buybuyall.market.logic.http.response.AdvListResponse;
 import com.buybuyall.market.utils.ToastUtil;
 import com.buybuyall.market.widget.ViewCreator;
 
 import java.util.ArrayList;
 
 import cn.common.bitmap.core.ImageLoader;
+import cn.common.exception.AppException;
 import cn.common.ui.widgt.banner.BannerView;
 
 /**
@@ -26,6 +32,8 @@ public class GroupsFragment extends StateFragment {
 
     private static final int MSG_UI_LOAD_DATA_SUCCESS = 0;
     private static final int MSG_UI_LOAD_DATA_FAIL = 1;
+    private static final int MSG_UI_LOAD_ADV_SUCCESS = 2;
+    private static final int MSG_UI_LOAD_ADV_FAIL = 3;
     private static final int MSG_BACK_LOAD_DATA = 0;
     private ListView lvContent;
     private HomeGoodsAdapter mGoodsAdapter;
@@ -87,6 +95,24 @@ public class GroupsFragment extends StateFragment {
     }
 
     private void loadDataTask() {
+        HttpRequest<AdvListResponse> reqAdv = new HttpRequest<>(UrlManager.GET_ADV, AdvListResponse.class);
+        reqAdv.setIsGet(true);
+        reqAdv.addParam("key","6f16dea73b014286b4b71065d3897d84");
+        try {
+            AdvListResponse response = reqAdv.request();
+            if (response != null && response.getList() != null && response.getList().size() > 0) {
+                Message msg = obtainUiMessage();
+                msg.what = MSG_UI_LOAD_ADV_SUCCESS;
+                msg.obj = response.getList();
+                msg.sendToTarget();
+            } else {
+                sendEmptyUiMessage(MSG_UI_LOAD_ADV_FAIL);
+            }
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+
+
         ArrayList<GoodsInfo> goodsInfos = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             goodsInfos.add(new GoodsInfo());
@@ -104,15 +130,17 @@ public class GroupsFragment extends StateFragment {
                 break;
             case MSG_UI_LOAD_DATA_SUCCESS:
                 showContentView();
-                ArrayList<Object> list = new ArrayList<>();
-                list.add("http://pic26.nipic.com/20130121/9475856_141716386357_2.jpg");
-                list.add("http://www.16sucai.com/uploadfile/2012/0706/20120706121453743.jpg");
-                list.add("http://pic2.ooopic.com/10/82/24/63b1OOOPICe1.jpg");
-                list.add("http://pic24.nipic.com/20121015/3684767_163317463111_2.jpg");
-                list.add("http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg");
-                bannerView.setBannerList(list);
-                bannerView.startScroll(3);
+
                 mGoodsAdapter.notifyDataSetChanged();
+                break;
+            case MSG_UI_LOAD_ADV_FAIL:
+                bannerView.setVisibility(View.GONE);
+                break;
+            case MSG_UI_LOAD_ADV_SUCCESS:
+                bannerView.setVisibility(View.VISIBLE);
+                ArrayList<Object> bannerList = (ArrayList<Object>) msg.obj;
+                bannerView.setBannerList(bannerList);
+                bannerView.startScroll(5);
                 break;
         }
     }
@@ -120,7 +148,7 @@ public class GroupsFragment extends StateFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(bannerView!=null){
+        if (bannerView != null) {
             bannerView.destroy();
         }
     }

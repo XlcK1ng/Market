@@ -6,17 +6,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.common.http.JsonParse;
+
 /**
  * 描述：广告信息
  * 作者：jake on 2015/12/29 23:45
  */
-public class AdvInfo implements JsonParse {
+public class AdvInfo extends Object{
 
     private String apName;
     private String apIntro;
     private int adDisplay;
+    private int linkType;
     private String advPic;
     private String advPicUrl;
+    private String param;
+
+
+    public int getLinkType() {
+        return linkType;
+    }
+
+    public void setLinkType(int linkType) {
+        this.linkType = linkType;
+    }
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
 
     public String getApName() {
         return apName;
@@ -58,24 +78,17 @@ public class AdvInfo implements JsonParse {
         this.advPicUrl = advPicUrl;
     }
 
-    @Override
-    public AdvInfo parse(String json) {
-        //    "ap_name": "专题广告位",
-//            "ap_intro": "围巾专题~~为你提供一个温暖的冬天~",
-//            "ap_display": "1",
-//            "adv_pic": "http://120.25.245.59/data/upload/shop/adv/04994431017079701.jpg",
-//            "adv_pic_url": "www.buybuyall.com"
-        try {
-            if (!TextUtils.isEmpty(json)) {
-                JSONObject root = new JSONObject(json);
-                setAdDisplay(root.optInt("ap_display"));
-                setAdvPic(root.optString("adv_pic"));
-                setAdvPicUrl(root.optString("adv_pic_url"));
-                setApName(root.optString("ap_name"));
-                setApIntro(root.optString("ap_intro"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public static AdvInfo parse(JSONObject root) {
+        if (root != null) {
+            AdvInfo info = new AdvInfo();
+            info.setAdDisplay(root.optInt("ap_display"));
+            info.setLinkType(root.optInt("link_type"));
+            info.setParam(root.optString("param"));
+            info.setAdvPic(root.optString("adv_pic"));
+            info.setAdvPicUrl(root.optString("adv_pic_url"));
+            info.setApName(root.optString("ap_name"));
+            info.setApIntro(root.optString("ap_intro"));
+            return info;
         }
         return null;
     }
