@@ -1,9 +1,12 @@
 package com.buybuyall.market.fragment;
 
 import android.os.Message;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.HomeGoodsAdapter;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.exception.AppException;
 import cn.common.ui.widgt.banner.BannerView;
+import cn.common.utils.DisplayUtil;
 
 /**
  * 描述：拼团页面
@@ -139,6 +143,7 @@ public class PartyFragment extends StateFragment {
             case MSG_UI_LOAD_DATA_SUCCESS:
                 showContentView();
                 mPartyAdapter.notifyDataSetChanged();
+                lvContent.addFooterView(inflate(R.layout.view_footer_finish_load_data));
                 break;
             case MSG_UI_LOAD_ADV_FAIL:
                 bannerView.setVisibility(View.GONE);
@@ -151,6 +156,7 @@ public class PartyFragment extends StateFragment {
                 break;
         }
     }
+
 
     @Override
     public void onDestroy() {

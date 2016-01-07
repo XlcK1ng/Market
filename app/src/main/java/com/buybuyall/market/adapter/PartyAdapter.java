@@ -61,12 +61,6 @@ public class PartyAdapter extends BaseListAdapter<PartyInfo> {
         } else {
             holder = (ViewHolder) convertView.getTag(R.layout.item_party);
         }
-        if (position==0){
-            holder.vDividerTop.setVisibility(View.VISIBLE);
-        }else{
-            holder.vDividerTop.setVisibility(View.GONE);
-
-        }
         PartyInfo info = mDataList.get(position);
         if (info != null) {
             holder.btnParty.setTag(info);
