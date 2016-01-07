@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Timer;
@@ -61,5 +63,14 @@ public class CommonUtil {
 
     public static boolean isListAvailable(List<?> list) {
         return list != null && list.size() > 0;
+    }
+
+    public static void setText2TextView(TextView tv, CharSequence sequence) {
+        if (TextUtils.isEmpty(sequence)) {
+            sequence = "";
+        }
+        if (tv != null) {
+            tv.setText(sequence);
+        }
     }
 }

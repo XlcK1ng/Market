@@ -28,8 +28,10 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
+import cn.common.bitmap.utils.L;
 import cn.common.config.BaseAppConFig;
 import cn.common.exception.AppException;
+import cn.common.utils.LogUtil;
 import cn.common.utils.UrlEncodeUtil;
 
 /**
@@ -210,6 +212,7 @@ public abstract class BaseHttpClientRequest<T> {
         }
         uriReq.setHeader("Connection", "Keep-Alive");
         uriReq.setHeader("User-Agent", getUserAgent());
+        LogUtil.d("request", uriReq.getURI().toString());
         return uriReq;
     }
 

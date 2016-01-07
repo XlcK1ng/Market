@@ -22,6 +22,8 @@
     <color name="gray_dfdfdf">#dfdfdf</color>
     <color name="gray_c9c9c9">#c9c9c9</color>
     <color name="gray_ebebeb">#ebebeb</color>
+    <color name="orange_f5a723">#f5a723</color>
+    <color name="orange_eaa022">#eaa022</color>
     <color name="orange_d06048">#d06048</color>
     <color name="orange_fb6e52">#fb6e52</color>
     <color name="black_363636">#363636</color>
@@ -38,7 +40,8 @@
     <color name="divider_menu">@color/gray_dfdfdf</color>
     <color name="text_hint">@color/gray_999999</color>
     <color name="text_default">@color/gray_757575</color>
-    <color name="text_content">@color/black_333333</color>
+    <color name="text_content">@color/black_363636</color>
+    <color name="text_title">@color/black_333333</color>
     <color name="text_mark">@color/red_ef0b0b</color>
     <color name="remain_point">@color/orange_fb6e52</color>
 

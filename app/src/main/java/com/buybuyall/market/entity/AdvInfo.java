@@ -5,13 +5,15 @@ import android.text.TextUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 import cn.common.http.JsonParse;
 
 /**
  * 描述：广告信息
  * 作者：jake on 2015/12/29 23:45
  */
-public class AdvInfo extends Object{
+public class AdvInfo implements Serializable{
 
     private String apName;
     private String apIntro;

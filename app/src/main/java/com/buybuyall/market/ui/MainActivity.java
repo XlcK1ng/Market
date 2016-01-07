@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.buybuyall.market.MarketApplication;
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
-import com.buybuyall.market.fragment.GroupsFragment;
+import com.buybuyall.market.fragment.PartyFragment;
 import com.buybuyall.market.fragment.HomeFragment;
 import com.buybuyall.market.fragment.UserCenterFragment;
 import com.buybuyall.market.logic.BroadcastActions;
@@ -117,7 +117,7 @@ public class MainActivity extends BaseWorkerFragmentActivity
     private ArrayList<Fragment> getFragments() {
         ArrayList<Fragment> list = new ArrayList<Fragment>();
         list.add(HomeFragment.newInstance());
-        list.add(GroupsFragment.newInstance());
+        list.add(PartyFragment.newInstance());
         list.add(HomeFragment.newInstance());
         list.add(UserCenterFragment.newInstance());
         return list;

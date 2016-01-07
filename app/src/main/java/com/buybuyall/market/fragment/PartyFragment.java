@@ -7,11 +7,13 @@ import android.widget.ListView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.HomeGoodsAdapter;
+import com.buybuyall.market.adapter.PartyAdapter;
 import com.buybuyall.market.entity.AdvInfo;
 import com.buybuyall.market.entity.GoodsInfo;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
 import com.buybuyall.market.logic.http.response.AdvListResponse;
+import com.buybuyall.market.logic.http.response.PartyListResponse;
 import com.buybuyall.market.utils.ToastUtil;
 import com.buybuyall.market.widget.ViewCreator;
 
@@ -25,9 +27,9 @@ import cn.common.ui.widgt.banner.BannerView;
  * 描述：拼团页面
  * 作者：jake on 2016/1/3 13:36
  */
-public class GroupsFragment extends StateFragment {
-    public static GroupsFragment newInstance() {
-        return new GroupsFragment();
+public class PartyFragment extends StateFragment {
+    public static PartyFragment newInstance() {
+        return new PartyFragment();
     }
 
     private static final int MSG_UI_LOAD_DATA_SUCCESS = 0;
@@ -36,7 +38,7 @@ public class GroupsFragment extends StateFragment {
     private static final int MSG_UI_LOAD_ADV_FAIL = 3;
     private static final int MSG_BACK_LOAD_DATA = 0;
     private ListView lvContent;
-    private HomeGoodsAdapter mGoodsAdapter;
+    private PartyAdapter mPartyAdapter;
     private BannerView bannerView;
 
     @Override
@@ -51,12 +53,13 @@ public class GroupsFragment extends StateFragment {
         bannerView.setBannerListener(new BannerView.IListener() {
             @Override
             public void itemClick(Object banner) {
-                ToastUtil.show((String) banner);
+                //do nothing
             }
 
             @Override
             public void loadImage(Object banner, ImageView ivBanner) {
-                ImageLoader.getInstance().displayImage((String) banner, ivBanner);
+                AdvInfo advInfo = (AdvInfo) banner;
+                ImageLoader.getInstance().displayImage(advInfo.getAdvPic(), ivBanner);
             }
         });
     }
@@ -74,8 +77,8 @@ public class GroupsFragment extends StateFragment {
 
     @Override
     protected void initData() {
-        mGoodsAdapter = new HomeGoodsAdapter(getActivity());
-        lvContent.setAdapter(mGoodsAdapter);
+        mPartyAdapter = new PartyAdapter(getActivity());
+        lvContent.setAdapter(mPartyAdapter);
         showLoadingView();
     }
 
@@ -97,7 +100,7 @@ public class GroupsFragment extends StateFragment {
     private void loadDataTask() {
         HttpRequest<AdvListResponse> reqAdv = new HttpRequest<>(UrlManager.GET_ADV, AdvListResponse.class);
         reqAdv.setIsGet(true);
-        reqAdv.addParam("key","6f16dea73b014286b4b71065d3897d84");
+        reqAdv.addParam("key", "6f16dea73b014286b4b71065d3897d84");
         try {
             AdvListResponse response = reqAdv.request();
             if (response != null && response.getList() != null && response.getList().size() > 0) {
@@ -111,14 +114,19 @@ public class GroupsFragment extends StateFragment {
         } catch (AppException e) {
             e.printStackTrace();
         }
-
-
-        ArrayList<GoodsInfo> goodsInfos = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            goodsInfos.add(new GoodsInfo());
+        HttpRequest<PartyListResponse> reqParty = new HttpRequest<>(UrlManager.GET_PARTY_LIST, PartyListResponse.class);
+        reqParty.setIsGet(true);
+        try {
+            PartyListResponse response = reqParty.request();
+            if (response != null && response.getList() != null && response.getList().size() > 0) {
+                mPartyAdapter.setData(response.getList());
+                sendEmptyUiMessage(MSG_UI_LOAD_DATA_SUCCESS);
+            } else {
+                sendEmptyUiMessage(MSG_UI_LOAD_DATA_FAIL);
+            }
+        } catch (AppException e) {
+            e.printStackTrace();
         }
-        mGoodsAdapter.setData(goodsInfos);
-        sendEmptyUiMessage(MSG_UI_LOAD_DATA_SUCCESS);
     }
 
     @Override
@@ -130,15 +138,14 @@ public class GroupsFragment extends StateFragment {
                 break;
             case MSG_UI_LOAD_DATA_SUCCESS:
                 showContentView();
-
-                mGoodsAdapter.notifyDataSetChanged();
+                mPartyAdapter.notifyDataSetChanged();
                 break;
             case MSG_UI_LOAD_ADV_FAIL:
                 bannerView.setVisibility(View.GONE);
                 break;
             case MSG_UI_LOAD_ADV_SUCCESS:
                 bannerView.setVisibility(View.VISIBLE);
-                ArrayList<Object> bannerList = (ArrayList<Object>) msg.obj;
+                ArrayList<AdvInfo> bannerList = (ArrayList<AdvInfo>) msg.obj;
                 bannerView.setBannerList(bannerList);
                 bannerView.startScroll(5);
                 break;

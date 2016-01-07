@@ -7,6 +7,7 @@ import cn.common.bitmap.core.ImageLoaderConfiguration;
 import cn.common.bitmap.core.display.FadeInBitmapDisplayer;
 import cn.common.ui.activity.BaseApplication;
 import cn.common.utils.DisplayUtil;
+import cn.common.utils.LogUtil;
 
 public class MarketApplication extends BaseApplication {
 
@@ -30,7 +31,7 @@ public class MarketApplication extends BaseApplication {
         dBuilder.showImageOnFail(R.drawable.default_img);
         builder.defaultDisplayImageOptions(dBuilder.build());
         ImageLoader.getInstance().init(builder.build());
-
+        LogUtil.setIsOpenLog(true);
     }
 
     @Override

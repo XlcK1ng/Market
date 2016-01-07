@@ -24,7 +24,9 @@ import cn.common.utils.DisplayUtil;
 
 public class BannerView extends FrameLayout implements OnPageChangeListener {
 
+public static interface IBannerInfo{
 
+}
     private class MyPagerAdapter extends PagerAdapter {
         private ArrayList<View> mViews;
 
@@ -257,11 +259,11 @@ public class BannerView extends FrameLayout implements OnPageChangeListener {
         this.clickListener = banner;
     }
 
-    public void setBannerList(ArrayList<Object> list) {
+    public void setBannerList(ArrayList<?> list) {
         setBannerList(list, true);
     }
 
-    public void setBannerList(ArrayList<Object> list, boolean isLoop) {
+    public void setBannerList(ArrayList<?> list, boolean isLoop) {
         if (CommonUtil.isListAvailable(list)) {
             this.isLoop = isLoop;
             mPageSize = list.size();
