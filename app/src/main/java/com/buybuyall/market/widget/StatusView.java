@@ -42,13 +42,6 @@ public class StatusView extends FrameLayout {
         mLoadView = findViewById(R.id.ll_loading);
         tvNoData = (TextView) findViewById(R.id.tv_no_data);
         mNoDataView = findViewById(R.id.ll_no_data);
-        mNoDataView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLoadingView();
-                mListener.reLoadData();
-            }
-        });
         mFailView = findViewById(R.id.ll_fail);
         mFailView.setOnClickListener(new OnClickListener() {
             @Override

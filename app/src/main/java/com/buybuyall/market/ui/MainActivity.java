@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.buybuyall.market.MarketApplication;
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
+import com.buybuyall.market.fragment.MineFragment;
 import com.buybuyall.market.fragment.PartyFragment;
 import com.buybuyall.market.fragment.HomeFragment;
 import com.buybuyall.market.fragment.UserCenterFragment;
@@ -100,8 +101,13 @@ public class MainActivity extends BaseWorkerFragmentActivity
     }
 
     private void initData() {
+        ArrayList<Fragment> list = new ArrayList<Fragment>();
+        list.add(HomeFragment.newInstance());
+        list.add(PartyFragment.newInstance());
+        list.add(HomeFragment.newInstance());
+        list.add(MineFragment.newInstance());
         vpContent.setAdapter(
-                new CommonFragmentPagerAdapter(getSupportFragmentManager(), getFragments()));
+                new CommonFragmentPagerAdapter(getSupportFragmentManager(), list));
     }
 
     @Override
@@ -114,14 +120,6 @@ public class MainActivity extends BaseWorkerFragmentActivity
         }
     }
 
-    private ArrayList<Fragment> getFragments() {
-        ArrayList<Fragment> list = new ArrayList<Fragment>();
-        list.add(HomeFragment.newInstance());
-        list.add(PartyFragment.newInstance());
-        list.add(HomeFragment.newInstance());
-        list.add(UserCenterFragment.newInstance());
-        return list;
-    }
 
     @Override
     public void onPageScrollStateChanged(int status) {

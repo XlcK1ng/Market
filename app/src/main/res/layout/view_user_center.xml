@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_user_center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.buybuyall.market.widget.CommonItemView
+            android:id="@+id/civ_my_order"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height"
+            android:background="@drawable/bg_selector_item"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:icon_src="@drawable/img_my_order"
+            app:title_text="我的订单" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_list" />
+
+        <com.buybuyall.market.widget.CommonItemView
+            android:id="@+id/civ_my_group"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height"
+            android:background="@drawable/bg_selector_item"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:icon_src="@drawable/img_my_group"
+            app:title_text="我的拼团" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_list" />
+
+        <com.buybuyall.market.widget.CommonItemView
+            android:id="@+id/civ_my_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height"
+            android:background="@drawable/bg_selector_item"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:icon_src="@drawable/img_my_address"
+            app:title_text="我的地址" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_list" />
+
+        <com.buybuyall.market.widget.CommonItemView
+            android:id="@+id/civ_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height"
+            android:background="@drawable/bg_selector_item"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:icon_src="@drawable/img_coupon"
+            app:title_text="优惠券" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_help"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/orange_d06048" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.buybuyall.market.widget.CommonItemView
+            android:id="@+id/civ_question"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height"
+            android:background="@drawable/bg_selector_item"
+            android:paddingLeft="10dp"
+
+            android:paddingRight="10dp"
+            app:icon_src="@drawable/img_question"
+            app:title_text="常见问题" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_list" />
+
+        <com.buybuyall.market.widget.CommonItemView
+            android:id="@+id/civ_contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height"
+            android:background="@drawable/bg_selector_item"
+            android:paddingLeft="10dp"
+
+            android:paddingRight="10dp"
+            app:icon_src="@drawable/img_contact_us"
+            app:title_text="联系我们" />
+
+    </LinearLayout>
+
+</LinearLayout>
