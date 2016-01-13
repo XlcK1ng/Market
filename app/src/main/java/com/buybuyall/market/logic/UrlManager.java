@@ -12,6 +12,8 @@ public interface UrlManager {
     String GET_ADV = "adv/get_adv/";
     //获取拼团页面的数据
     String GET_PARTY_LIST = "party_activity/online_party_list/";
+    //获取品牌页面的数据
+    String GET_BRAND_LIST = "brand/brand_list/";
 
 
 }

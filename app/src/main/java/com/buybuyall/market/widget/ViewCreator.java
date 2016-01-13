@@ -3,6 +3,7 @@ package com.buybuyall.market.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.View;
 import android.widget.ListView;
 
 import com.buybuyall.market.R;

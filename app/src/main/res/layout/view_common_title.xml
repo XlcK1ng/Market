@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="首页"
-            android:textColor="@color/black_333333"
+            android:textColor="@color/black_363636"
             android:textSize="16dp" />
 
         <ImageView

@@ -8,26 +8,32 @@
         android:id="@+id/v_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_status_bar"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/trans_30000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_back"
-                android:layout_width="45dp"
+                android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
+                android:scaleType="center"
                 android:src="@drawable/back" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_height="33dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_search_input_box"
@@ -36,48 +42,70 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/search" />
 
                 <EditText
+                    android:id="@+id/ev_search"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/trans"
                     android:gravity="center_vertical"
+                    android:hint="想买什么"
+                    android:imeOptions="actionSearch"
                     android:singleLine="true"
-                    android:text="fdsfdsfs"
-                    android:textColor="@color/black_333333"
-                    android:textSize="16dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@color/orange_d06048"
-                    android:text="搜索"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:textColor="@color/black_363636"
+                    android:textSize="14dp" />
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/ll_result"
+            android:id="@+id/ll_no_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-            <ListView
-                android:id="@+id/lv_result"
-                style="@style/common_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没符合条件的商品，以下是精心为您推荐的宝贝！"
+                android:textColor="@color/orange_d06048"
+                android:textSize="12dp" />
         </LinearLayout>
-    </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_dfdfdd" />
+
+        <cn.common.ui.widgt.pull.PullToRefreshLayout
+            android:id="@+id/pl_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </LinearLayout>

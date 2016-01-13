@@ -27,7 +27,7 @@ public abstract class BaseTitleActivity extends BaseSwipeBackFragmentActivity {
         mFlTitle = new FrameLayout(this);
         mFlContent = new FrameLayout(this);
         mFlContent.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-        mFlTitle.setBackgroundColor(Color.BLACK);
+        mFlTitle.setVisibility(View.GONE);
         layout.addView(mFlTitle, new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
         layout.addView(mFlContent, new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         super.setContentView(layout);
@@ -107,9 +107,16 @@ public abstract class BaseTitleActivity extends BaseSwipeBackFragmentActivity {
     protected void setTitle(String title) {
     }
 
+    protected boolean hasTitle() {
+        return true;
+    }
+
     private void setTitleLayout(View view) {
-        mFlTitle.setPadding(0, 0, 0, 0);
-        mFlTitle.addView(view, new FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+        if (hasTitle()) {
+            mFlTitle.setVisibility(View.VISIBLE);
+            mFlTitle.setPadding(0, 0, 0, 0);
+            mFlTitle.addView(view, new FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+        }
     }
 
 }

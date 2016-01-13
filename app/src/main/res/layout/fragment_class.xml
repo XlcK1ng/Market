@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <cn.common.ui.widgt.InnerListView
+            android:id="@+id/lv_adv"
+            style="@style/common_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <cn.common.ui.widgt.InnerGridView
+            android:id="@+id/gv_class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@color/trans"
+            android:horizontalSpacing="5dp"
+            android:listSelector="@color/trans"
+            android:numColumns="2"
+            android:verticalSpacing="5dp" />
+    </LinearLayout>
+</ScrollView>

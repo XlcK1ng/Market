@@ -18,7 +18,7 @@ public abstract class CommonTitleActivity extends BaseTitleActivity {
     protected View getTitleLayoutView() {
         View title = inflate(R.layout.view_common_title);
         initTitleBar(title);
-        setBackgroundColor(getColor(R.color.background_white));
+        setBackgroundColor(getColor(R.color.background_gray));
         return title;
     }
 

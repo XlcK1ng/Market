@@ -12,12 +12,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import cn.common.utils.DisplayUtil;
+
 /**
  * has under line tab's view pager
  *
  * @author jake
  */
 public class IndicatorViewPager extends LinearLayout implements OnPageChangeListener {
+
+    private View vDivider;
 
     public class ViewPagerCompat extends ViewPager {
 
@@ -96,8 +100,26 @@ public class IndicatorViewPager extends LinearLayout implements OnPageChangeList
         mViewPager.setId(123456);
         setTabHeight((int) dip(45));
         addView(indicator);
+        vDivider = new View(getContext());
+        vDivider.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0));
+        addView(vDivider);
         addView(mViewPager, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         indicator.setViewPager(mViewPager);
+    }
+
+    public View getDivider() {
+        return vDivider;
+    }
+
+    public void setDividerHeight(int px) {
+        LinearLayout.LayoutParams params = (LayoutParams) vDivider.getLayoutParams();
+        params.height = px;
+        vDivider.setLayoutParams(params);
+        requestLayout();
+    }
+
+    public void setDividerColor(int color) {
+        vDivider.setBackgroundColor(color);
     }
 
     @Override
