@@ -10,10 +10,14 @@ public interface UrlManager {
     String SERVER_URL = "http://www.bbaline.com/webservice/v1.0/?";
     //获取广告位
     String GET_ADV = "adv/get_adv/";
-    //获取拼团页面的数据
+    //拼团页面的数据
     String GET_PARTY_LIST = "party_activity/online_party_list/";
-    //获取品牌页面的数据
+    //品牌页面的数据
     String GET_BRAND_LIST = "brand/brand_list/";
+    //分类页面的数据
+    String GET_CLASS_LIST = "gc_class/get_root_class/";
+    //搜索
+    String SEARCH = "goods/search/";
 
 
 }

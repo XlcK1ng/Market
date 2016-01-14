@@ -1,13 +1,8 @@
 package com.buybuyall.market.fragment;
 
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.view.View;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.BrandAdapter;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
@@ -15,7 +10,6 @@ import com.buybuyall.market.logic.http.response.BrandListResponse;
 import com.buybuyall.market.widget.ViewCreator;
 
 import cn.common.exception.AppException;
-import cn.common.utils.DisplayUtil;
 
 /**
  * 描述：品牌页面

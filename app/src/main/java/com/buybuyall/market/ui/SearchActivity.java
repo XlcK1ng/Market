@@ -2,6 +2,7 @@ package com.buybuyall.market.ui;
 
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -10,6 +11,7 @@ import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
 import com.buybuyall.market.fragment.BrandFragment;
 import com.buybuyall.market.fragment.ClassFragment;
+import com.buybuyall.market.logic.http.HttpRequest;
 import com.buybuyall.market.utils.ToastUtil;
 import com.buybuyall.market.widget.ViewCreator;
 
@@ -21,6 +23,7 @@ import cn.common.ui.widgt.pull.PullDragHelper;
 import cn.common.ui.widgt.pull.PullListener;
 import cn.common.ui.widgt.pull.PullToRefreshLayout;
 import cn.common.ui.widgt.pull.PullableListView;
+import cn.common.utils.CommonUtil;
 import cn.common.utils.DisplayUtil;
 
 public class SearchActivity extends CommonTitleActivity {
@@ -65,7 +68,6 @@ public class SearchActivity extends CommonTitleActivity {
         indicatorView.setVisibility(View.VISIBLE);
     }
 
-
     @Override
     protected void initEvent() {
         super.initEvent();
@@ -89,7 +91,7 @@ public class SearchActivity extends CommonTitleActivity {
         evSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_SEARCH) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     ToastUtil.show("搜索");
                 }
                 return true;
@@ -97,4 +99,7 @@ public class SearchActivity extends CommonTitleActivity {
         });
     }
 
+
+    private void searchTask() {
+    }
 }
