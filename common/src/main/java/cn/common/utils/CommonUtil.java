@@ -65,12 +65,7 @@ public class CommonUtil {
         return list != null && list.size() > 0;
     }
 
-    public static void setText2TextView(TextView tv, CharSequence sequence) {
-        if (TextUtils.isEmpty(sequence)) {
-            sequence = "";
-        }
-        if (tv != null) {
-            tv.setText(sequence);
-        }
+    public static boolean isSameObject(Object obj1, Object obj2) {
+        return obj1 == obj2;
     }
 }

@@ -99,7 +99,7 @@ public class GoodsInfo implements Serializable {
             GoodsInfo info = new GoodsInfo();
             info.setStoreId(root.optLong("store_id"));
             info.setGoodsId(root.optLong("goods_id"));
-            info.setGoodsName(root.optString("gc_name"));
+            info.setGoodsName(root.optString("goods_name"));
             info.setGoodsPrice(root.optDouble("goods_price"));
             info.setGoodsImage(root.optString("goods_image"));
             info.setGroupBy(root.optInt("groupby"));

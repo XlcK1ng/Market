@@ -15,6 +15,7 @@ import com.buybuyall.market.utils.ToastUtil;
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
 import cn.common.utils.CommonUtil;
+import cn.common.utils.ViewUtil;
 
 /**
  * 描述：
@@ -66,11 +67,11 @@ public class PartyAdapter extends BaseListAdapter<PartyInfo> {
             holder.btnParty.setTag(info);
             convertView.setTag(info);
             ImageLoader.getInstance().displayImage(info.getPartyImage(), holder.ivBanner);
-            CommonUtil.setText2TextView(holder.tvTitle, info.getTitle());
-            CommonUtil.setText2TextView(holder.tvContent, info.getPartyDesc());
-            CommonUtil.setText2TextView(holder.tvPartyNum, info.getPartyNum() + "人团");
-            CommonUtil.setText2TextView(holder.tvPartyPrize, "¥" + info.getPartyGoodsPrice());
-            CommonUtil.setText2TextView(holder.tvMarketPrize, "¥" + info.getGoodsMarketprice());
+            ViewUtil.setText2TextView(holder.tvTitle, info.getTitle());
+            ViewUtil.setText2TextView(holder.tvContent, info.getPartyDesc());
+            ViewUtil.setText2TextView(holder.tvPartyNum, info.getPartyNum() + "人团");
+            ViewUtil.setText2TextView(holder.tvPartyPrize, "¥" + info.getPartyGoodsPrice());
+            ViewUtil.setText2TextView(holder.tvMarketPrize, "¥" + info.getGoodsMarketprice());
         }
         return convertView;
     }

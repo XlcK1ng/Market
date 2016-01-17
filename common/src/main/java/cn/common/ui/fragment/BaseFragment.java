@@ -48,8 +48,6 @@ public abstract class BaseFragment extends Fragment implements IUi {
                 mActivityReference.get().handleUiMessage(msg);
             }
         }
-
-        ;
     }
 
     private ArrayList<String> mActions;

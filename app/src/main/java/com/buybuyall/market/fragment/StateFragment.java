@@ -19,6 +19,11 @@ public abstract class StateFragment extends BaseWorkerFragment implements Status
         }
     }
 
+    @Override
+    public void setContentView(int layoutId) {
+        setContentView(inflate(layoutId));
+    }
+
     public void showLoadingView() {
         if (mStatusView != null) {
             mStatusView.showLoadingView();

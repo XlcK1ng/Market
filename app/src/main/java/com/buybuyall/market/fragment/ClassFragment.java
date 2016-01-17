@@ -40,6 +40,12 @@ public class ClassFragment extends StateFragment {
         adapter = new ClassAdapter(getActivity());
         lvAdv.setAdapter(topAdapter);
         gvClass.setAdapter(adapter);
+        setNoDataTip("暂无分类相关的信息");
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
         loadData();
     }
 

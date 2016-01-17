@@ -48,6 +48,7 @@ public class PartyFragment extends StateFragment {
     @Override
     protected void initView() {
         lvContent = ViewCreator.createCommonListView(getActivity());
+        lvContent.setBackgroundColor(getColor(R.color.background_gray));
         lvContent.addHeaderView(inflate(R.layout.view_header_group));
         setContentView(lvContent);
         bannerView = (BannerView) findViewById(R.id.banner_view);
@@ -117,6 +118,7 @@ public class PartyFragment extends StateFragment {
             }
         } catch (AppException e) {
             e.printStackTrace();
+            sendEmptyUiMessage(MSG_UI_LOAD_ADV_FAIL);
         }
         HttpRequest<PartyListResponse> reqParty = new HttpRequest<>(UrlManager.GET_PARTY_LIST, PartyListResponse.class);
         reqParty.setIsGet(true);
@@ -130,6 +132,7 @@ public class PartyFragment extends StateFragment {
             }
         } catch (AppException e) {
             e.printStackTrace();
+            sendEmptyUiMessage(MSG_UI_LOAD_DATA_FAIL);
         }
     }
 

@@ -4,25 +4,24 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.BrandInfo;
+import com.buybuyall.market.entity.GoodsInfo;
 import com.buybuyall.market.utils.ToastUtil;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
-import cn.common.utils.CommonUtil;
 import cn.common.utils.ViewUtil;
 
 /**
- * 描述：
- * 作者：jake on 2016/1/13 22:31
+ * 描述：搜索物品的适配器
+ * 作者：jake on 2016/1/17 11:02
  */
-public class BrandAdapter extends BaseListAdapter<BrandInfo> {
-    public BrandAdapter(Context context) {
+public class GoodsSearchAdapter extends BaseListAdapter<GoodsInfo> {
+    public GoodsSearchAdapter(Context context) {
         super(context);
     }
 
@@ -32,27 +31,31 @@ public class BrandAdapter extends BaseListAdapter<BrandInfo> {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflate(R.layout.item_brand);
+            convertView = inflate(R.layout.item_search_goods);
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
             holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.tvDes = (TextView) convertView.findViewById(R.id.tv_des);
-            convertView.setTag(R.layout.item_brand, holder);
+            holder.tvPrize = (TextView) convertView.findViewById(R.id.tv_prize);
+            holder.tvMarketPrize = (TextView) convertView.findViewById(R.id.tv_market_price);
+            holder.tvMarketPrize.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
+            holder.tvMarketPrize.getPaint().setAntiAlias(true);// 抗锯齿
+            convertView.setTag(R.layout.item_search_goods, holder);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     BrandInfo info = (BrandInfo) v.getTag();
-                    ToastUtil.show(info.getBrandName()+"点击item");
+                    ToastUtil.show(info.getBrandName() + "点击item");
                 }
             });
         } else {
-            holder = (ViewHolder) convertView.getTag(R.layout.item_brand);
+            holder = (ViewHolder) convertView.getTag(R.layout.item_search_goods);
         }
-        BrandInfo info = mDataList.get(position);
+        GoodsInfo info = mDataList.get(position);
         if (info != null) {
             convertView.setTag(info);
-            ImageLoader.getInstance().displayImage(info.getBrandPic(), holder.ivIcon);
-            ViewUtil.setText2TextView(holder.tvName, info.getBrandName());
-            ViewUtil.setText2TextView(holder.tvDes, info.getBrandDescription());
+            ImageLoader.getInstance().displayImage(info.getGoodsImage(), holder.ivIcon);
+            ViewUtil.setText2TextView(holder.tvName, info.getGoodsName());
+            ViewUtil.setText2TextView(holder.tvPrize, "¥" + info.getGoodsPrice());
+            ViewUtil.setText2TextView(holder.tvMarketPrize, "¥" + info.getGoodsMarketPrice());
         }
         return convertView;
     }
@@ -61,6 +64,7 @@ public class BrandAdapter extends BaseListAdapter<BrandInfo> {
     final class ViewHolder {
         ImageView ivIcon;
         TextView tvName;
-        TextView tvDes;
+        TextView tvPrize;
+        TextView tvMarketPrize;
     }
 }

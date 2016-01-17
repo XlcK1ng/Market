@@ -14,6 +14,7 @@ import com.buybuyall.market.utils.ToastUtil;
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
 import cn.common.utils.CommonUtil;
+import cn.common.utils.ViewUtil;
 
 /**
  * 描述：分类头部
@@ -48,7 +49,7 @@ public class ClassTopAdapter extends BaseListAdapter<ClassInfo> {
         if (info != null) {
             convertView.setTag(info);
             ImageLoader.getInstance().displayImage(info.getGcThumb(), holder.ivIcon);
-            CommonUtil.setText2TextView(holder.tvName, info.getGcName());
+            ViewUtil.setText2TextView(holder.tvName, info.getGcName());
         }
         return convertView;
     }

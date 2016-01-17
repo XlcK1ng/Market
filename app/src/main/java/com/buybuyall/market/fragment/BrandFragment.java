@@ -3,6 +3,7 @@ package com.buybuyall.market.fragment;
 import android.os.Message;
 import android.widget.ListView;
 
+import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.BrandAdapter;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
@@ -63,6 +64,7 @@ public class BrandFragment extends StateFragment {
                 if (adapter != null) {
                     adapter.notifyDataSetChanged();
                 }
+                lvBrand.addFooterView(inflate(R.layout.view_footer_finish_load_data));
                 break;
         }
     }
