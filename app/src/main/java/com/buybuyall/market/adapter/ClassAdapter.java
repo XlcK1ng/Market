@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.BrandInfo;
 import com.buybuyall.market.entity.ClassInfo;
+import com.buybuyall.market.ui.ClassListActivity;
 import com.buybuyall.market.utils.ToastUtil;
 
 import cn.common.bitmap.core.ImageLoader;
@@ -38,8 +39,8 @@ public class ClassAdapter extends BaseListAdapter<ClassInfo> {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BrandInfo info = (BrandInfo) v.getTag();
-                    ToastUtil.show(info.getBrandName() + "点击item");
+                    ClassInfo info = (ClassInfo) v.getTag();
+                    ClassListActivity.start(v.getContext(), info.getGcId(), info.getGcName());
                 }
             });
         } else {

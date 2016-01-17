@@ -5,21 +5,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gray_cccccc" />
+    <include layout="@layout/view_status_bar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
         <ImageButton
             android:id="@+id/ib_back"
             android:layout_width="@dimen/title_height"
             android:layout_height="match_parent"
+            android:background="@color/trans"
             android:src="@drawable/back" />
 
         <TextView

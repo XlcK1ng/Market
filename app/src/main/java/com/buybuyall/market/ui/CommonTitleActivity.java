@@ -44,6 +44,20 @@ public abstract class CommonTitleActivity extends BaseTitleActivity {
         }
     }
 
+    @Override
+    public void setTitle(String title) {
+        if (tvTitle != null) {
+            tvTitle.setText(title);
+        }
+    }
+
+    @Override
+    public void setTitle(int title) {
+        if (tvTitle != null) {
+            tvTitle.setText(getString(title));
+        }
+    }
+
     protected void onBack() {
     }
 

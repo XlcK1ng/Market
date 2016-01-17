@@ -25,6 +25,9 @@
         <activity
             android:name=".ui.SearchActivity"
             android:theme="@style/swipe_activity_style" />
+        <activity
+            android:name=".ui.ClassListActivity"
+            android:theme="@style/swipe_activity_style" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

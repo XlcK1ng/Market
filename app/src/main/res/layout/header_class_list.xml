@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <cn.common.ui.widgt.HorizontalScrollGridView
+        android:id="@+id/hsgv_adv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/background_gray" />
+
+    <com.buybuyall.market.widget.SelectBarView
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="45dp" />
+
+</LinearLayout>
