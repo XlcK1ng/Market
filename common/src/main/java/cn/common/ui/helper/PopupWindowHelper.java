@@ -165,4 +165,8 @@ public class PopupWindowHelper {
     public View getView() {
         return popupView;
     }
+
+    public void setOnDismissListener(PopupWindow.OnDismissListener listener) {
+        pw.setOnDismissListener(listener);
+    }
 }

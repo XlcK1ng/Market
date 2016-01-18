@@ -6,3 +6,6 @@
 /build
 /captures
 .idea/
+Market.iml
+app/app.iml
+common/common.iml

@@ -1,3 +1,4 @@
+
 package cn.common.ui.widgt.pull;
 
 import android.content.Context;
@@ -13,22 +14,33 @@ import android.widget.TextView;
 
 import cn.common.R;
 
-
 public class PullToRefreshLayout extends RelativeLayout implements PullDragListener {
     private View vRefresh;
+
     private View vLoadMore;
+
     private ImageView ivRefresh;
+
     private ImageView ivLoadMore;
+
     private ProgressBar pbRefresh;
+
     private ProgressBar pbLoadMore;
+
     private TextView tvRefresh;
+
     private TextView tvLoadMore;
+
     private FrameLayout flContent;
+
     private PullDragHelper pullDragHelper;
-    //用于改变下拉是的布局
+
+    // 用于改变下拉是的布局
     private int pullDistance = 0;
+
     private RotateAnimation rotateAnimation;
-//    private RotateAnimation refreshingAnimation;
+
+    // private RotateAnimation refreshingAnimation;
     public PullToRefreshLayout(Context context) {
         this(context, null);
     }
@@ -45,7 +57,7 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
         tvRefresh = (TextView) findViewById(R.id.tv_refresh_tip);
         tvLoadMore = (TextView) findViewById(R.id.tv_load_tip);
         flContent = (FrameLayout) findViewById(R.id.fl_content);
-        rotateAnimation =new RotateAnimation(0,180,0.5f,0.5f);
+        rotateAnimation = new RotateAnimation(0, 180, 0.5f, 0.5f);
         rotateAnimation.setDuration(1500);
         rotateAnimation.setRepeatCount(0);
     }
@@ -75,7 +87,6 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
         return true;
     }
 
-
     @Override
     public void changeView(float pullDownY, float pullUpY) {
         pullDistance = (int) (pullDownY + pullUpY);
@@ -87,13 +98,10 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
         super.onLayout(changed, l, t, r, b);
         vRefresh.layout(0, pullDistance - vRefresh.getMeasuredHeight(),
                 vRefresh.getMeasuredWidth(), pullDistance);
-        flContent.layout(0, pullDistance,
-                flContent.getMeasuredWidth(), pullDistance
-                        + flContent.getMeasuredHeight());
-        vLoadMore.layout(0,
-                pullDistance + flContent.getMeasuredHeight(),
-                vLoadMore.getMeasuredWidth(),
-                pullDistance + flContent.getMeasuredHeight()
+        flContent.layout(0, pullDistance, flContent.getMeasuredWidth(),
+                pullDistance + flContent.getMeasuredHeight());
+        vLoadMore.layout(0, pullDistance + flContent.getMeasuredHeight(),
+                vLoadMore.getMeasuredWidth(), pullDistance + flContent.getMeasuredHeight()
                         + vLoadMore.getMeasuredHeight());
 
     }
@@ -149,5 +157,15 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
     @Override
     public float getLoadMoreViewHeight() {
         return vLoadMore.getHeight();
+    }
+
+    public void finishTask() {
+        finishTask(false);
+    }
+
+    public void finishTask(boolean isShowResult) {
+        if (pullDragHelper != null) {
+            pullDragHelper.finishTask(isShowResult);
+        }
     }
 }

@@ -41,7 +41,7 @@
     <color name="text_hint">@color/gray_999999</color>
     <color name="text_default">@color/gray_757575</color>
     <color name="text_content">@color/black_363636</color>
-    <!--<color name="text_title">@color/black_333333</color>-->
+    <color name="half_trans">@color/trans_90000000</color>
     <color name="text_mark">@color/red_ef0b0b</color>
     <color name="remain_point">@color/orange_fb6e52</color>
 
