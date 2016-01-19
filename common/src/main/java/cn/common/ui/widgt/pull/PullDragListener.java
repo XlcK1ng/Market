@@ -11,7 +11,7 @@ public interface PullDragListener {
 
     void changeView(float pullDownY, float pullUpY);
 
-    void changeState(int state);
+    void changeState(int state,boolean loadSuccess);
 
     float getViewHeight();
 

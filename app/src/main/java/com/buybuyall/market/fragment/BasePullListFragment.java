@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.buybuyall.market.R;
 import com.buybuyall.market.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -24,8 +25,6 @@ import cn.common.ui.widgt.pull.PullToRefreshLayout;
  */
 public abstract class BasePullListFragment<T> extends StateFragment implements PullListener,
         AdapterView.OnItemClickListener {
-
-    public static final int MSG_UI_START_LOADING = 0x1000;
 
     public static final int MSG_UI_LOAD_SUCCESS = 0x1001;
 
@@ -57,17 +56,26 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
 
     private long delayLoadTime = 0;
 
+    private View footerView;
+
     @Override
     protected void initView() {
         mPullToRefreshLayout = new PullToRefreshLayout(getActivity());
         mListView = new PullEnableListView(getActivity());
         mPullToRefreshLayout.setContentView(mListView);
         setContentView(mPullToRefreshLayout);
+        mPullToRefreshLayout.setPullListener(this);
+        setResultShowTime(300);
+        showFinishLoad = true;
         addHeaderView(mListView);
         mAdapter = createAdapter();
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
+        if (showFinishLoad) {
+            footerView = inflate(R.layout.view_footer_finish_load_data);
+        }
         pageIndex = PAGE_START;
+        showLoadingView();
         sendEmptyBackgroundMessageDelayed(MSG_BACK_LOAD_DATA, delayLoadTime);
     }
 
@@ -77,18 +85,25 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
         switch (msg.what) {
             case MSG_BACK_LOAD_DATA:
                 // 开始请求数据
-                sendEmptyUiMessage(MSG_UI_START_LOADING);
-                ArrayList<T> list = loadData(pageIndex, pageSize);
+                ArrayList<T> list = dealData(loadData(pageIndex, pageSize));
                 if (list != null) {
-                    ArrayList<T> dealResult = dealData(list);
-                    if (dealResult != null && dealResult.size() > 0) {
-                        mAdapter.setData(dealResult);
-                        sendEmptyUiMessage(MSG_UI_LOAD_SUCCESS);
+                    if (list.size() > 0) {
+                        if (pageIndex == PAGE_START) {
+                            mAdapter.setData(list);
+                        } else {
+                            mAdapter.addAll(list);
+                        }
+                        if (list.size() < pageSize) {
+                            sendEmptyUiMessage(MSG_UI_ALL_DATA_HAVE_LOADED);
+                        } else {
+                             sendEmptyUiMessage(MSG_UI_LOAD_SUCCESS);
+                        }
                     } else {
-                        sendEmptyUiMessage(MSG_UI_NO_DATA);
-                    }
-                    if (list.size() < pageSize) {
-                        sendEmptyUiMessage(MSG_UI_ALL_DATA_HAVE_LOADED);
+                        if (pageIndex == PAGE_START) {
+                            sendEmptyUiMessage(MSG_UI_NO_DATA);
+                        } else {
+                            sendEmptyUiMessage(MSG_UI_ALL_DATA_HAVE_LOADED);
+                        }
                     }
                 } else {
                     // list为null表示加载数据失败
@@ -102,15 +117,9 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
     public void handleUiMessage(Message msg) {
         super.handleUiMessage(msg);
         switch (msg.what) {
-            case MSG_UI_START_LOADING:
-                // 开始加载数据，显示loading
-                if (pageIndex == PAGE_START) {
-                    showLoadingView();
-                }
-                break;
             case MSG_UI_LOAD_SUCCESS:
                 if (mPullToRefreshLayout != null) {
-                    mPullToRefreshLayout.finishTask();
+                    mPullToRefreshLayout.finishTask(true);
                 }
                 // 数据加载成功,且数据条数不为0
                 if (mAdapter != null) {
@@ -123,7 +132,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
             case MSG_UI_LOAD_FAIL:
                 // 数据加载失败
                 if (mPullToRefreshLayout != null) {
-                    mPullToRefreshLayout.finishTask();
+                    mPullToRefreshLayout.finishTask(false);
                 }
                 if (pageIndex == PAGE_START) {
                     showFailView();
@@ -136,25 +145,22 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
                 break;
             case MSG_UI_ALL_DATA_HAVE_LOADED:
                 if (mPullToRefreshLayout != null) {
-                    mPullToRefreshLayout.finishTask();
+                    mPullToRefreshLayout.finishTask(true);
                 }
                 hasLoadAllData = true;
-                if (!showFinishLoad) {
-                    mListView.addFooterView(new View(getActivity()));
+                if (showFinishLoad) {
+                    mListView.addFooterView(footerView);
                 }
+                setCanScrollUp(false);
                 break;
             case MSG_UI_NO_DATA:
                 // 数据加载成功,但数据条数为0
-                if (mPullToRefreshLayout != null) {
-                    mPullToRefreshLayout.finishTask();
-                }
-                if (pageIndex == PAGE_START) {
-                    showNoDataView();
-                } else {
-                    if (pageIndex > PAGE_START) {
-                        pageIndex--;
+                if (mAdapter.getCount() > 0) {
+                    if (mPullToRefreshLayout != null) {
+                        mPullToRefreshLayout.finishTask(true);
                     }
-                    hasLoadAllData = true;
+                } else {
+                    showNoDataView();
                 }
                 break;
         }
@@ -162,6 +168,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
 
     @Override
     public void reLoadData() {
+        showLoadingView();
         hasLoadAllData = false;
         pageIndex = PAGE_START;
         sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);
@@ -175,7 +182,13 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
 
     @Override
     public void onRefresh(PullDragHelper pullDragHelper) {
-        reLoadData();
+        hasLoadAllData = false;
+        pageIndex = PAGE_START;
+        setCanScrollUp(true);
+        if (showFinishLoad && mListView.getFooterViewsCount() > 0) {
+            mListView.removeFooterView(footerView);
+        }
+        sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);
     }
 
     @Override
@@ -241,4 +254,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
         showFinishLoad = show;
     }
 
+    protected void setResultShowTime(long time) {
+        mPullToRefreshLayout.setResultShowTime(time);
+    }
 }

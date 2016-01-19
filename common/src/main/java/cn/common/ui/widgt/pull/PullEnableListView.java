@@ -27,7 +27,7 @@ public class PullEnableListView extends ListView implements PullEnable {
         if (getCount() == 0 && canScrollDown) {
             // 没有item的时候也可以下拉刷新
             return true;
-        } else if (getFirstVisiblePosition() == 0 && getChildAt(0).getTop() >= 0) {
+        } else if (getFirstVisiblePosition() == 0 && getChildAt(0).getTop() >= 0 && canScrollDown) {
             // 滑到ListView的顶部了
             return true;
         } else
@@ -36,10 +36,10 @@ public class PullEnableListView extends ListView implements PullEnable {
 
     @Override
     public boolean canPullUp() {
-        if (getCount() == 0 && canScrollUp) {
+        if (getCount() == 0) {
             // 没有item的时候也可以上拉加载
             return true;
-        } else if (getLastVisiblePosition() == (getCount() - 1)) {
+        } else if (getLastVisiblePosition() == (getCount() - 1) && canScrollUp) {
             // 滑到底部了
             if (getChildAt(getLastVisiblePosition() - getFirstVisiblePosition()) != null
                     && getChildAt(getLastVisiblePosition() - getFirstVisiblePosition()).getBottom() <= getMeasuredHeight())

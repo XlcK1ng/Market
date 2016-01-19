@@ -1,3 +1,4 @@
+
 package cn.common.ui.widgt.pull;
 
 import android.os.Handler;
@@ -11,7 +12,9 @@ public class PullDragHelper implements Handler.Callback {
 
     class MyTimer {
         private Handler handler;
+
         private Timer timer;
+
         private MyTask mTask;
 
         public MyTimer(Handler handler) {
@@ -52,25 +55,44 @@ public class PullDragHelper implements Handler.Callback {
 
     // 回滚速度
     public float MOVE_SPEED = 8;
+
     private int state = PullDragListener.INIT;
+
     private PullEnable mPullEnable;
+
     private float downY, lastY;
+
     // 过滤多点触碰
     private int mEvents;
+
     private float pullDownY = 0;
+
     private float pullUpY = 0;
+
     private boolean isMultiTouch = false;
+
     private boolean canPullDown = true;
+
     private boolean canPullUp = true;
+
     private float radio = 2;
+
     private boolean isTouch = false;
+
     // 释放刷新的距离
     private float refreshDist = 200;
+
     // 释放加载的距离
     private float loadMoreDist = 200;
+
     private MyTimer timer;
+
     private PullDragListener pullDragListener;
+
     private PullListener pullListener;
+
+    private long resultShowTime = 0;
+
     private Handler updateHandler = new Handler(this);
 
     public PullDragHelper(PullEnable pullEnable) {
@@ -78,12 +100,15 @@ public class PullDragHelper implements Handler.Callback {
         timer = new MyTimer(updateHandler);
     }
 
-
-    private void changeState(int to) {
+    private void changeState(int to, boolean loadSuccess) {
         state = to;
         if (pullDragListener != null) {
-            pullDragListener.changeState(state);
+            pullDragListener.changeState(state, loadSuccess);
         }
+    }
+
+    private void changeState(int to) {
+        changeState(to, false);
     }
 
     public void onTouch(MotionEvent ev) {
@@ -158,7 +183,7 @@ public class PullDragHelper implements Handler.Callback {
                 }
                 if (pullDownY > refreshDist && state == PullDragListener.INIT) {
                     // 如果下拉距离达到刷新的距离且当前状态是初始状态刷新，改变状态为释放刷新
-                    changeState(PullDragListener.RELEASE_TO_REFRESH);
+                    changeState(PullDragListener.RELEASE_TO_REFRESH, false);
                 }
                 // 下面是判断上拉加载的，同上，注意pullUpY是负值
                 if (-pullUpY < loadMoreDist && state == PullDragListener.RELEASE_TO_LOAD) {
@@ -191,7 +216,7 @@ public class PullDragHelper implements Handler.Callback {
                         pullListener.onLoadMore(this);
                     }
                 }
-                hide();
+                hide(0);
             default:
                 break;
         }
@@ -204,8 +229,8 @@ public class PullDragHelper implements Handler.Callback {
         if (pullDragListener != null) {
             height = pullDragListener.getViewHeight();
         }
-        MOVE_SPEED = (float) (8 + 5 * Math.tan(Math.PI / 2
-                / height * (pullDownY + Math.abs(pullUpY))));
+        MOVE_SPEED = (float) (8 + 5 * Math.tan(Math.PI / 2 / height
+                * (pullDownY + Math.abs(pullUpY))));
         if (!isTouch) {
             // 正在刷新，且没有往上推的话则悬停，显示"正在刷新..."
             if (state == PullDragListener.REFRESHING && pullDownY <= refreshDist) {
@@ -242,16 +267,11 @@ public class PullDragHelper implements Handler.Callback {
         return true;
     }
 
-    private void hide() {
-        hide(0);
-    }
-
     private void hide(long delay) {
         if (timer != null) {
             timer.schedule(delay);
         }
     }
-
 
     private void releasePull() {
         canPullDown = true;
@@ -285,23 +305,16 @@ public class PullDragHelper implements Handler.Callback {
     /**
      * 完成刷新或者加载
      */
-    public void finishTask() {
-        finishTask(false);
-    }
-
-    public void finishTask(boolean isShowResult) {
+    public void finishTask(boolean loadSuccess) {
         if (state == PullDragListener.LOADING) {
-            changeState(PullDragListener.FINISH_LOAD);
+            changeState(PullDragListener.FINISH_LOAD, loadSuccess);
         } else if (state == PullDragListener.REFRESHING) {
-            changeState(PullDragListener.FINISH_REFRESH);
+            changeState(PullDragListener.FINISH_REFRESH, loadSuccess);
         }
-
-        if (isShowResult) {
-            hide(800);
-        } else {
-            hide();
-        }
+        hide(resultShowTime);
     }
 
-
+    public void setResultShowTime(long resultShowTime) {
+        this.resultShowTime = resultShowTime;
+    }
 }

@@ -4,6 +4,7 @@ package com.buybuyall.market.fragment;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.buybuyall.market.R;
 
@@ -25,9 +26,14 @@ public class TestFragment extends BasePullListFragment<String> {
     }
 
     @Override
+    protected void addHeaderView(ListView listView) {
+        super.addHeaderView(listView);
+    }
+
+    @Override
     protected ArrayList<String> loadData(int pageIndex, int pageSize) {
         if (pageIndex == 3) {
-            return null;
+            return new ArrayList<>();
         }
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < pageSize; i++) {

@@ -31,7 +31,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/xlistview_arrow"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <ProgressBar
                 android:id="@+id/pb_refresh_loading"
@@ -83,7 +83,7 @@
                 android:id="@+id/pb_load_loading"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </FrameLayout>
     </RelativeLayout>
 </merge>

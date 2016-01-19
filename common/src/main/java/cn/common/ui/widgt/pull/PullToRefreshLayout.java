@@ -5,23 +5,22 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.common.R;
+import cn.common.utils.ViewUtil;
 
 public class PullToRefreshLayout extends RelativeLayout implements PullDragListener {
     private View vRefresh;
 
     private View vLoadMore;
 
-    private ImageView ivRefresh;
-
-    private ImageView ivLoadMore;
+    // private ImageView ivRefresh;
+    //
+    // private ImageView ivLoadMore;
 
     private ProgressBar pbRefresh;
 
@@ -38,7 +37,7 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
     // 用于改变下拉是的布局
     private int pullDistance = 0;
 
-    private RotateAnimation rotateAnimation;
+    // private RotateAnimation rotateAnimation;
 
     // private RotateAnimation refreshingAnimation;
     public PullToRefreshLayout(Context context) {
@@ -50,16 +49,16 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
         inflate(context, R.layout.view_pull_layout, this);
         vRefresh = findViewById(R.id.rl_refresh);
         vLoadMore = findViewById(R.id.rl_load_more);
-        ivRefresh = (ImageView) findViewById(R.id.iv_refresh_arrow);
-        ivLoadMore = (ImageView) findViewById(R.id.iv_load_arrow);
+        // ivRefresh = (ImageView) findViewById(R.id.iv_refresh_arrow);
+        // ivLoadMore = (ImageView) findViewById(R.id.iv_load_arrow);
         pbRefresh = (ProgressBar) findViewById(R.id.pb_refresh_loading);
         pbLoadMore = (ProgressBar) findViewById(R.id.pb_load_loading);
         tvRefresh = (TextView) findViewById(R.id.tv_refresh_tip);
         tvLoadMore = (TextView) findViewById(R.id.tv_load_tip);
         flContent = (FrameLayout) findViewById(R.id.fl_content);
-        rotateAnimation = new RotateAnimation(0, 180, 0.5f, 0.5f);
-        rotateAnimation.setDuration(1500);
-        rotateAnimation.setRepeatCount(0);
+        // rotateAnimation = new RotateAnimation(0, 180, 0.5f, 0.5f);
+        // rotateAnimation.setDuration(1500);
+        // rotateAnimation.setRepeatCount(0);
     }
 
     public void setContentView(View view) {
@@ -103,11 +102,11 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
         vLoadMore.layout(0, pullDistance + flContent.getMeasuredHeight(),
                 vLoadMore.getMeasuredWidth(), pullDistance + flContent.getMeasuredHeight()
                         + vLoadMore.getMeasuredHeight());
-
     }
 
+
     @Override
-    public void changeState(int state) {
+    public void changeState(int state, boolean loadSuccess) {
         switch (state) {
             case INIT:
                 // 下拉布局初始状态
@@ -118,28 +117,39 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
             case RELEASE_TO_REFRESH:
                 // 释放刷新状态
                 tvRefresh.setText("释放刷新");
-                ivRefresh.startAnimation(rotateAnimation);
+                // ivRefresh.startAnimation(rotateAnimation);
                 break;
             case REFRESHING:
                 // 正在刷新状态
                 tvRefresh.setText("正在刷新");
+                ViewUtil.setViewVisibility(pbRefresh, VISIBLE);
                 break;
             case FINISH_REFRESH:
+                ViewUtil.setViewVisibility(pbRefresh, GONE);
                 // 加载完毕
-                tvRefresh.setText("刷新成功");
+                if (loadSuccess) {
+                    tvRefresh.setText("刷新成功");
+                } else {
+                    tvRefresh.setText("刷新失败");
+                }
                 break;
             case RELEASE_TO_LOAD:
                 // 释放加载状态
                 tvLoadMore.setText("释放加载");
-                ivLoadMore.startAnimation(rotateAnimation);
                 break;
             case LOADING:
                 // 正在加载状态
                 tvLoadMore.setText("正在加载");
+                ViewUtil.setViewVisibility(pbLoadMore, VISIBLE);
                 break;
             case FINISH_LOAD:
                 // 加载完毕
-                tvLoadMore.setText("加载成功");
+                ViewUtil.setViewVisibility(pbLoadMore, GONE);
+                if (loadSuccess) {
+                    tvLoadMore.setText("加载成功");
+                } else {
+                    tvLoadMore.setText("加载失败");
+                }
                 break;
         }
     }
@@ -159,13 +169,16 @@ public class PullToRefreshLayout extends RelativeLayout implements PullDragListe
         return vLoadMore.getHeight();
     }
 
-    public void finishTask() {
-        finishTask(false);
-    }
-
-    public void finishTask(boolean isShowResult) {
+    public void finishTask(boolean showLoadSuccess) {
         if (pullDragHelper != null) {
-            pullDragHelper.finishTask(isShowResult);
+            pullDragHelper.finishTask(showLoadSuccess);
         }
     }
+
+    public void setResultShowTime(long time) {
+        if (pullDragHelper != null) {
+            pullDragHelper.setResultShowTime(time);
+        }
+    }
+
 }

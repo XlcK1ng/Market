@@ -1,11 +1,11 @@
 
 package com.buybuyall.market.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import com.buybuyall.market.R;
+
+import cn.common.ui.activity.BaseWorkerFragmentActivity;
 
 /**
  * 描述:
@@ -13,10 +13,10 @@ import com.buybuyall.market.R;
  * @author jakechen
  * @since 2016/1/18 17:17
  */
-public class TestPullActivity extends Activity {
+public class TestPullActivity extends BaseWorkerFragmentActivity {
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activtiy_test);
     }
 
