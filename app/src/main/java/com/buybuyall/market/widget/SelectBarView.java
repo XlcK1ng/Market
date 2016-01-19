@@ -130,6 +130,11 @@ public class SelectBarView extends LinearLayout implements View.OnClickListener 
                 initPoPupWindow();
             }
             helper.showAsDropDown(vSort);
+            sortType = SORT_DEFAULT;
+            cbRushBuy.setChecked(false);
+            cbDiscount.setChecked(false);
+            ViewUtil.setViewVisibility(vTop,GONE);
+            ViewUtil.setViewVisibility(vHasSort, GONE);
         } else if (id == R.id.btn_ok) {
             hidePop();
             click(lastId);
