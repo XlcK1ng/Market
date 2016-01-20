@@ -17,6 +17,7 @@ public class ClassInfo implements Serializable {
     private int isFreightFree;
     private int seperateOrder;
     private String gcThumb;
+    private String gcImage;
 
     public long getGcId() {
         return gcId;
@@ -74,16 +75,25 @@ public class ClassInfo implements Serializable {
         this.gcThumb = gcThumb;
     }
 
+    public String getGcImage() {
+        return gcImage;
+    }
+
+    public void setGcImage(String gcImage) {
+        this.gcImage = gcImage;
+    }
+
     public static ClassInfo parse(JSONObject root) {
         if (root != null) {
             ClassInfo info = new ClassInfo();
             info.setGcId(root.optLong("gc_id"));
             info.setGcName(root.optString("gc_name"));
             info.setGcSort(root.optInt("gc_sort"));
-            info.setIsTaxFree(root.optInt("gc_sort"));
+            info.setIsTaxFree(root.optInt("is_tax_free"));
             info.setIsFreightFree(root.optInt("is_freight_free"));
             info.setSeperateOrder(root.optInt("seperate_order"));
             info.setGcThumb(root.optString("gc_thumb"));
+            info.setGcImage(root.optString("gc_image"));
             return info;
         }
         return null;

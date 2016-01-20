@@ -28,7 +28,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
-import cn.common.bitmap.utils.L;
 import cn.common.config.BaseAppConFig;
 import cn.common.exception.AppException;
 import cn.common.utils.LogUtil;
@@ -134,8 +133,9 @@ public abstract class BaseHttpClientRequest<T> {
                         && statusCode != HttpStatus.SC_PARTIAL_CONTENT) {
                     throw AppException.http(statusCode);
                 }
-                String result = EntityUtils
-                        .toString(new BufferedHttpEntity(httpResponse.getEntity()), HTTP.UTF_8);
+                String result = EntityUtils.toString(
+                        new BufferedHttpEntity(httpResponse.getEntity()), HTTP.UTF_8);
+                LogUtil.d("response", result);
                 if (mClazz != null) {
                     BaseResponse response = (BaseResponse) mClazz.newInstance();
                     if (response != null) {

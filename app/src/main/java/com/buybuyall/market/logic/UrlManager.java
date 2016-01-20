@@ -16,6 +16,8 @@ public interface UrlManager {
     String GET_BRAND_LIST = "brand/brand_list/";
     //分类页面的数据
     String GET_CLASS_LIST = "gc_class/get_root_class/";
+    //子分类页面的数据
+    String GET_CHILD_CLASS_LIST = "gc_class/get_class_list/";
     //搜索
     String SEARCH = "goods/search/";
 

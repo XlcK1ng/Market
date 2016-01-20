@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
-    android:descendantFocusability="blocksDescendants">
+    android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lv_content"
-        style="@style/common_list_view"
+    <cn.common.ui.widgt.HorizontalScrollGridView
+        android:id="@+id/hsgv_adv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/iv_go_top"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="15dp"
-        android:src="@drawable/ic_launcher" />
-</FrameLayout>
+    <com.buybuyall.market.widget.SelectBarView
+        android:id="@+id/select_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/fl_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_go_top"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_launcher"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>

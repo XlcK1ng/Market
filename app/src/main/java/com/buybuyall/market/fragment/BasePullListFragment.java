@@ -47,7 +47,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
 
     protected int pageSize = 10;
 
-    private int pageIndex = PAGE_START;
+    protected int pageIndex = PAGE_START;
 
     // 数据是否已经全部加载完
     public boolean hasLoadAllData;

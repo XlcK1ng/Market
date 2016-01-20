@@ -1,3 +1,4 @@
+
 package com.buybuyall.market.ui;
 
 import android.view.View;
@@ -7,7 +8,8 @@ import com.buybuyall.market.widget.StatusView;
 import cn.common.ui.activity.BaseWorkerFragmentActivity;
 import cn.common.ui.fragment.BaseWorkerFragment;
 
-public abstract class StateActivity extends CommonTitleActivity implements StatusView.StatusListener {
+public abstract class StateActivity extends CommonTitleActivity implements
+        StatusView.StatusListener {
     protected StatusView mStatusView;
 
     @Override
@@ -36,6 +38,13 @@ public abstract class StateActivity extends CommonTitleActivity implements Statu
         if (mStatusView != null) {
             mStatusView.showNoDataView();
         }
+    }
+
+    public void showContentView() {
+        if (mStatusView != null) {
+            mStatusView.showContentView();
+        }
+
     }
 
     public void setNoDataTip(int string) {

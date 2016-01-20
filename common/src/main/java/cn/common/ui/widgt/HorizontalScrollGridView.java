@@ -82,8 +82,8 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
         super(context, attrs);
         gridView = new GridView(getContext());
         LinearLayout layout = new LinearLayout(getContext());
-        layout.addView(gridView);
-        addView(layout);
+        layout.addView(gridView,new LinearLayout.LayoutParams(-1,-1));
+        addView(layout,new HorizontalScrollView.LayoutParams(-1,-1));
     }
 
     public void setAdapter(ListAdapter adapter) {
