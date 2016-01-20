@@ -19,8 +19,11 @@ import cn.common.utils.ViewUtil;
  * 描述：分类页面 作者：jake on 2016/1/13 22:31
  */
 public class ChildClassAdapter extends BaseListAdapter<ClassInfo> {
-    public ChildClassAdapter(Context context) {
+    private View.OnClickListener listener;
+
+    public ChildClassAdapter(Context context, View.OnClickListener listener) {
         super(context);
+        this.listener=listener;
     }
 
     @Override
@@ -34,13 +37,7 @@ public class ChildClassAdapter extends BaseListAdapter<ClassInfo> {
             holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
             holder.vDivider = convertView.findViewById(R.id.v_divider);
             convertView.setTag(R.layout.item_class_child, holder);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ClassInfo info = (ClassInfo) v.getTag();
-                    ClassListActivity.start(v.getContext(), info.getGcId(), info.getGcName());
-                }
-            });
+            convertView.setOnClickListener(listener);
         } else {
             holder = (ViewHolder) convertView.getTag(R.layout.item_class_child);
         }

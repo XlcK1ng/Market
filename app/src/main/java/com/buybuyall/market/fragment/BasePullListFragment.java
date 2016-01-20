@@ -1,9 +1,13 @@
 
 package com.buybuyall.market.fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Message;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.buybuyall.market.R;
@@ -16,6 +20,7 @@ import cn.common.ui.widgt.pull.PullDragHelper;
 import cn.common.ui.widgt.pull.PullEnableListView;
 import cn.common.ui.widgt.pull.PullListener;
 import cn.common.ui.widgt.pull.PullToRefreshLayout;
+import cn.common.utils.ViewUtil;
 
 /**
  * 描述:拥有下拉刷新的fragment
@@ -57,14 +62,42 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
     private long delayLoadTime = 0;
 
     private View footerView;
+    private boolean hasMore = true;
+    private ImageView ivGoTop;
 
     @Override
     protected void initView() {
-        mPullToRefreshLayout = new PullToRefreshLayout(getActivity());
+        setContentView(R.layout.fragment_base_list);
+        mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pull_view);
         mListView = new PullEnableListView(getActivity());
+        mListView.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        mListView.setDividerHeight(0);
+        mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         mPullToRefreshLayout.setContentView(mListView);
-        setContentView(mPullToRefreshLayout);
         mPullToRefreshLayout.setPullListener(this);
+        ivGoTop = (ImageView) findViewById(R.id.iv_go_top);
+        ivGoTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListView.setSelection(0);
+            }
+        });
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem > 10) {
+                    ViewUtil.setViewVisibility(ivGoTop, View.VISIBLE);
+                } else {
+                    ViewUtil.setViewVisibility(ivGoTop, View.GONE);
+
+                }
+            }
+        });
         setResultShowTime(300);
         showFinishLoad = true;
         addHeaderView(mListView);
@@ -93,10 +126,10 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
                         } else {
                             mAdapter.addAll(list);
                         }
-                        if (list.size() < pageSize) {
+                        if (!hasMore) {
                             sendEmptyUiMessage(MSG_UI_ALL_DATA_HAVE_LOADED);
                         } else {
-                             sendEmptyUiMessage(MSG_UI_LOAD_SUCCESS);
+                            sendEmptyUiMessage(MSG_UI_LOAD_SUCCESS);
                         }
                     } else {
                         if (pageIndex == PAGE_START) {
@@ -126,6 +159,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
                     mAdapter.notifyDataSetChanged();
                 }
                 if (pageIndex == PAGE_START) {
+                    mListView.setSelection(0);
                     showContentView();
                 }
                 break;
@@ -144,6 +178,9 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
                 }
                 break;
             case MSG_UI_ALL_DATA_HAVE_LOADED:
+                if (pageIndex == PAGE_START) {
+                    showContentView();
+                }
                 if (mPullToRefreshLayout != null) {
                     mPullToRefreshLayout.finishTask(true);
                 }
@@ -171,6 +208,12 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
         showLoadingView();
         hasLoadAllData = false;
         pageIndex = PAGE_START;
+        if (showFinishLoad && mListView.getFooterViewsCount() > 0) {
+            mListView.removeFooterView(footerView);
+        }
+        if (mAdapter.getCount()>0){
+            mAdapter.clearAllData();
+        }
         sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);
     }
 
@@ -221,9 +264,9 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
     /**
      * 加载数据，子类重写
      *
-     * @return
      * @param pageIndex
      * @param pageSize
+     * @return
      */
     protected abstract ArrayList<T> loadData(int pageIndex, int pageSize);
 
@@ -256,5 +299,13 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
 
     protected void setResultShowTime(long time) {
         mPullToRefreshLayout.setResultShowTime(time);
+    }
+
+    public boolean isHasMore() {
+        return hasMore;
+    }
+
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
     }
 }

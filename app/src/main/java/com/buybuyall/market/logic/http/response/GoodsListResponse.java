@@ -20,6 +20,7 @@ import cn.common.http.base.BaseResponse;
 public class GoodsListResponse extends BaseResponse {
     private ArrayList<GoodsInfo> list;
     private int count;
+    private boolean hasMore;
 
     public int getCount() {
         return count;
@@ -37,12 +38,21 @@ public class GoodsListResponse extends BaseResponse {
         this.list = list;
     }
 
+    public boolean isHasMore() {
+        return hasMore;
+    }
+
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
+    }
+
     @Override
     public Object parse(String json) {
         if (!TextUtils.isEmpty(json)) {
             try {
                 JSONObject root = new JSONObject(json);
                 JSONObject oa = root.optJSONObject("datas");
+                setHasMore(root.optBoolean("hasmore"));
                 JSONArray array = oa.optJSONArray("list");
                 setCount(oa.optInt("count"));
                 if (array != null && array.length() > 0) {

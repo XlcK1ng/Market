@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.ChildClassAdapter;
+import com.buybuyall.market.entity.ClassInfo;
 import com.buybuyall.market.fragment.ClassListFragment;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
@@ -39,7 +41,6 @@ public class ClassListActivity extends StateActivity {
 
     private SelectBarView selectBarView;
 
-    private ImageView ivGoTop;
 
     private ChildClassAdapter mChildClassAdapter;
 
@@ -67,12 +68,20 @@ public class ClassListActivity extends StateActivity {
 
     @Override
     protected void initView() {
+        setTitle(title);
         setContentView(R.layout.activtiy_class_list);
         hsgvTop = (HorizontalScrollGridView) findViewById(R.id.hsgv_adv);
         selectBarView = (SelectBarView) findViewById(R.id.select_bar);
-        ivGoTop = (ImageView) findViewById(R.id.iv_go_top);
         fragment = new ClassListFragment();
-        mChildClassAdapter = new ChildClassAdapter(this);
+        mChildClassAdapter = new ChildClassAdapter(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassInfo info = (ClassInfo) v.getTag();
+                if (info != null) {
+                    fragment.setGcId(info.getGcId());
+                }
+            }
+        });
         hsgvTop.setColumnWidth(DisplayUtil.getSreenDimens().x / 4);
         hsgvTop.setAdapter(mChildClassAdapter);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_content, fragment)
@@ -99,6 +108,10 @@ public class ClassListActivity extends StateActivity {
                 ViewUtil.setViewVisibility(hsgvTop, View.VISIBLE);
                 mChildClassAdapter.notifyDataSetChanged();
                 hsgvTop.notifyDataSetChanged();
+                ClassInfo info = (ClassInfo) mChildClassAdapter.getItem(0);
+                if (info != null) {
+                    fragment.setGcId(info.getGcId());
+                }
                 break;
             case MSG_UI_LOAD_FINISH:
                 showContentView();
@@ -130,20 +143,55 @@ public class ClassListActivity extends StateActivity {
         selectBarView.setListener(new SelectBarView.IListener() {
             @Override
             public void selectNew(int sortType) {
+                setSortType(sortType);
+                fragment.setKey(ClassListFragment.KEY_NEW);
+                fragment.setOrder(ClassListFragment.ORDER_DOWN);
+                fragment.reLoadData();
+
             }
 
             @Override
             public void selectPrizeUp(int sortType) {
+                fragment.setKey(ClassListFragment.KEY_PRIZE);
+                fragment.setOrder(ClassListFragment.ORDER_UP);
+                setSortType(sortType);
+                fragment.reLoadData();
             }
 
             @Override
             public void selectPrizeDown(int sortType) {
+                setSortType(sortType);
+                fragment.setKey(ClassListFragment.KEY_PRIZE);
+                fragment.setOrder(ClassListFragment.ORDER_DOWN);
+                fragment.reLoadData();
             }
 
             @Override
             public void selectSales(int sortType) {
+                fragment.setKey(ClassListFragment.KEY_SALES);
+                fragment.setOrder(ClassListFragment.ORDER_DOWN);
+                setSortType(sortType);
+                fragment.reLoadData();
             }
         });
+    }
+
+    private void setSortType(int sortType) {
+        switch (sortType) {
+            case SelectBarView.SORT_DISCOUNT:
+                fragment.setXianshi(1);
+                fragment.setGroupbuy(0);
+                break;
+            case SelectBarView.SORT_RUSH_BUY:
+                fragment.setXianshi(0);
+                fragment.setGroupbuy(1);
+                break;
+            case SelectBarView.SORT_DEFAULT:
+            default:
+                fragment.setXianshi(0);
+                fragment.setGroupbuy(0);
+                break;
+        }
     }
 
     @Override

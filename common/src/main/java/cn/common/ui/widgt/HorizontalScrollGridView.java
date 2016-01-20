@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+
+import cn.common.R;
 
 /**
  * 横向滚动的gridview
@@ -80,10 +81,8 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
 
     public HorizontalScrollGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        gridView = new GridView(getContext());
-        LinearLayout layout = new LinearLayout(getContext());
-        layout.addView(gridView,new LinearLayout.LayoutParams(-1,-1));
-        addView(layout,new HorizontalScrollView.LayoutParams(-1,-1));
+        inflate(context, R.layout.view_horzontal_scroll_grid_view, this);
+        gridView = (GridView) findViewById(R.id.gv_content);
     }
 
     public void setAdapter(ListAdapter adapter) {
@@ -91,7 +90,9 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
             return;
         }
         gridView.setAdapter(adapter);
-        notifyDataSetChanged();
+        if (adapter.getCount() > 0) {
+            notifyDataSetChanged();
+        }
     }
 
     /**
@@ -108,7 +109,7 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
             params.width = gridView.getAdapter().getCount() / numLines
                     * (columnWidth + horizontalSpacing);
         }
-
+        gridView.setLayoutParams(params);
         gridView.setNumColumns(gridView.getAdapter().getCount() / numLines);
     }
 
@@ -132,6 +133,7 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
                 xDistance = yDistance = 0f;
                 xLast = ev.getX();
                 yLast = ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 final float curX = ev.getX();
@@ -143,11 +145,11 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
                 yLast = curY;
                 if (xDistance > yDistance && canScroll()) {
                     getParent().requestDisallowInterceptTouchEvent(true);
-                    return false;
+                    return true;
                 }
         }
 
-        return true;
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override

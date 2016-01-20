@@ -11,7 +11,7 @@
         android:gravity="center"
         android:paddingBottom="8dp"
         android:paddingTop="5dp"
-        android:text="~到底了~"
+        android:text="数据加载完毕"
         android:textColor="@color/gray_757575"
         android:textSize="10dp" />
 

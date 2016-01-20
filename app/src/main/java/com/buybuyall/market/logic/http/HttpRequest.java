@@ -37,7 +37,7 @@ public class HttpRequest<T> extends BaseHttpClientRequest<T> {
             StringBuilder builder = new StringBuilder();
             final Set<String> keys = mParams.keySet();
             for (String key : keys) {
-                builder.append(key).append("/").append(mParams.get(key)).append("/");
+                builder.append(key.trim()).append("/").append(mParams.get(key).trim()).append("/");
             }
             builder.append(UrlManager.KEY_CODE);
             return builder.toString();
