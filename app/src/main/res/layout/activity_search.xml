@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/v_title"
@@ -12,7 +12,7 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <include layout="@layout/view_status_bar" />
+        <include layout="@layout/view_status_bar"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
                 android:scaleType="center"
-                android:src="@drawable/back" />
+                android:src="@drawable/back"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/search" />
+                    android:src="@drawable/search"/>
 
                 <EditText
                     android:id="@+id/ev_search"
@@ -55,7 +55,7 @@
                     android:imeOptions="actionSearch"
                     android:singleLine="true"
                     android:textColor="@color/black_363636"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -64,7 +64,7 @@
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/ll_result"
@@ -85,27 +85,25 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="没符合条件的商品，以下是精心为您推荐的宝贝！"
                 android:textColor="@color/orange_d06048"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_dfdfdd" />
+            android:layout_height="1px"
+            android:background="@color/gray_dfdfdd"/>
 
-        <ListView
-            android:id="@+id/lv_result"
-            style="@style/common_list_view"
+        <FrameLayout
+            android:id="@+id/fl_result"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background_gray" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </LinearLayout>

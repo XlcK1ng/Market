@@ -62,8 +62,16 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
     private long delayLoadTime = 0;
 
     private View footerView;
+
     private boolean hasMore = true;
+
     private ImageView ivGoTop;
+
+    protected boolean isPreLoading = false;
+
+    public void setPreLoading(boolean preLoading) {
+        isPreLoading = preLoading;
+    }
 
     @Override
     protected void initView() {
@@ -89,7 +97,8 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                    int totalItemCount) {
                 if (firstVisibleItem > 10) {
                     ViewUtil.setViewVisibility(ivGoTop, View.VISIBLE);
                 } else {
@@ -108,8 +117,12 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
             footerView = inflate(R.layout.view_footer_finish_load_data);
         }
         pageIndex = PAGE_START;
-        showLoadingView();
-        sendEmptyBackgroundMessageDelayed(MSG_BACK_LOAD_DATA, delayLoadTime);
+        if (isPreLoading) {
+            showLoadingView();
+            sendEmptyBackgroundMessageDelayed(MSG_BACK_LOAD_DATA, delayLoadTime);
+        }else{
+            showFailView();
+        }
     }
 
     @Override
@@ -211,7 +224,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
         if (showFinishLoad && mListView.getFooterViewsCount() > 0) {
             mListView.removeFooterView(footerView);
         }
-        if (mAdapter.getCount()>0){
+        if (mAdapter.getCount() > 0) {
             mAdapter.clearAllData();
         }
         sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);
