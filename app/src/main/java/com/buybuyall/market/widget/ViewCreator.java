@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.buybuyall.market.R;
 
+import cn.common.ui.widgt.InnerListView;
 import cn.common.ui.widgt.indicator.IndicatorViewPager;
 import cn.common.utils.DisplayUtil;
 
@@ -21,6 +22,14 @@ public final class ViewCreator {
 
     public static ListView createCommonListView(Context context) {
         ListView listView = new ListView(context);
+        listView.setCacheColorHint(Color.TRANSPARENT);
+        listView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        listView.setDividerHeight(0);
+        return listView;
+    }
+    public static ListView createInnerListView(Context context) {
+        ListView listView = new InnerListView(context);
         listView.setCacheColorHint(Color.TRANSPARENT);
         listView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         listView.setDivider(new ColorDrawable(Color.TRANSPARENT));

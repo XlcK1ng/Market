@@ -6,13 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.entity.HomeBannerInfo;
+import com.buybuyall.market.entity.AdvInfo;
 
 import cn.common.ui.adapter.BaseListAdapter;
 import cn.common.utils.DisplayUtil;
 
-public class HomeBannerAdapter extends BaseListAdapter<HomeBannerInfo> {
-    public HomeBannerAdapter(Context context) {
+/**
+ * 描述：首页广告适配器
+ * 作者：jake on 2015/12/29 23:45
+ */
+public class HomeVenuesAdapter extends BaseListAdapter<AdvInfo> {
+    public HomeVenuesAdapter(Context context) {
         super(context);
     }
 

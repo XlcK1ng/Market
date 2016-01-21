@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_select_bar"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_select"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@color/trans"
+            android:checked="true"
+            android:gravity="center"
+            android:text="精品阁"
+            android:textColor="@drawable/text_selector_main_menu"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_dfdfdd" />
+
+        <RadioButton
+            android:id="@+id/rb_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@color/trans"
+            android:gravity="center"
+            android:text="聚优汇"
+            android:textColor="@drawable/text_selector_main_menu"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_dfdfdd" />
+
+        <RadioButton
+            android:id="@+id/rb_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@color/trans"
+            android:gravity="center"
+            android:text="大牌献"
+            android:textColor="@drawable/text_selector_main_menu"
+            android:textSize="14dp" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="1px"
+        android:background="@color/gray_dfdfdd" />
+</LinearLayout>

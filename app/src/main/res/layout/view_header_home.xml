@@ -2,73 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_gray"
     android:orientation="vertical">
 
-    <cn.common.ui.widgt.InnerListView
-        android:id="@+id/lv_banner"
-        style="@style/common_list_view"
+    <cn.common.ui.widgt.banner.BannerView
+        android:id="@+id/banner_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="144dp"
+        android:layout_marginBottom="10dp" />
 
-    <LinearLayout
-        android:id="@+id/ll_adv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:minHeight="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="专题"
-                android:textColor="@color/text_content"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="MOTIF"
-                android:textColor="@color/text_default"
-                android:textSize="14dp" />
-        </LinearLayout>
-
-        <cn.common.ui.widgt.HorizontalScrollGridView
-            android:id="@+id/hsgv_adv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <cn.common.ui.widgt.InnerGridView
+        android:id="@+id/gv_venues"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="50dp"
-        android:orientation="horizontal">
+        android:verticalSpacing="2dp"
+        android:horizontalSpacing="2dp"
+        android:layout_marginBottom="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="海外单品推荐"
-            android:textColor="@color/text_content"
-            android:textSize="14dp" />
+    <cn.common.ui.widgt.HorizontalScrollGridView
+        android:id="@+id/hsgv_adv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="HOT SALE"
-            android:textColor="@color/text_default"
-            android:textSize="14dp" />
-    </LinearLayout>
-
+    <include layout="@layout/view_home_select_bar" />
 </LinearLayout>
