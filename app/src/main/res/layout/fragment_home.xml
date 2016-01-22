@@ -1,58 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.common.ui.widgt.StickyScrollView
     android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:descendantFocusability="blocksDescendants"
     android:fillViewport="true">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/fl_outside"
+        <cn.common.ui.widgt.banner.BannerView
+            android:id="@+id/banner_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:background="@color/white"
+            android:layout_height="144dp"
+            android:layout_marginBottom="10dp"/>
 
-        <LinearLayout
+        <cn.common.ui.widgt.InnerGridView
+            android:id="@+id/gv_venues"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="10dp"
+            android:horizontalSpacing="2dp"
+            android:numColumns="2"
+            android:verticalSpacing="2dp"/>
 
-            <cn.common.ui.widgt.banner.BannerView
-                android:id="@+id/banner_view"
+        <cn.common.ui.widgt.HorizontalScrollGridView
+            android:id="@+id/hsgv_adv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:scrollbars="none"
+            android:paddingTop="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_select"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:tag="sticky">
+
+            <RadioButton
+                android:id="@+id/rb_left"
                 android:layout_width="match_parent"
-                android:layout_height="144dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@color/trans"
+                android:checked="true"
+                android:gravity="center"
+                android:text="精品阁"
+                android:textColor="@drawable/text_selector_main_menu"
+                android:textSize="14dp"/>
 
-            <cn.common.ui.widgt.InnerGridView
-                android:id="@+id/gv_venues"
+            <View
+                android:layout_width="1px"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_dfdfdd"/>
+
+            <RadioButton
+                android:id="@+id/rb_center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:numColumns="2"
-                android:horizontalSpacing="2dp"
-                android:verticalSpacing="2dp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@color/trans"
+                android:gravity="center"
+                android:text="聚优汇"
+                android:textColor="@drawable/text_selector_main_menu"
+                android:textSize="14dp"/>
 
-            <cn.common.ui.widgt.HorizontalScrollGridView
-                android:id="@+id/hsgv_adv"
+            <View
+                android:layout_width="1px"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_dfdfdd"/>
+
+            <RadioButton
+                android:id="@+id/rb_right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@color/white"
-                android:paddingBottom="10dp"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:paddingTop="10dp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@color/trans"
+                android:gravity="center"
+                android:text="大牌献"
+                android:textColor="@drawable/text_selector_main_menu"
+                android:textSize="14dp"/>
+        </RadioGroup>
 
-            <include layout="@layout/view_home_select_bar" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="1px"
+            android:background="@color/gray_dfdfdd"/>
 
-            <FrameLayout
-                android:id="@+id/fl_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </FrameLayout>
-</ScrollView>
+        <FrameLayout
+            android:id="@+id/fl_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</cn.common.ui.widgt.StickyScrollView>

@@ -1,3 +1,4 @@
+
 package cn.common.ui.widgt.banner;
 
 import android.content.Context;
@@ -5,7 +6,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -24,9 +24,10 @@ import cn.common.utils.DisplayUtil;
 
 public class BannerView extends FrameLayout implements OnPageChangeListener {
 
-public static interface IBannerInfo{
+    public static interface IBannerInfo {
 
-}
+    }
+
     private class MyPagerAdapter extends PagerAdapter {
         private ArrayList<View> mViews;
 
@@ -102,10 +103,11 @@ public static interface IBannerInfo{
     public IListener clickListener;
 
     private DotView mDotView;
+
     private NoConflictViewPager mViewPager;
 
-
     private MyPagerAdapter mAdapter;
+
     private ScheduledExecutorService scheduledExecutorService;
 
     /**
@@ -121,6 +123,7 @@ public static interface IBannerInfo{
     public static final int STYLE_DOT_CENTER = 0;
 
     public static final int STYLE_DOT_RIGHT = 1;
+
     public static final int STYLE_DOT_LEFT = 2;
 
     private static final int DOT_RADIUS = DisplayUtil.dip(4);
@@ -128,6 +131,7 @@ public static interface IBannerInfo{
     private static final int DOT_MARGIN = DisplayUtil.dip(5);
 
     private int mPageSize = 1;
+
     private int defaultResId = -1;
 
     public BannerView(Context context) {
@@ -146,7 +150,6 @@ public static interface IBannerInfo{
         mViewPager.setOnPageChangeListener(this);
         addView(mViewPager, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
-
 
     public DotView getDotView() {
         return mDotView;
@@ -174,9 +177,7 @@ public static interface IBannerInfo{
         mDotView.setLayoutParams(params);
     }
 
-
     private int mStyle = STYLE_DOT_CENTER;
-
 
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
@@ -204,7 +205,6 @@ public static interface IBannerInfo{
                 break;
         }
     }
-
 
     private boolean isStartedLoop = false;
 
@@ -254,30 +254,35 @@ public static interface IBannerInfo{
 
     }
 
-
     public void setBannerListener(IListener banner) {
         this.clickListener = banner;
     }
 
+    private ArrayList<?> mList;
+
     public void setBannerList(ArrayList<?> list) {
-        setBannerList(list, true);
+        this.mList = list;
     }
 
-    public void setBannerList(ArrayList<?> list, boolean isLoop) {
-        if (CommonUtil.isListAvailable(list)) {
+    public void notifyDataSetChanged() {
+        notifyDataSetChanged(true);
+    }
+
+    public void notifyDataSetChanged(boolean isLoop) {
+        if (CommonUtil.isListAvailable(mList)) {
             this.isLoop = isLoop;
-            mPageSize = list.size();
+            mPageSize = mList.size();
             List<View> viewList = new ArrayList<>();
-            for (int i = 0; i < list.size(); i++) {
-                viewList.add(createImageView(list.get(i)));
+            for (int i = 0; i < mList.size(); i++) {
+                viewList.add(createImageView(mList.get(i)));
             }
             if (mPageSize > 1 && mPageSize < 4) {
-                for (int i = 0; i < list.size(); i++) {
-                    viewList.add(createImageView(list.get(i)));
+                for (int i = 0; i < mList.size(); i++) {
+                    viewList.add(createImageView(mList.get(i)));
                 }
             }
             mAdapter.clear();
-            if (list.size() == 1) {
+            if (mList.size() == 1) {
                 mDotView.setVisibility(GONE);
                 this.isLoop = false;
             } else {
@@ -308,7 +313,6 @@ public static interface IBannerInfo{
         }
         return imageView;
     }
-
 
     public void setDefaultImage(int resId) {
         defaultResId = resId;

@@ -8,18 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.entity.AdvInfo;
 import com.buybuyall.market.entity.ClassInfo;
+import com.buybuyall.market.entity.GoodsInfo;
 import com.buybuyall.market.ui.ClassListActivity;
 
-import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
 
 /**
- * 描述：首页广告适配器 作者：jake on 2015/12/29 23:45
+ * 描述：首页大牌商品列表适配器
+ * 作者：jake on 2015/12/29 23:45
  */
-public class HomeVenuesAdapter extends BaseListAdapter<AdvInfo> {
-    public HomeVenuesAdapter(Context context) {
+public class HomeDPAdapter extends BaseListAdapter<GoodsInfo> {
+    public HomeDPAdapter(Context context) {
         super(context);
     }
 
@@ -43,10 +43,11 @@ public class HomeVenuesAdapter extends BaseListAdapter<AdvInfo> {
         } else {
             holder = (ViewHolder) convertView.getTag(R.layout.item_venues);
         }
-        AdvInfo info = mDataList.get(position);
+        GoodsInfo info = mDataList.get(position);
         if (info != null) {
             convertView.setTag(info);
-            ImageLoader.getInstance().displayImage(info.getAdvPic(), holder.ivIcon);
+            // ImageLoader.getInstance().displayImage(info.getAdvPic(),
+            // holder.ivIcon);
             // ViewUtil.setText2TextView(holder.tvName, info.getGcName());
         }
         return convertView;

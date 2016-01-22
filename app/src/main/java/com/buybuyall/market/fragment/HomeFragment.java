@@ -1,28 +1,20 @@
+
 package com.buybuyall.market.fragment;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Message;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.adapter.HomeVenuesAdapter;
 import com.buybuyall.market.adapter.HomeAdvAdapter;
-import com.buybuyall.market.adapter.HomeGoodsAdapter;
+import com.buybuyall.market.adapter.HomeVenuesAdapter;
 import com.buybuyall.market.entity.AdvInfo;
-import com.buybuyall.market.entity.GoodsInfo;
-import com.buybuyall.market.entity.HomeBannerInfo;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
 import com.buybuyall.market.logic.http.response.AdvListResponse;
-
-import java.util.ArrayList;
+import com.buybuyall.market.logic.http.response.JPGoodsListResponse;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.exception.AppException;
@@ -37,40 +29,43 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
     }
 
     private static final int MSG_BACK_LOAD_ALL_DATA = 0;
-    private static final int MSG_UI_LOAD_GOODS_SUCCESS = 0;
-    private static final int MSG_UI_LOAD_GOODS_FAIL = 1;
-    private static final int MSG_UI_LOAD_ADV_SUCCESS = 2;
-    private static final int MSG_UI_LOAD_ADV_FAIL = 3;
-    private static final int MSG_UI_LOAD_VENUES_SUCCESS = 4;
-    private static final int MSG_UI_LOAD_VENUES_FAIL = 5;
-    private static final int MSG_UI_LOAD_BANNER_SUCCESS = 6;
-    private static final int MSG_UI_LOAD_BANNER_FAIL = 7;
 
+    private static final int MSG_UI_LOAD_GOODS_SUCCESS = 0;
+
+    private static final int MSG_UI_LOAD_GOODS_FAIL = 1;
+
+    private static final int MSG_UI_LOAD_ADV_SUCCESS = 2;
+
+    private static final int MSG_UI_LOAD_ADV_FAIL = 3;
+
+    private static final int MSG_UI_LOAD_VENUES_SUCCESS = 4;
+
+    private static final int MSG_UI_LOAD_VENUES_FAIL = 5;
+
+    private static final int MSG_UI_LOAD_BANNER_SUCCESS = 6;
+
+    private static final int MSG_UI_LOAD_BANNER_FAIL = 7;
 
     private HorizontalScrollGridView hsgvAdv;
 
     private HomeVenuesAdapter mVenuesAdapter;
+
     private HomeAdvAdapter mAdvAdapter;
+
     private BannerView bannerView;
+
     private GridView gvVenues;
-    private View vOutsideBar;
-    private View vInsideBar;
-    private RadioGroup rgOutside;
-    private RadioGroup rgInside;
+
+    private RadioGroup rgSelect;
+
     private HomeListFragment homeListFragment;
-    private ScrollView scrollView;
+
 
     @Override
     protected void initView() {
         setContentView(R.layout.fragment_home);
-        scrollView = (ScrollView) findViewById(R.id.root);
-        FrameLayout layout = (FrameLayout) findViewById(R.id.fl_outside);
-        layout.addView(inflate(R.layout.view_home_select_bar));
-        vOutsideBar = layout.findViewById(R.id.ll_select_bar);
-        rgOutside = (RadioGroup) layout.findViewById(R.id.rg_select);
-        vInsideBar = findViewById(R.id.ll_select_bar);
         gvVenues = (GridView) findViewById(R.id.gv_venues);
-        rgInside = (RadioGroup) findViewById(R.id.rg_select);
+        rgSelect = (RadioGroup) findViewById(R.id.rg_select);
         hsgvAdv = (HorizontalScrollGridView) findViewById(R.id.hsgv_adv);
         hsgvAdv.setColumnWidth(DisplayUtil.getSreenDimens().x - DisplayUtil.dip(70));
         bannerView = (BannerView) findViewById(R.id.banner_view);
@@ -80,18 +75,19 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
         ViewUtil.setViewVisibility(hsgvAdv, View.GONE);
         ViewUtil.setViewVisibility(bannerView, View.GONE);
         homeListFragment = new HomeListFragment();
-        getChildFragmentManager().beginTransaction().replace(R.id.fl_content, homeListFragment).commitAllowingStateLoss();
+        getChildFragmentManager().beginTransaction().replace(R.id.fl_content, homeListFragment)
+                .commitAllowingStateLoss();
+
     }
 
     @Override
     protected void initEvent() {
         super.initEvent();
-        rgOutside.setOnCheckedChangeListener(this);
-        rgInside.setOnCheckedChangeListener(this);
+        rgSelect.setOnCheckedChangeListener(this);
         bannerView.setBannerListener(new BannerView.IListener() {
             @Override
             public void itemClick(Object banner) {
-                //do nothing
+                // do nothing
             }
 
             @Override
@@ -100,16 +96,6 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
                 ImageLoader.getInstance().displayImage(advInfo.getAdvPic(), ivBanner);
             }
         });
-//        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (vInsideBar.getTop() <= vOutsideBar.getTop()) {
-//                    ViewUtil.setViewVisibility(vOutsideBar, View.VISIBLE);
-//                } else {
-//                    ViewUtil.setViewVisibility(vOutsideBar, View.GONE);
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -146,8 +132,7 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
                 break;
             case MSG_UI_LOAD_BANNER_SUCCESS:
                 ViewUtil.setViewVisibility(bannerView, View.VISIBLE);
-                ArrayList<AdvInfo> bannerList = (ArrayList<AdvInfo>) msg.obj;
-                bannerView.setBannerList(bannerList);
+                bannerView.notifyDataSetChanged();
                 bannerView.startScroll(5);
                 break;
             case MSG_UI_LOAD_ADV_FAIL:
@@ -156,6 +141,7 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
             case MSG_UI_LOAD_ADV_SUCCESS:
                 ViewUtil.setViewVisibility(hsgvAdv, View.VISIBLE);
                 mAdvAdapter.notifyDataSetChanged();
+                hsgvAdv.notifyDataSetChanged();
                 break;
             case MSG_UI_LOAD_VENUES_FAIL:
                 ViewUtil.setViewVisibility(gvVenues, View.GONE);
@@ -175,16 +161,50 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
     }
 
     private void loadAllDataTask() {
-        HttpRequest<AdvListResponse> reqAdv = new HttpRequest<>(UrlManager.GET_ADV, AdvListResponse.class);
+        // 请求banner
+        HttpRequest<AdvListResponse> reqBanner = new HttpRequest<>(UrlManager.GET_ADV,
+                AdvListResponse.class);
+        reqBanner.setIsGet(true);
+        reqBanner.addParam("key", UrlManager.Keys.HOME_BANNER);
+        try {
+            AdvListResponse response = reqBanner.request();
+            if (response != null && response.getList() != null && response.getList().size() > 0) {
+                bannerView.setBannerList(response.getList());
+                sendEmptyUiMessage(MSG_UI_LOAD_BANNER_SUCCESS);
+            } else {
+                sendEmptyUiMessage(MSG_UI_LOAD_BANNER_FAIL);
+            }
+        } catch (AppException e) {
+            e.printStackTrace();
+            sendEmptyUiMessage(MSG_UI_LOAD_BANNER_FAIL);
+        }
+        // 请求国家馆
+        HttpRequest<AdvListResponse> reqVenues = new HttpRequest<>(UrlManager.GET_ADV,
+                AdvListResponse.class);
+        reqVenues.setIsGet(true);
+        reqVenues.addParam("key", UrlManager.Keys.HOME_VENUES);
+        try {
+            AdvListResponse response = reqVenues.request();
+            if (response != null && response.getList() != null && response.getList().size() > 0) {
+                mVenuesAdapter.setData(response.getList());
+                sendEmptyUiMessage(MSG_UI_LOAD_VENUES_SUCCESS);
+            } else {
+                sendEmptyUiMessage(MSG_UI_LOAD_VENUES_FAIL);
+            }
+        } catch (AppException e) {
+            e.printStackTrace();
+            sendEmptyUiMessage(MSG_UI_LOAD_VENUES_FAIL);
+        }
+        // 请求专题
+        HttpRequest<AdvListResponse> reqAdv = new HttpRequest<>(UrlManager.GET_ADV,
+                AdvListResponse.class);
         reqAdv.setIsGet(true);
-        reqAdv.addParam("key", "6f16dea73b014286b4b71065d3897d84");
+        reqAdv.addParam("key", UrlManager.Keys.HOME_ADV);
         try {
             AdvListResponse response = reqAdv.request();
             if (response != null && response.getList() != null && response.getList().size() > 0) {
-                Message msg = obtainUiMessage();
-                msg.what = MSG_UI_LOAD_ADV_SUCCESS;
-                msg.obj = response.getList();
-                msg.sendToTarget();
+                mAdvAdapter.setData(response.getList());
+                sendEmptyUiMessage(MSG_UI_LOAD_ADV_SUCCESS);
             } else {
                 sendEmptyUiMessage(MSG_UI_LOAD_ADV_FAIL);
             }
@@ -192,45 +212,45 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
             e.printStackTrace();
             sendEmptyUiMessage(MSG_UI_LOAD_ADV_FAIL);
         }
-        ArrayList<GoodsInfo> goodsInfos = new ArrayList<>();
-        ArrayList<AdvInfo> advInfos = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            if (i < 4) {
-                advInfos.add(new AdvInfo());
+//请求精品物品
+        HttpRequest<JPGoodsListResponse> request = new HttpRequest<>(UrlManager.HOME_JP,
+                JPGoodsListResponse.class);
+        request.setIsGet(true);
+        try {
+            JPGoodsListResponse response = request.request();
+            if (response != null && response.isOk()) {
+                homeListFragment.setJPData(response.getList());
+                sendEmptyUiMessage(MSG_UI_LOAD_GOODS_SUCCESS);
+            } else {
+                sendEmptyUiMessage(MSG_UI_LOAD_GOODS_FAIL);
             }
-            goodsInfos.add(new GoodsInfo());
+        } catch (AppException e) {
+            e.printStackTrace();
+            sendEmptyUiMessage(MSG_UI_LOAD_GOODS_FAIL);
         }
-
-        mAdvAdapter.setData(advInfos);
-        mVenuesAdapter.setData(advInfos);
-        homeListFragment.setData(goodsInfos);
-        sendEmptyUiMessage(MSG_UI_LOAD_GOODS_SUCCESS);
     }
-
-
-    private int laseCheckedId;
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (group == rgOutside) {
-            rgInside.check(checkedId);
-        } else if (group == rgInside) {
-            rgOutside.check(checkedId);
-        }
-        if (laseCheckedId != checkedId) {
-            check(checkedId);
-            laseCheckedId = checkedId;
-        }
+        check(checkedId);
     }
 
     private void check(int checkedId) {
         if (checkedId == R.id.rb_left) {
-            //TODO
-            homeListFragment.setKey("1");
+            homeListFragment.loadData(HomeListFragment.TYPE_JP);
         } else if (checkedId == R.id.rb_center) {
-            homeListFragment.setKey("2");
+            homeListFragment.loadData(HomeListFragment.TYPE_JY);
         } else if (checkedId == R.id.rb_right) {
-            homeListFragment.setKey("3");
+            homeListFragment.loadData(HomeListFragment.TYPE_DP);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (bannerView != null) {
+            bannerView.destroy();
+        }
+
     }
 }

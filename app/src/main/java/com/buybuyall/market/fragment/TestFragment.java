@@ -50,7 +50,7 @@ public class TestFragment extends BasePullListFragment<String> {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return inflate(R.layout.item_home_goods);
+            return inflate(R.layout.item_home_jp);
         }
     }
 }

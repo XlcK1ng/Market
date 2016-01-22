@@ -1,20 +1,15 @@
 package com.buybuyall.market.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.AdvInfo;
-import com.buybuyall.market.entity.ClassInfo;
-import com.buybuyall.market.entity.HomeBannerInfo;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
-import cn.common.utils.DisplayUtil;
 import cn.common.utils.ViewUtil;
 
 public class HomeAdvAdapter extends BaseListAdapter<AdvInfo> {
@@ -29,13 +24,13 @@ public class HomeAdvAdapter extends BaseListAdapter<AdvInfo> {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflate(R.layout.item_class_child);
+            convertView = inflate(R.layout.item_home_adv);
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
             holder.vDivider = convertView.findViewById(R.id.v_divider);
-            convertView.setTag(R.layout.item_class_child, holder);
+            convertView.setTag(R.layout.item_home_adv, holder);
 //            convertView.setOnClickListener(listener);
         } else {
-            holder = (ViewHolder) convertView.getTag(R.layout.item_class_child);
+            holder = (ViewHolder) convertView.getTag(R.layout.item_home_adv);
         }
         if (position == getCount() - 1) {
             ViewUtil.setViewVisibility(holder.vDivider, View.GONE);
@@ -45,7 +40,7 @@ public class HomeAdvAdapter extends BaseListAdapter<AdvInfo> {
         AdvInfo info = mDataList.get(position);
         if (info != null) {
             convertView.setTag(info);
-            ImageLoader.getInstance().displayImage("http://img3.imgtn.bdimg.com/it/u=2018844086,1655614987&fm=21&gp=0.jpg", holder.ivIcon);
+            ImageLoader.getInstance().displayImage(info.getAdvPic(), holder.ivIcon);
         }
         return convertView;
     }

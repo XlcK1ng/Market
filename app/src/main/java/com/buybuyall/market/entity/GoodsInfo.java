@@ -1,3 +1,4 @@
+
 package com.buybuyall.market.entity;
 
 import org.json.JSONObject;
@@ -5,21 +6,77 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * 描述：商品信息
- * 作者：jake on 2015/12/29 23:45
+ * 描述：商品信息 作者：jake on 2015/12/29 23:45
  */
 public class GoodsInfo implements Serializable {
 
+    private int groupBy;
+
+    private double goodsMarketPrice;
+
+    private long goodsId;
 
     private long storeId;
-    private long goodsId;
-    private String goodsName;
-    private double goodsPrice;
-    private String goodsImage;
-    private int groupBy;
-    private int xianShi;
-    private double goodsMarketPrice;
+
     private long goodsCommonId;
+
+    private int ifTaxFree;
+
+    private int ifFreightFree;
+
+    private int groupBuy;
+
+    private int xianShi;
+
+    private double goodsPrice;
+
+    private double packagePrice;
+
+    private String goodsName;
+
+    private String goodsImage;
+
+    private String goodsJingLe;
+
+    public double getPackagePrice() {
+        return packagePrice;
+    }
+
+    public void setPackagePrice(double packagePrice) {
+        this.packagePrice = packagePrice;
+    }
+
+    public int getIfTaxFree() {
+        return ifTaxFree;
+    }
+
+    public void setIfTaxFree(int ifTaxFree) {
+        this.ifTaxFree = ifTaxFree;
+    }
+
+    public int getIfFreightFree() {
+        return ifFreightFree;
+    }
+
+    public void setIfFreightFree(int ifFreightFree) {
+        this.ifFreightFree = ifFreightFree;
+    }
+
+    public int getGroupBuy() {
+        return groupBuy;
+    }
+
+    public void setGroupBuy(int groupBuy) {
+        this.groupBuy = groupBuy;
+    }
+
+    public String getGoodsJingLe() {
+        return goodsJingLe;
+    }
+
+    public void setGoodsJingLe(String goodsJingLe) {
+        this.goodsJingLe = goodsJingLe;
+    }
 
     public long getStoreId() {
         return storeId;
@@ -93,7 +150,6 @@ public class GoodsInfo implements Serializable {
         this.goodsCommonId = goodsCommonId;
     }
 
-
     public static GoodsInfo parse(JSONObject root) {
         if (root != null) {
             GoodsInfo info = new GoodsInfo();
@@ -101,12 +157,18 @@ public class GoodsInfo implements Serializable {
             info.setGoodsId(root.optLong("goods_id"));
             info.setGoodsName(root.optString("goods_name"));
             info.setGoodsPrice(root.optDouble("goods_price"));
+            info.setGoodsMarketPrice(root.optDouble("goods_marketprice"));
+            info.setPackagePrice(root.optDouble("package_price"));
             info.setGoodsImage(root.optString("goods_image"));
             info.setGroupBy(root.optInt("groupby"));
             info.setXianShi(root.optInt("xianshi"));
             info.setGoodsMarketPrice(root.optDouble("goods_marketprice"));
             info.setGoodsCommonId(root.optLong("goods_commonid"));
             info.setGoodsPrice(root.optDouble("goods_price"));
+            info.setIfFreightFree(root.optInt("if_freight_free"));
+            info.setIfTaxFree(root.optInt("if_tax_free"));
+            info.setGroupBuy(root.optInt("groupbuy"));
+            info.setGoodsJingLe(root.optString("goods_jingle"));
             return info;
         }
         return null;

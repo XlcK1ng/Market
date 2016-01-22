@@ -1,31 +1,22 @@
 package com.buybuyall.market.fragment;
 
 import android.os.Message;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.adapter.HomeGoodsAdapter;
 import com.buybuyall.market.adapter.PartyAdapter;
 import com.buybuyall.market.entity.AdvInfo;
-import com.buybuyall.market.entity.GoodsInfo;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
 import com.buybuyall.market.logic.http.response.AdvListResponse;
 import com.buybuyall.market.logic.http.response.PartyListResponse;
-import com.buybuyall.market.utils.ToastUtil;
 import com.buybuyall.market.widget.ViewCreator;
-
-import java.util.ArrayList;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.exception.AppException;
 import cn.common.ui.widgt.banner.BannerView;
-import cn.common.utils.DisplayUtil;
 
 /**
  * 描述：拼团页面
@@ -109,10 +100,8 @@ public class PartyFragment extends StateFragment {
         try {
             AdvListResponse response = reqAdv.request();
             if (response != null && response.getList() != null && response.getList().size() > 0) {
-                Message msg = obtainUiMessage();
-                msg.what = MSG_UI_LOAD_ADV_SUCCESS;
-                msg.obj = response.getList();
-                msg.sendToTarget();
+                bannerView.setBannerList(response.getList());
+                sendEmptyUiMessage(MSG_UI_LOAD_ADV_SUCCESS);
             } else {
                 sendEmptyUiMessage(MSG_UI_LOAD_ADV_FAIL);
             }
@@ -153,8 +142,7 @@ public class PartyFragment extends StateFragment {
                 break;
             case MSG_UI_LOAD_ADV_SUCCESS:
                 bannerView.setVisibility(View.VISIBLE);
-                ArrayList<AdvInfo> bannerList = (ArrayList<AdvInfo>) msg.obj;
-                bannerView.setBannerList(bannerList);
+                bannerView.notifyDataSetChanged();
                 bannerView.startScroll(5);
                 break;
         }

@@ -26,6 +26,9 @@
         <item name="shadow_bottom">@drawable/img_shadow_bottom</item>
     </style>
 
-
+    <declare-styleable name="StickyScrollView">
+        <attr name="stuckShadowHeight" format="dimension" />
+        <attr name="stuckShadowDrawable" format="reference" />
+    </declare-styleable>
 
 </resources>
