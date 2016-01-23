@@ -96,7 +96,7 @@ public class GoodsDetailActivity extends StateActivity {
         scrollView = (StickyScrollView) findViewById(R.id.root);
         webView = (WebView) findViewById(R.id.wv_content);
         ivGoTop = (ImageView) findViewById(R.id.iv_go_top);
-        hsgvOtherGoods = (HorizontalScrollGridView) findViewById(R.id.hsgv_adv);
+        hsgvOtherGoods = (HorizontalScrollGridView) findViewById(R.id.hsgv);
         hsgvOtherGoods.setColumnWidth(DisplayUtil.getSreenDimens().x - DisplayUtil.dip(70));
         bannerView = (BannerView) findViewById(R.id.banner_view);
         bannerView.setStyle(BannerView.STYLE_DOT_CENTER);
