@@ -15,5 +15,5 @@
         android:layout_gravity="right|bottom"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/img_go_top" />
 </FrameLayout>

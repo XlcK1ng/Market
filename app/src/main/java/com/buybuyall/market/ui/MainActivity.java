@@ -19,7 +19,6 @@ import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
 import com.buybuyall.market.fragment.MineFragment;
 import com.buybuyall.market.fragment.PartyFragment;
 import com.buybuyall.market.fragment.HomeFragment;
-import com.buybuyall.market.fragment.UserCenterFragment;
 import com.buybuyall.market.logic.BroadcastActions;
 import com.buybuyall.market.utils.ToastUtil;
 
@@ -76,7 +75,7 @@ public class MainActivity extends BaseWorkerFragmentActivity
     private void initView() {
         setContentView(R.layout.activity_main);
         tvTitle = (TextView) findViewById(R.id.tv_title);
-        ivSearch = (ImageView) findViewById(R.id.iv_search);
+        ivSearch = (ImageView) findViewById(R.id.iv_right);
         vpContent = (MainTabViewPager) findViewById(R.id.vp_content);
         rgMenu = (TabRadioGroup) findViewById(R.id.rg_menu);
         rbHome = (RadioButton) findViewById(R.id.rb_menu_home);
@@ -91,7 +90,7 @@ public class MainActivity extends BaseWorkerFragmentActivity
     private void initEvent() {
         vpContent.setOnPageChangeListener(this);
         rgMenu.setOnCheckedChangeListener(this);
-        findViewById(R.id.iv_search).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.iv_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -163,15 +162,15 @@ public class MainActivity extends BaseWorkerFragmentActivity
                 ivSearch.setVisibility(View.VISIBLE);
                 break;
             case 1:
-            case R.id.rb_menu_trolley:
+            case R.id.rb_menu_group:
                 tvTitle.setText("团购");
                 ivSearch.setVisibility(View.GONE);
                 break;
             case 2:
-            case R.id.rb_menu_group:
-                tvTitle.setText("购物车");
-                ivSearch.setVisibility(View.GONE);
-                break;
+            case R.id.rb_menu_trolley:
+            tvTitle.setText("购物车");
+            ivSearch.setVisibility(View.GONE);
+            break;
             case 3:
             case R.id.rb_menu_mine:
                 tvTitle.setText("我的");
@@ -187,10 +186,10 @@ public class MainActivity extends BaseWorkerFragmentActivity
                 case R.id.rb_menu_home:
                     id = 0;
                     break;
-                case R.id.rb_menu_trolley:
+                case R.id.rb_menu_group:
                     id = 1;
                     break;
-                case R.id.rb_menu_group:
+                case R.id.rb_menu_trolley:
                     id = 2;
                     break;
                 case R.id.rb_menu_mine:

@@ -44,6 +44,9 @@
         <activity
             android:name=".ui.VenuesListActivity"
             android:theme="@style/swipe_activity_style"/>
+        <activity
+            android:name=".ui.GoodsDetailActivity"
+            android:theme="@style/swipe_activity_style"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
