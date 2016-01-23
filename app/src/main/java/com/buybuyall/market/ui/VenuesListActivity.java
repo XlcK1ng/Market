@@ -110,8 +110,8 @@ public class VenuesListActivity extends StateActivity {
     private void loadBannerListTask() {
         HttpRequest<AdvListResponse> request = new HttpRequest<>(UrlManager.GET_ADV,
                 AdvListResponse.class);
-        request.addParam("key", key);
         request.setIsGet(true);
+        request.addParam("key", key);
         try {
             AdvListResponse response = request.request();
             if (response != null && response.getList() != null && response.getList().size() > 0) {
