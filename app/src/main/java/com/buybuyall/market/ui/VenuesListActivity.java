@@ -6,25 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.adapter.ChildClassAdapter;
-import com.buybuyall.market.entity.ClassInfo;
+import com.buybuyall.market.entity.AdvInfo;
 import com.buybuyall.market.fragment.SearchListFragment;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
-import com.buybuyall.market.logic.http.response.ClassListResponse;
+import com.buybuyall.market.logic.http.response.AdvListResponse;
 import com.buybuyall.market.widget.SelectBarView;
 
+import cn.common.bitmap.core.ImageLoader;
 import cn.common.exception.AppException;
-import cn.common.ui.widgt.HorizontalScrollGridView;
-import cn.common.utils.DisplayUtil;
+import cn.common.ui.widgt.banner.BannerView;
 import cn.common.utils.ViewUtil;
 
 /**
  * 描述：分类列表 作者：jake on 2016/1/17 22:19
  */
-public class ClassListActivity extends StateActivity {
+public class VenuesListActivity extends StateActivity {
     private static final int MSG_BACK_LOAD_DATA = 0;
 
     private static final int MSG_UI_LOAD_SUCCESS = 0;
@@ -33,24 +33,27 @@ public class ClassListActivity extends StateActivity {
 
     private static final String KEY_TITLE = "key_title";
 
-    private static final String KEY_ID = "key_id";
+    private static final String KEY_ID = "key_type";
 
-    private HorizontalScrollGridView hsgvTop;
+    private static final String KEY_KEY = "key_key";
+
+    private String id;
+
+    private String key;
+
+    private BannerView bannerView;
 
     private SelectBarView selectBarView;
 
-    private ChildClassAdapter mChildClassAdapter;
-
     private SearchListFragment fragment;
 
-    private long classId = 0;
+    private String title = "国家馆";
 
-    private String title = "分类列表";
-
-    public static void start(Context context, long classId, String className) {
-        Intent it = new Intent(context, ClassListActivity.class);
-        it.putExtra(KEY_ID, classId);
-        it.putExtra(KEY_TITLE, className);
+    public static void start(Context context, String id, String title, String key) {
+        Intent it = new Intent(context, VenuesListActivity.class);
+        it.putExtra(KEY_ID, id);
+        it.putExtra(KEY_TITLE, title);
+        it.putExtra(KEY_KEY, key);
         context.startActivity(it);
     }
 
@@ -58,43 +61,34 @@ public class ClassListActivity extends StateActivity {
     protected void dealIntent(Bundle data) {
         super.dealIntent(data);
         if (data != null) {
-            title = data.getString(KEY_TITLE, "分类列表");
-            classId = data.getLong(KEY_ID, 0);
+            key = data.getString(KEY_KEY, "");
+            title = data.getString(KEY_TITLE, "国家馆");
+            id = data.getString(KEY_ID, "");
         }
     }
 
     @Override
     protected void initView() {
         setTitle(title);
-        setContentView(R.layout.activtiy_class_list);
-        hsgvTop = (HorizontalScrollGridView) findViewById(R.id.hsgv_adv);
+        setContentView(R.layout.activtiy_venues_list);
+        bannerView = (BannerView) findViewById(R.id.banner_view);
+        bannerView.setStyle(BannerView.STYLE_DOT_CENTER);
         selectBarView = (SelectBarView) findViewById(R.id.select_bar);
         fragment = new SearchListFragment();
-        fragment.setType(SearchListFragment.TYPE_GC);
-        mChildClassAdapter = new ChildClassAdapter(this, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClassInfo info = (ClassInfo) v.getTag();
-                if (info != null) {
-                    fragment.setId("" + info.getGcId());
-                    fragment.reLoadData();
-                }
-            }
-        });
-        hsgvTop.setColumnWidth(DisplayUtil.getSreenDimens().x / 4);
-        hsgvTop.setAdapter(mChildClassAdapter);
+        fragment.setId(id);
+        fragment.setPreLoading(true);
+        fragment.setType(SearchListFragment.TYPE_COUNTRY_STORE);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_content, fragment)
                 .commitAllowingStateLoss();
         sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);
         showLoadingView();
     }
-
     @Override
     public void handleBackgroundMessage(Message msg) {
         super.handleBackgroundMessage(msg);
         switch (msg.what) {
             case MSG_BACK_LOAD_DATA:
-                loadClassListTask();
+                loadBannerListTask();
                 break;
         }
     }
@@ -104,14 +98,8 @@ public class ClassListActivity extends StateActivity {
         super.handleUiMessage(msg);
         switch (msg.what) {
             case MSG_UI_LOAD_SUCCESS:
-                ViewUtil.setViewVisibility(hsgvTop, View.VISIBLE);
-                mChildClassAdapter.notifyDataSetChanged();
-                hsgvTop.notifyDataSetChanged();
-                ClassInfo info = (ClassInfo) mChildClassAdapter.getItem(0);
-                if (info != null) {
-                    fragment.setId("" + info.getGcId());
-                    fragment.reLoadData();
-                }
+                ViewUtil.setViewVisibility(bannerView, View.VISIBLE);
+                bannerView.notifyDataSetChanged();
                 break;
             case MSG_UI_LOAD_FINISH:
                 showContentView();
@@ -119,15 +107,15 @@ public class ClassListActivity extends StateActivity {
         }
     }
 
-    private void loadClassListTask() {
-        HttpRequest<ClassListResponse> request = new HttpRequest<>(UrlManager.GET_CHILD_CLASS_LIST,
-                ClassListResponse.class);
-        request.addParam("gc_id", "" + classId);
+    private void loadBannerListTask() {
+        HttpRequest<AdvListResponse> request = new HttpRequest<>(UrlManager.GET_ADV,
+                AdvListResponse.class);
+        request.addParam("key", key);
         request.setIsGet(true);
         try {
-            ClassListResponse response = request.request();
+            AdvListResponse response = request.request();
             if (response != null && response.getList() != null && response.getList().size() > 0) {
-                mChildClassAdapter.setData(response.getList());
+                bannerView.setBannerList(response.getList());
                 sendEmptyUiMessage(MSG_UI_LOAD_SUCCESS);
             }
         } catch (AppException e) {
@@ -140,6 +128,18 @@ public class ClassListActivity extends StateActivity {
     @Override
     protected void initEvent() {
         super.initEvent();
+        bannerView.setBannerListener(new BannerView.IListener() {
+            @Override
+            public void itemClick(Object banner) {
+                // do nothing
+            }
+
+            @Override
+            public void loadImage(Object banner, ImageView ivBanner) {
+                AdvInfo advInfo = (AdvInfo) banner;
+                ImageLoader.getInstance().displayImage(advInfo.getAdvPic(), ivBanner);
+            }
+        });
         selectBarView.setListener(new SelectBarView.IListener() {
             @Override
             public void selectNew(int sortType) {

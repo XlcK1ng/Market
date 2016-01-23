@@ -2,6 +2,7 @@
 package com.buybuyall.market.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,10 +16,11 @@ import cn.common.ui.adapter.BaseListAdapter;
 import cn.common.utils.ViewUtil;
 
 /**
- * 描述：首页精品商品列表适配器 作者：jake on 2015/12/29 23:45
+ * 描述：首页聚优汇的物品推荐 作者：jake on 2016/1/13 22:31
  */
-public class HomeJPAdapter extends BaseListAdapter<GoodsInfo> {
-    public HomeJPAdapter(Context context) {
+public class HomeJYItemGoodsAdapter extends BaseListAdapter<GoodsInfo> {
+
+    public HomeJYItemGoodsAdapter(Context context) {
         super(context);
     }
 
@@ -28,28 +30,27 @@ public class HomeJPAdapter extends BaseListAdapter<GoodsInfo> {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflate(R.layout.item_home_jp);
+            convertView = inflate(R.layout.item_home_jy_item_goods);
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
             holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.tvDes = (TextView) convertView.findViewById(R.id.tv_des);
             holder.tvPrize = (TextView) convertView.findViewById(R.id.tv_prize);
-            convertView.setTag(R.layout.item_home_jp, holder);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // ClassInfo info = (ClassInfo) v.getTag();
-                    // ClassListActivity.start(v.getContext(), info.getGcId(), info.getGcName());
-                }
-            });
+            holder.tvAdd = convertView.findViewById(R.id.tv_add);
+            holder.tvPrize.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中间横线
+            holder.tvPrize.getPaint().setAntiAlias(true);// 抗锯齿
+            convertView.setTag(R.layout.item_class_child, holder);
         } else {
-            holder = (ViewHolder) convertView.getTag(R.layout.item_home_jp);
+            holder = (ViewHolder) convertView.getTag(R.layout.item_class_child);
+        }
+        if (position == getCount() - 1) {
+            ViewUtil.setViewVisibility(holder.tvAdd, View.GONE);
+        } else {
+            ViewUtil.setViewVisibility(holder.tvAdd, View.VISIBLE);
         }
         GoodsInfo info = mDataList.get(position);
         if (info != null) {
             convertView.setTag(info);
             ImageLoader.getInstance().displayImage(info.getGoodsImage(), holder.ivIcon);
             ViewUtil.setText2TextView(holder.tvName, info.getGoodsName());
-            ViewUtil.setText2TextView(holder.tvDes, info.getGoodsJingLe());
             ViewUtil.setText2TextView(holder.tvPrize, "¥" + info.getGoodsPrice());
         }
         return convertView;
@@ -60,8 +61,8 @@ public class HomeJPAdapter extends BaseListAdapter<GoodsInfo> {
 
         TextView tvName;
 
-        TextView tvDes;
-
         TextView tvPrize;
+
+        View tvAdd;
     }
 }

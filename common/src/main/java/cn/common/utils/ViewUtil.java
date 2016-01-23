@@ -1,12 +1,11 @@
+
 package cn.common.utils;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 /**
- * 描述：view 的工具类
- * 作者：jake on 2016/1/17 11:05
+ * 描述：view 的工具类 作者：jake on 2016/1/17 11:05
  */
 public final class ViewUtil {
     private ViewUtil() {
@@ -15,10 +14,7 @@ public final class ViewUtil {
     ;
 
     public static void setText2TextView(TextView tv, CharSequence sequence) {
-        if (TextUtils.isEmpty(sequence)) {
-            sequence = "";
-        }
-        if (tv != null) {
+        if (tv != null && sequence != null) {
             tv.setText(sequence);
         }
     }

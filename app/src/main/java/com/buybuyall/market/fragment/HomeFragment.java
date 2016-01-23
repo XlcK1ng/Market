@@ -19,6 +19,7 @@ import com.buybuyall.market.logic.http.response.JPGoodsListResponse;
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.exception.AppException;
 import cn.common.ui.widgt.HorizontalScrollGridView;
+import cn.common.ui.widgt.StickyScrollView;
 import cn.common.ui.widgt.banner.BannerView;
 import cn.common.utils.DisplayUtil;
 import cn.common.utils.ViewUtil;
@@ -60,10 +61,15 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
 
     private HomeListFragment homeListFragment;
 
+    private ImageView ivGoTop;
+
+    private StickyScrollView scrollView;
 
     @Override
     protected void initView() {
         setContentView(R.layout.fragment_home);
+        scrollView = (StickyScrollView) findViewById(R.id.root);
+        ivGoTop = (ImageView) findViewById(R.id.iv_go_top);
         gvVenues = (GridView) findViewById(R.id.gv_venues);
         rgSelect = (RadioGroup) findViewById(R.id.rg_select);
         hsgvAdv = (HorizontalScrollGridView) findViewById(R.id.hsgv_adv);
@@ -83,6 +89,22 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
     @Override
     protected void initEvent() {
         super.initEvent();
+        scrollView.setScrollChangeListener(new StickyScrollView.IScrollChangeListener() {
+            @Override
+            public void onScrollChanged(int l, int t, int oldl, int oldt) {
+                if (t > DisplayUtil.getSreenDimens().y) {
+                    ViewUtil.setViewVisibility(ivGoTop, View.VISIBLE);
+                } else {
+                    ViewUtil.setViewVisibility(ivGoTop, View.GONE);
+                }
+            }
+        });
+        ivGoTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.scrollTo(0, 0);
+            }
+        });
         rgSelect.setOnCheckedChangeListener(this);
         bannerView.setBannerListener(new BannerView.IListener() {
             @Override
@@ -155,7 +177,6 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
                 break;
             case MSG_UI_LOAD_GOODS_SUCCESS:
                 showContentView();
-                homeListFragment.notifyDataSetChanged();
                 break;
         }
     }
@@ -212,7 +233,7 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
             e.printStackTrace();
             sendEmptyUiMessage(MSG_UI_LOAD_ADV_FAIL);
         }
-//请求精品物品
+        // 请求精品物品
         HttpRequest<JPGoodsListResponse> request = new HttpRequest<>(UrlManager.HOME_JP,
                 JPGoodsListResponse.class);
         request.setIsGet(true);

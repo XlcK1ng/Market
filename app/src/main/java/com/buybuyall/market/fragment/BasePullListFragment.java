@@ -120,7 +120,7 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
         if (isPreLoading) {
             showLoadingView();
             sendEmptyBackgroundMessageDelayed(MSG_BACK_LOAD_DATA, delayLoadTime);
-        }else{
+        } else {
             showFailView();
         }
     }
@@ -221,10 +221,10 @@ public abstract class BasePullListFragment<T> extends StateFragment implements P
         showLoadingView();
         hasLoadAllData = false;
         pageIndex = PAGE_START;
-        if (showFinishLoad && mListView.getFooterViewsCount() > 0) {
+        if (showFinishLoad && mListView != null && mListView.getFooterViewsCount() > 0) {
             mListView.removeFooterView(footerView);
         }
-        if (mAdapter.getCount() > 0) {
+        if (mAdapter != null && mAdapter.getCount() > 0) {
             mAdapter.clearAllData();
         }
         sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);

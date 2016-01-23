@@ -150,6 +150,14 @@ public class GoodsInfo implements Serializable {
         this.goodsCommonId = goodsCommonId;
     }
 
+    public boolean isBS() {
+        return ifTaxFree == 1;
+    }
+
+    public boolean isBY() {
+        return ifFreightFree == 1;
+    }
+
     public static GoodsInfo parse(JSONObject root) {
         if (root != null) {
             GoodsInfo info = new GoodsInfo();

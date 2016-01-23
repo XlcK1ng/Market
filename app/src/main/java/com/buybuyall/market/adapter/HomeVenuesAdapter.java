@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.AdvInfo;
-import com.buybuyall.market.entity.ClassInfo;
-import com.buybuyall.market.ui.ClassListActivity;
+import com.buybuyall.market.ui.VenuesListActivity;
+import com.buybuyall.market.utils.ToastUtil;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
@@ -36,8 +36,14 @@ public class HomeVenuesAdapter extends BaseListAdapter<AdvInfo> {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ClassInfo info = (ClassInfo) v.getTag();
-                    ClassListActivity.start(v.getContext(), info.getGcId(), info.getGcName());
+                    AdvInfo info = (AdvInfo) v.getTag();
+                    if (info != null && info.getParamMap() != null) {
+                        VenuesListActivity.start(v.getContext(),
+                                info.getParamMap().get("country_store_id"), info.getApName(), info
+                                        .getParamMap().get("key"));
+                    } else {
+                        ToastUtil.show("本馆尚未开发，去其他场馆看看");
+                    }
                 }
             });
         } else {

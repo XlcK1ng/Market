@@ -1,28 +1,37 @@
+
 package com.buybuyall.market.entity;
 
-import android.text.TextUtils;
-
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-
-import cn.common.http.JsonParse;
+import java.util.HashMap;
 
 /**
- * 描述：广告信息
- * 作者：jake on 2015/12/29 23:45
+ * 描述：广告信息 作者：jake on 2015/12/29 23:45
  */
-public class AdvInfo implements Serializable{
-
+public class AdvInfo implements Serializable {
     private String apName;
-    private String apIntro;
-    private int adDisplay;
-    private int linkType;
-    private String advPic;
-    private String advPicUrl;
-    private String param;
 
+    private String apIntro;
+
+    private int adDisplay;
+
+    private int linkType;
+
+    private String advPic;
+
+    private String advPicUrl;
+
+    private HashMap<String, String> paramMap;
+
+    public HashMap<String, String> getParamMap() {
+        return paramMap;
+    }
+
+    public void setParamMap(HashMap<String, String> paramMap) {
+        this.paramMap = paramMap;
+    }
 
     public int getLinkType() {
         return linkType;
@@ -30,14 +39,6 @@ public class AdvInfo implements Serializable{
 
     public void setLinkType(int linkType) {
         this.linkType = linkType;
-    }
-
-    public String getParam() {
-        return param;
-    }
-
-    public void setParam(String param) {
-        this.param = param;
     }
 
     public String getApName() {
@@ -85,11 +86,24 @@ public class AdvInfo implements Serializable{
             AdvInfo info = new AdvInfo();
             info.setAdDisplay(root.optInt("ap_display"));
             info.setLinkType(root.optInt("link_type"));
-            info.setParam(root.optString("param"));
             info.setAdvPic(root.optString("adv_pic"));
             info.setAdvPicUrl(root.optString("adv_pic_url"));
             info.setApName(root.optString("ap_name"));
             info.setApIntro(root.optString("ap_intro"));
+            JSONArray array = root.optJSONArray("param");
+            if (array != null && array.length() > 0) {
+                HashMap<String, String> map = new HashMap<>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.optJSONObject(i);
+                    if (object != null) {
+                        map.put(object.optString("name"), object.optString("value"));
+                    }
+                }
+                if (map.size() > 0) {
+                    info.setParamMap(map);
+                }
+            }
+
             return info;
         }
         return null;

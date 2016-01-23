@@ -1,111 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.common.ui.widgt.StickyScrollView
-    android:id="@+id/root"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray"
-    android:descendantFocusability="blocksDescendants"
-    android:fillViewport="true">
+    android:background="@color/background_gray">
 
-    <LinearLayout
+    <cn.common.ui.widgt.StickyScrollView
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
-        <cn.common.ui.widgt.banner.BannerView
-            android:id="@+id/banner_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="144dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
 
-        <cn.common.ui.widgt.InnerGridView
-            android:id="@+id/gv_venues"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:horizontalSpacing="2dp"
-            android:numColumns="2"
-            android:verticalSpacing="2dp"/>
-
-        <cn.common.ui.widgt.HorizontalScrollGridView
-            android:id="@+id/hsgv_adv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            android:paddingBottom="10dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:scrollbars="none"
-            android:paddingTop="10dp"/>
-
-        <RadioGroup
-            android:id="@+id/rg_select"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:tag="sticky">
-
-            <RadioButton
-                android:id="@+id/rb_left"
+            <cn.common.ui.widgt.banner.BannerView
+                android:id="@+id/banner_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@color/trans"
-                android:checked="true"
-                android:gravity="center"
-                android:text="精品阁"
-                android:textColor="@drawable/text_selector_main_menu"
-                android:textSize="14dp"/>
+                android:layout_height="144dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"/>
 
-            <View
-                android:layout_width="1px"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/gray_dfdfdd"/>
-
-            <RadioButton
-                android:id="@+id/rb_center"
+            <cn.common.ui.widgt.InnerGridView
+                android:id="@+id/gv_venues"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@color/trans"
-                android:gravity="center"
-                android:text="聚优汇"
-                android:textColor="@drawable/text_selector_main_menu"
-                android:textSize="14dp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:horizontalSpacing="2dp"
+                android:numColumns="2"
+                android:verticalSpacing="2dp"/>
 
-            <View
-                android:layout_width="1px"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/gray_dfdfdd"/>
-
-            <RadioButton
-                android:id="@+id/rb_right"
+            <cn.common.ui.widgt.HorizontalScrollGridView
+                android:id="@+id/hsgv_adv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@color/trans"
-                android:gravity="center"
-                android:text="大牌献"
-                android:textColor="@drawable/text_selector_main_menu"
-                android:textSize="14dp"/>
-        </RadioGroup>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="10dp"
+                android:scrollbars="none"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginBottom="1px"
-            android:background="@color/gray_dfdfdd"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:tag="sticky">
 
-        <FrameLayout
-            android:id="@+id/fl_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-</cn.common.ui.widgt.StickyScrollView>
+                <RadioGroup
+                    android:id="@+id/rg_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@color/trans"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="精品阁"
+                        android:textColor="@drawable/text_selector_main_menu"
+                        android:textSize="14dp"/>
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/gray_dfdfdd"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@color/trans"
+                        android:gravity="center"
+                        android:text="聚优汇"
+                        android:textColor="@drawable/text_selector_main_menu"
+                        android:textSize="14dp"/>
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/gray_dfdfdd"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:button="@color/trans"
+                        android:gravity="center"
+                        android:text="大牌献"
+                        android:textColor="@drawable/text_selector_main_menu"
+                        android:textSize="14dp"/>
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/gray_dfdfdd"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+    </cn.common.ui.widgt.StickyScrollView>
+
+    <ImageView
+        android:id="@+id/iv_go_top"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone"/>
+</FrameLayout>
