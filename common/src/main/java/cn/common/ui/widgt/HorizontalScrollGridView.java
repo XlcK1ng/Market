@@ -138,7 +138,9 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
                 xDistance = yDistance = 0f;
                 xLast = ev.getX();
                 yLast = ev.getY();
-                getParent().requestDisallowInterceptTouchEvent(true);
+                if (gridView.getWidth() > xLast) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 final float curX = ev.getX();
@@ -155,6 +157,10 @@ public class HorizontalScrollGridView extends HorizontalScrollView {
                 } else {
                     getParent().requestDisallowInterceptTouchEvent(false);
                 }
+                break;
+            default:
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
         }
 
         return super.onInterceptTouchEvent(ev);

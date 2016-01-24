@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
@@ -26,8 +27,8 @@
                     android:id="@+id/iv_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="70dp"
                     android:layout_gravity="center"
+                    android:minHeight="70dp"
                     android:minWidth="100dp"
                     android:scaleType="fitCenter"/>
 
@@ -74,8 +75,8 @@
                     <TextView
                         android:id="@+id/tv_market_price"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:textColor="@color/gray_757575"
                         android:textSize="10dp"/>
                 </LinearLayout>
@@ -94,11 +95,21 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.buybuyall.market.widget.HomeDesItemView
-            android:id="@+id/hdiv"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:paddingLeft="50dp"
+            android:paddingTop="20dp">
+
+            <com.buybuyall.market.widget.HomeDesItemView
+                android:id="@+id/hdiv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                app:inside_bg="@drawable/bg_home_jy_des_bg"
+                app:text_color="@color/white"
+                app:text_size="14dp"/>
+        </FrameLayout>
     </FrameLayout>
 
     <FrameLayout
@@ -111,9 +122,9 @@
 
         <cn.common.ui.widgt.HorizontalScrollGridView
             android:id="@+id/hsgv"
-            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scrollbars="none"/>
     </FrameLayout>
 
     <View

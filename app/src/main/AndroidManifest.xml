@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/app_theme">
         <!--<activity-->
-        <!--android:name=".ui.TestPullActivity"-->
-        <!--android:label="@string/app_name"-->
-        <!--android:theme="@style/activity_style_main">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--android:name=".ui.TestPullActivity"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:theme="@style/activity_style_main">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         <!--</activity>-->
         <activity
             android:name=".ui.SplashActivity"

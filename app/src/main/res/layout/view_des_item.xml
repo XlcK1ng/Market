@@ -2,28 +2,23 @@
 <LinearLayout
     android:id="@+id/fl_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="right"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_left"
-        android:layout_width="13dp"
-        android:layout_height="26dp"
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_home_jy_des_left"
-        android:gravity="right"
-        android:paddingRight="2dp"
-        android:textColor="@color/white"
-        android:textSize="16dp"/>
+        android:src="@drawable/ic_launcher"/>
 
-    <ScrollView
-        android:layout_width="240dp"
-        android:layout_height="140dp"
-        android:background="@color/black_363636"
+    <com.buybuyall.market.widget.MyScrollView
+        android:id="@+id/sv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <LinearLayout
@@ -34,11 +29,11 @@
 
             <TextView
                 android:id="@+id/tv_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:lineSpacingMultiplier="1.1"
                 android:textColor="@color/white"
                 android:textSize="14dp"/>
         </LinearLayout>
-    </ScrollView>
+    </com.buybuyall.market.widget.MyScrollView>
 </LinearLayout>

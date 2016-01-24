@@ -1,13 +1,15 @@
-
 package com.buybuyall.market.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.buybuyall.market.R;
@@ -21,91 +23,108 @@ import cn.common.utils.DisplayUtil;
  * @since 2016/1/23 15:17
  */
 public class HomeDesItemView extends FrameLayout {
-    private boolean isShow = false;
 
-    private View vContent;
 
-    private TextView tvContent;
+  private View vInsideContent;
 
-    public HomeDesItemView(Context context) {
-        this(context, null);
+  private TextView tvContent;
+
+  private ImageView ivLeft;
+
+  public HomeDesItemView(Context context) {
+    this(context, null);
+  }
+
+  public void setContent(String content) {
+    tvContent.setText(content);
+  }
+
+  private boolean contentIsShow = false;
+
+  public HomeDesItemView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    scroller = new Scroller(context);
+    setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
+    inflate(context, R.layout.view_des_item, this);
+    vContent = findViewById(R.id.fl_content);
+    ivLeft = (ImageView) findViewById(R.id.iv_left);
+    vInsideContent = findViewById(R.id.sv_content);
+    tvContent = (TextView) findViewById(R.id.tv_content);
+    if (attrs != null) {
+      TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.HomeDesItemView);
+      int inside_bg = typedArray.getResourceId(R.styleable.HomeDesItemView_inside_bg, R.color.black_363636);
+      int textColor = typedArray.getColor(R.styleable.HomeDesItemView_text_color, Color.WHITE);
+      float textSize = typedArray.getDimension(R.styleable.HomeDesItemView_text_size, DisplayUtil.dip(14));
+      tvContent.setTextColor(textColor);
+      tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+      vInsideContent.setBackgroundResource(inside_bg);
     }
+    ivLeft.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (contentIsShow) {
+          scrollRight();
 
-    public void setContent(String content) {
-        tvContent.setText(content);
+        } else {
+          contentIsShow = true;
+          scrollLeft();
+        }
+      }
+    });
+    tvContent.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (contentIsShow) {
+          scrollRight();
+          contentIsShow = false;
+        } else {
+          contentIsShow = true;
+          scrollLeft();
+        }
+      }
+    });
+  }
+
+  @Override
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    super.onLayout(changed, left, top, right, bottom);
+    scrollRight();
+  }
+
+  private View vContent;
+
+  /**
+   * 滑动类
+   */
+  private Scroller scroller;
+
+
+  @Override
+  public void computeScroll() {
+    // 调用startScroll的时候scroller.computeScrollOffset()返回true，
+    if (scroller.computeScrollOffset()) {
+      vContent.scrollTo(scroller.getCurrX(), scroller.getCurrY());
+      postInvalidate();
     }
+  }
 
-    public HomeDesItemView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        inflate(context, R.layout.view_des_item, this);
-        ((TextView) findViewById(R.id.tv_left)).setText("<");
-        vContent = findViewById(R.id.fl_content);
-        tvContent = (TextView) findViewById(R.id.tv_content);
-        LayoutParams params = (LayoutParams) vContent.getLayoutParams();
-        params.rightMargin = -DisplayUtil.dip(240);
-        vContent.setLayoutParams(params);
-        vContent.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isShow) {
-                    hideContent();
-                } else {
-                    showContent();
-                }
-            }
-        });
-        tvContent.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-    }
+  /**
+   * 往右滑动，getScrollX()返回的是左边缘的距离，就是以View左边缘为原点到开始滑动的距离，所以向右边滑动为负值
+   */
+  private void scrollRight() {
+    contentIsShow = false;
+    final int delta = (vContent.getWidth() + vContent.getScrollX() - ivLeft.getWidth());
+    // 调用startScroll方法来设置一些滚动的参数，我们在computeScroll()方法中调用scrollTo来滚动item
+    scroller.startScroll(vContent.getScrollX(), 0, -delta, 0, Math.abs(delta));
+    postInvalidate(); // 刷新itemView
+  }
 
-    private void hideContent() {
-        isShow = false;
-        TranslateAnimation animation = new TranslateAnimation(0, DisplayUtil.dip(240), 0, 0);
-        animation.setDuration(800);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
+  private void scrollLeft() {
+    contentIsShow = true;
+    final int delta = (vContent.getWidth() + vContent.getScrollX());
+    // 调用startScroll方法来设置一些滚动的参数，我们在computeScroll()方法中调用scrollTo来滚动item
+    scroller.startScroll(vContent.getScrollX(), 0, 0 - vContent.getScrollX(), 0, Math.abs(delta));
+    postInvalidate(); // 刷新itemView
+  }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                LayoutParams params = (LayoutParams) vContent.getLayoutParams();
-                params.rightMargin = -DisplayUtil.dip(240);
-                vContent.setLayoutParams(params);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        vContent.startAnimation(animation);
-    }
-
-    private void showContent() {
-        isShow = true;
-        TranslateAnimation animation = new TranslateAnimation(DisplayUtil.dip(240), 0, 0, 0);
-        animation.setDuration(800);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                LayoutParams params = (LayoutParams) vContent.getLayoutParams();
-                params.rightMargin = 0;
-                vContent.setLayoutParams(params);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        vContent.startAnimation(animation);
-    }
 }

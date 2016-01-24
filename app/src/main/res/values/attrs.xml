@@ -3,20 +3,25 @@
 
     <!-- CommonItemView -->
     <declare-styleable name="CommonItemView">
-        <attr name="title_margin_icon" format="dimension" />
-        <attr name="tip_margin_title" format="dimension" />
-        <attr name="tip_margin_arrow_right" format="dimension" />
-        <attr name="title_text_size" format="dimension" />
-        <attr name="tip_text_size" format="dimension" />
-        <attr name="title_text_color" format="color" />
-        <attr name="tip_text_color" format="color" />
-        <attr name="title_text" format="string" />
-        <attr name="tip_text" format="string" />
-        <attr name="icon_visible" format="boolean" />
-        <attr name="tip_visible" format="boolean" />
-        <attr name="arrow_visible" format="boolean" />
-        <attr name="arrow_src" format="reference" />
-        <attr name="icon_src" format="reference" />
+        <attr name="title_margin_icon" format="dimension"/>
+        <attr name="tip_margin_title" format="dimension"/>
+        <attr name="tip_margin_arrow_right" format="dimension"/>
+        <attr name="title_text_size" format="dimension"/>
+        <attr name="tip_text_size" format="dimension"/>
+        <attr name="title_text_color" format="color"/>
+        <attr name="tip_text_color" format="color"/>
+        <attr name="title_text" format="string"/>
+        <attr name="tip_text" format="string"/>
+        <attr name="icon_visible" format="boolean"/>
+        <attr name="tip_visible" format="boolean"/>
+        <attr name="arrow_visible" format="boolean"/>
+        <attr name="arrow_src" format="reference"/>
+        <attr name="icon_src" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="HomeDesItemView">
+        <attr name="text_size" format="dimension"/>
+        <attr name="text_color" format="color"/>
+        <attr name="inside_bg" format="reference"/>
     </declare-styleable>
 
 
