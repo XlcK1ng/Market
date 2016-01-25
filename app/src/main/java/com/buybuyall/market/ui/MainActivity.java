@@ -202,10 +202,10 @@ public class MainActivity extends BaseWorkerFragmentActivity
                     id = R.id.rb_menu_home;
                     break;
                 case 1:
-                    id = R.id.rb_menu_trolley;
+                    id = R.id.rb_menu_group;
                     break;
                 case 2:
-                    id = R.id.rb_menu_group;
+                    id = R.id.rb_menu_trolley;
                     break;
                 case 3:
                     id = R.id.rb_menu_mine;

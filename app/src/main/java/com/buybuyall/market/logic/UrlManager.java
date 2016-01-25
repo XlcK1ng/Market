@@ -33,6 +33,8 @@ public interface UrlManager {
     String HOME_JY = "package/package_list/";
     // 首页大牌献
     String HOME_DP = "goods/goods_tax/order/2/";
+    // 首页大牌献
+    String GOODS_DETAIL = "goods/goods_show/";
 
     public static interface Keys {
         // 首页国家馆广告位

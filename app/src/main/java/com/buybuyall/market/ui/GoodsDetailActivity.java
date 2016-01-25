@@ -1,3 +1,4 @@
+
 package com.buybuyall.market.ui;
 
 import android.content.Context;
@@ -7,14 +8,10 @@ import android.os.Message;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.adapter.HomeAdvAdapter;
-import com.buybuyall.market.adapter.HomeVenuesAdapter;
 import com.buybuyall.market.adapter.OtherGoodsAdapter;
 import com.buybuyall.market.entity.AdvInfo;
-import com.buybuyall.market.fragment.HomeListFragment;
 import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
 import com.buybuyall.market.logic.http.response.AdvListResponse;
@@ -51,7 +48,7 @@ public class GoodsDetailActivity extends StateActivity {
     protected void dealIntent(Bundle data) {
         super.dealIntent(data);
         if (data != null) {
-            goodsId = data.getInt(KEY_GOODS_ID, 0);
+            goodsId = data.getLong(KEY_GOODS_ID, 0);
         }
     }
 
@@ -75,15 +72,16 @@ public class GoodsDetailActivity extends StateActivity {
 
     private HorizontalScrollGridView hsgvOtherGoods;
 
-
     private BannerView bannerView;
-
 
     private ImageView ivGoTop;
 
     private StickyScrollView scrollView;
+
     private OtherGoodsAdapter mOtherGoodsAdapter;
+
     private WebView webView;
+
     private ImageView ivTrolley;
 
     @Override
@@ -193,10 +191,15 @@ public class GoodsDetailActivity extends StateActivity {
 
     private void loadAllDataTask() {
         // 请求banner
-        HttpRequest<AdvListResponse> reqBanner = new HttpRequest<>(UrlManager.GET_ADV,
+        HttpRequest<AdvListResponse> reqBanner = new HttpRequest<>(UrlManager.GOODS_DETAIL,
                 AdvListResponse.class);
         reqBanner.setIsGet(true);
-        reqBanner.addParam("key", UrlManager.Keys.HOME_BANNER);
+        reqBanner.addParam("goods_id", "" + goodsId);
+        if (false) {
+            // 已登录
+            reqBanner.addParam("client", "app");
+            reqBanner.addParam("key ", "");
+        }
         try {
             AdvListResponse response = reqBanner.request();
             if (response != null && response.getList() != null && response.getList().size() > 0) {
@@ -225,7 +228,6 @@ public class GoodsDetailActivity extends StateActivity {
             sendEmptyUiMessage(MSG_UI_LOAD_GOODS_FAIL);
         }
     }
-
 
     @Override
     public void onDestroy() {
