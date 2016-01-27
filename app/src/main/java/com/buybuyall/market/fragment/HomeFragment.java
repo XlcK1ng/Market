@@ -15,6 +15,7 @@ import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.logic.http.HttpRequest;
 import com.buybuyall.market.logic.http.response.AdvListResponse;
 import com.buybuyall.market.logic.http.response.JPGoodsListResponse;
+import com.buybuyall.market.utils.JumpUtil;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.exception.AppException;
@@ -109,7 +110,8 @@ public class HomeFragment extends StateFragment implements RadioGroup.OnCheckedC
         bannerView.setBannerListener(new BannerView.IListener() {
             @Override
             public void itemClick(Object banner) {
-                // do nothing
+                AdvInfo advInfo = (AdvInfo) banner;
+                JumpUtil.advJump(getActivity(), advInfo);
             }
 
             @Override

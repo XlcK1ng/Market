@@ -49,6 +49,8 @@ public interface UrlManager {
 
     // 同类物品
     String SAME_GOODS_LIST = "goods/recommend_gc_goods/";
+    // 专题页
+    String SPECIAL = "special/special_info/";
 
     public static interface Keys {
         // 首页国家馆广告位

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.AdvInfo;
+import com.buybuyall.market.utils.JumpUtil;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
@@ -28,7 +29,13 @@ public class HomeAdvAdapter extends BaseListAdapter<AdvInfo> {
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
             holder.vDivider = convertView.findViewById(R.id.v_divider);
             convertView.setTag(R.layout.item_home_adv, holder);
-//            convertView.setOnClickListener(listener);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AdvInfo info= (AdvInfo) v.getTag();
+                    JumpUtil.advJump(v.getContext(), info);
+                }
+            });
         } else {
             holder = (ViewHolder) convertView.getTag(R.layout.item_home_adv);
         }

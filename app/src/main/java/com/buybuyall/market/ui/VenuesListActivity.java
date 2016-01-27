@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,7 +32,6 @@ public class VenuesListActivity extends StateActivity {
 
     private static final int MSG_UI_LOAD_FINISH = 1;
 
-    private static final String KEY_TITLE = "key_title";
 
     private static final String KEY_ID = "key_type";
 
@@ -49,10 +49,9 @@ public class VenuesListActivity extends StateActivity {
 
     private String title = "国家馆";
 
-    public static void start(Context context, String id, String title, String key) {
+    public static void start(Context context, String id, String key) {
         Intent it = new Intent(context, VenuesListActivity.class);
         it.putExtra(KEY_ID, id);
-        it.putExtra(KEY_TITLE, title);
         it.putExtra(KEY_KEY, key);
         context.startActivity(it);
     }
@@ -62,13 +61,24 @@ public class VenuesListActivity extends StateActivity {
         super.dealIntent(data);
         if (data != null) {
             key = data.getString(KEY_KEY, "");
-            title = data.getString(KEY_TITLE, "国家馆");
             id = data.getString(KEY_ID, "");
         }
     }
 
     @Override
     protected void initView() {
+        if (TextUtils.equals(id, "1")) {
+            title="澳洲馆";
+        } else if (TextUtils.equals(id, "2")) {
+            title="美洲馆";
+
+        }  else if (TextUtils.equals(id, "3")) {
+            title="欧洲馆";
+        } else if (TextUtils.equals(id, "4")) {
+            title="亚洲馆";
+        } else if (TextUtils.equals(id, "5")) {
+        } else if (TextUtils.equals(id, "6")) {
+        }
         setTitle(title);
         setContentView(R.layout.activtiy_venues_list);
         bannerView = (BannerView) findViewById(R.id.banner_view);
@@ -83,6 +93,7 @@ public class VenuesListActivity extends StateActivity {
         sendEmptyBackgroundMessage(MSG_BACK_LOAD_DATA);
         showLoadingView();
     }
+
     @Override
     public void handleBackgroundMessage(Message msg) {
         super.handleBackgroundMessage(msg);
