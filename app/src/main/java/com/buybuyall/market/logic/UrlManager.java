@@ -7,8 +7,15 @@ package com.buybuyall.market.logic;
 public interface UrlManager {
     String KEY_CODE = "c7d32cfe9654074a21d8ad0ab25e5950";
 
+    boolean isTest = false;
+
     // 服务器地址
-    String SERVER_URL = "http://120.76.78.1/webservice/v1.0/?";
+    String SERVER_URL_TEST = "http://120.76.78.1/webservice/v1.0/?";
+
+    // 服务器地址
+    String SERVER_URL_RELEASE = "http://www.buybuyall.com/webservice/v1.0/?";
+
+    String SERVER_URL = isTest ? SERVER_URL_TEST : SERVER_URL_RELEASE;
 
     // 获取广告位
     String GET_ADV = "adv/get_adv/";
@@ -27,15 +34,20 @@ public interface UrlManager {
 
     // 搜索
     String SEARCH = "goods/search/";
+
     // 首页精品阁
     String HOME_JP = "goods/index_recommend/";
+
     // 首页聚优汇
     String HOME_JY = "package/package_list/";
+
     // 首页大牌献
     String HOME_DP = "goods/goods_tax/order/2/";
+
     // 物品详情
     String GOODS_DETAIL = "goods/goods_show/";
-    //同类物品
+
+    // 同类物品
     String SAME_GOODS_LIST = "goods/recommend_gc_goods/";
 
     public static interface Keys {

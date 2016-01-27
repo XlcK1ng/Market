@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.GoodsInfo;
+import com.buybuyall.market.ui.GoodsDetailActivity;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
@@ -38,9 +39,10 @@ public class HomeDPAdapter extends BaseListAdapter<GoodsInfo> {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // ClassInfo info = (ClassInfo) v.getTag();
-                    // ClassListActivity.start(v.getContext(), info.getGcId(),
-                    // info.getGcName());
+                    GoodsInfo info= (GoodsInfo) v.getTag();
+                    if (info!=null){
+                        GoodsDetailActivity.start(v.getContext(),info.getGoodsId());
+                    }
                 }
             });
         } else {

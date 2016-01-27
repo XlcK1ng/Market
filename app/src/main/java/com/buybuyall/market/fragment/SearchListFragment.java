@@ -47,6 +47,8 @@ public class SearchListFragment extends BasePullListFragment<GoodsInfo> {
 
     private String typeIdKey = "gc_id";
 
+    private String noDataTip = "没有数据";
+
     public void setType(int type) {
         switch (type) {
             case TYPE_GC:
@@ -64,6 +66,10 @@ public class SearchListFragment extends BasePullListFragment<GoodsInfo> {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setPreNoDataTip(String noDataTip) {
+        this.noDataTip = noDataTip;
     }
 
     public void setOrder(int order) {
@@ -84,6 +90,7 @@ public class SearchListFragment extends BasePullListFragment<GoodsInfo> {
 
     @Override
     protected BaseListAdapter<GoodsInfo> createAdapter() {
+        setNoDataTip(noDataTip);
         return new GoodsSearchAdapter(getActivity());
     }
 

@@ -1,24 +1,21 @@
 package com.buybuyall.market.adapter;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.BrandInfo;
-import com.buybuyall.market.utils.ToastUtil;
+import com.buybuyall.market.ui.BrandListActivity;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
-import cn.common.utils.CommonUtil;
 import cn.common.utils.ViewUtil;
 
 /**
- * 描述：
+ * 描述：品牌列表
  * 作者：jake on 2016/1/13 22:31
  */
 public class BrandAdapter extends BaseListAdapter<BrandInfo> {
@@ -41,7 +38,7 @@ public class BrandAdapter extends BaseListAdapter<BrandInfo> {
                 @Override
                 public void onClick(View v) {
                     BrandInfo info = (BrandInfo) v.getTag();
-                    ToastUtil.show(info.getBrandName()+"点击item");
+                    BrandListActivity.start(v.getContext(),info);
                 }
             });
         } else {

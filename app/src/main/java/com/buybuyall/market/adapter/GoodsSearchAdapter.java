@@ -42,7 +42,9 @@ public class GoodsSearchAdapter extends BaseListAdapter<GoodsInfo> {
                 @Override
                 public void onClick(View v) {
                     GoodsInfo info = (GoodsInfo) v.getTag();
-                    GoodsDetailActivity.start(v.getContext(), info.getGoodsId());
+                    if (info != null) {
+                        GoodsDetailActivity.start(v.getContext(), info.getGoodsId());
+                    }
                 }
             });
         } else {

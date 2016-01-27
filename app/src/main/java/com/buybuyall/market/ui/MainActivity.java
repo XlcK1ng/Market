@@ -20,6 +20,7 @@ import com.buybuyall.market.fragment.MineFragment;
 import com.buybuyall.market.fragment.PartyFragment;
 import com.buybuyall.market.fragment.HomeFragment;
 import com.buybuyall.market.logic.BroadcastActions;
+import com.buybuyall.market.logic.UrlManager;
 import com.buybuyall.market.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -30,10 +31,9 @@ import cn.common.ui.widgt.ChangeThemeUtils;
 import cn.common.ui.widgt.MainTabViewPager;
 import cn.common.ui.widgt.TabRadioGroup;
 
-public class MainActivity extends BaseWorkerFragmentActivity
-        implements ViewPager.OnPageChangeListener, TabRadioGroup.OnCheckedChangeListener {
+public class MainActivity extends BaseWorkerFragmentActivity implements
+        ViewPager.OnPageChangeListener, TabRadioGroup.OnCheckedChangeListener {
     private static final int MSG_UI_INIT_DATA = 0;
-
 
     private MainTabViewPager vpContent;
 
@@ -48,8 +48,11 @@ public class MainActivity extends BaseWorkerFragmentActivity
     private RadioButton rbTrolley;
 
     private boolean hasSetChecked = false;
+
     private long lastClickTime;
+
     private TextView tvTitle;
+
     private ImageView ivSearch;
 
     @Override
@@ -69,7 +72,12 @@ public class MainActivity extends BaseWorkerFragmentActivity
         initView();
         initEvent();
         sendEmptyUiMessage(MSG_UI_INIT_DATA);
-//        vpContent.setCanScroll(false);
+        String show = "当前为测试环境";
+        if (!UrlManager.isTest) {
+            show = "当前为正式环境";
+        }
+        ToastUtil.show(show);
+        // vpContent.setCanScroll(false);
     }
 
     private void initView() {
@@ -105,8 +113,7 @@ public class MainActivity extends BaseWorkerFragmentActivity
         list.add(PartyFragment.newInstance());
         list.add(HomeFragment.newInstance());
         list.add(MineFragment.newInstance());
-        vpContent.setAdapter(
-                new CommonFragmentPagerAdapter(getSupportFragmentManager(), list));
+        vpContent.setAdapter(new CommonFragmentPagerAdapter(getSupportFragmentManager(), list));
     }
 
     @Override
@@ -118,7 +125,6 @@ public class MainActivity extends BaseWorkerFragmentActivity
                 break;
         }
     }
-
 
     @Override
     public void onPageScrollStateChanged(int status) {
@@ -168,9 +174,9 @@ public class MainActivity extends BaseWorkerFragmentActivity
                 break;
             case 2:
             case R.id.rb_menu_trolley:
-            tvTitle.setText("购物车");
-            ivSearch.setVisibility(View.GONE);
-            break;
+                tvTitle.setText("购物车");
+                ivSearch.setVisibility(View.GONE);
+                break;
             case 3:
             case R.id.rb_menu_mine:
                 tvTitle.setText("我的");
@@ -214,7 +220,6 @@ public class MainActivity extends BaseWorkerFragmentActivity
         }
         return id;
     }
-
 
     @Override
     public void setupBroadcastActions(List<String> actionList) {

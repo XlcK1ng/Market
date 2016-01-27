@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.entity.GoodsInfo;
+import com.buybuyall.market.ui.GoodsDetailActivity;
 
 import cn.common.bitmap.core.ImageLoader;
 import cn.common.ui.adapter.BaseListAdapter;
@@ -38,6 +39,15 @@ public class HomeJYItemGoodsAdapter extends BaseListAdapter<GoodsInfo> {
             holder.tvPrize.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中间横线
             holder.tvPrize.getPaint().setAntiAlias(true);// 抗锯齿
             convertView.setTag(R.layout.item_class_child, holder);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GoodsInfo info= (GoodsInfo) v.getTag();
+                    if (info!=null){
+                        GoodsDetailActivity.start(v.getContext(),info.getGoodsId());
+                    }
+                }
+            });
         } else {
             holder = (ViewHolder) convertView.getTag(R.layout.item_class_child);
         }
