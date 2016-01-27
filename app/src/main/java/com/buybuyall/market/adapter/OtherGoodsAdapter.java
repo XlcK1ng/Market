@@ -16,7 +16,7 @@ import cn.common.ui.adapter.BaseListAdapter;
 import cn.common.utils.ViewUtil;
 
 /**
- * 描述：首页聚优汇的物品推荐 作者：jake on 2016/1/13 22:31
+ * 描述：物品详情页物品推荐 作者：jake on 2016/1/13 22:31
  */
 public class OtherGoodsAdapter extends BaseListAdapter<GoodsInfo> {
 

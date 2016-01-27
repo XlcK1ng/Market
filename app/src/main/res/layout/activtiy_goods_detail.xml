@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_gray"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_gray"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -12,9 +12,9 @@
         android:layout_weight="1">
 
         <cn.common.ui.widgt.StickyScrollView
+            android:id="@+id/root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-android:id="@+id/root"
             android:fillViewport="true">
 
             <LinearLayout
@@ -27,7 +27,7 @@ android:id="@+id/root"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white" />
+                    android:background="@color/white"/>
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -35,13 +35,13 @@ android:id="@+id/root"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textColor="@color/black_363636"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"/>
 
                 <WebView
                     android:id="@+id/wv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:background="@color/white"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,13 +56,13 @@ android:id="@+id/root"
                         android:paddingLeft="10dp"
                         android:text="同类商品推荐"
                         android:textColor="@color/black_363636"
-                        android:textSize="14dp" />
+                        android:textSize="14dp"/>
 
                     <cn.common.ui.widgt.HorizontalScrollGridView
                         android:id="@+id/hsgv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="none" />
+                        android:scrollbars="none"/>
                 </LinearLayout>
             </LinearLayout>
         </cn.common.ui.widgt.StickyScrollView>
@@ -75,13 +75,13 @@ android:id="@+id/root"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="15dp"
             android:src="@drawable/img_go_top"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </FrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_dfdfdd" />
+        android:background="@color/gray_dfdfdd"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -97,7 +97,7 @@ android:id="@+id/root"
             android:paddingLeft="10dp"
             android:text="sgd"
             android:textColor="@color/orange_d06048"
-            android:textSize="16dp" />
+            android:textSize="16dp"/>
 
         <ImageView
             android:id="@+id/iv_trolley"
@@ -105,7 +105,7 @@ android:id="@+id/root"
             android:layout_height="match_parent"
             android:minWidth="60dp"
             android:scaleType="center"
-            android:src="@drawable/img_trolley" />
+            android:src="@drawable/img_trolley"/>
 
         <Button
             android:id="@+id/btn_buy"
@@ -116,7 +116,7 @@ android:id="@+id/root"
             android:minWidth="100dp"
             android:text="立即购买"
             android:textColor="@color/white"
-            android:textSize="14dp" />
+            android:textSize="14dp"/>
     </LinearLayout>
 
 
