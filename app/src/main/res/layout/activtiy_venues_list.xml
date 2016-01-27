@@ -9,7 +9,6 @@
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="144dp"
-        android:layout_marginBottom="10dp"
         android:visibility="gone"
         android:background="@color/white"/>
 

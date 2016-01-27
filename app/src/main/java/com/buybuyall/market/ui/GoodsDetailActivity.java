@@ -101,11 +101,11 @@ public class GoodsDetailActivity extends StateActivity {
     ViewUtil.setViewVisibility(hsgvOtherGoods, View.GONE);
     ViewUtil.setViewVisibility(bannerView, View.GONE);
     webView.setWebViewClient(new WebViewClient());
-    // mWebView.requestFocus();
-    // mWebView.requestFocusFromTouch();
     webView.setDrawingCacheEnabled(false);
     WebSettings settings = webView.getSettings();
     settings.setJavaScriptEnabled(true);
+    settings.setUseWideViewPort(true);
+    settings.setLoadWithOverviewMode(true);
     settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     settings.setDefaultTextEncodingName(Xml.Encoding.UTF_8.toString());
     settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -190,7 +190,6 @@ public class GoodsDetailActivity extends StateActivity {
       ViewUtil.setViewVisibility(bannerView, View.VISIBLE);
       bannerView.setBannerList(response.getImageList());
       bannerView.notifyDataSetChanged();
-      bannerView.startScroll(5);
     } else {
       ViewUtil.setViewVisibility(bannerView, View.GONE);
     }
