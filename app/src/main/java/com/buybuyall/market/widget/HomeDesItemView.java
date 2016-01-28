@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -88,7 +87,7 @@ public class HomeDesItemView extends FrameLayout {
   @Override
   protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     super.onLayout(changed, left, top, right, bottom);
-    scrollRight();
+    scrollRight(true);
   }
 
   private View vContent;
@@ -111,12 +110,15 @@ public class HomeDesItemView extends FrameLayout {
   /**
    * 往右滑动，getScrollX()返回的是左边缘的距离，就是以View左边缘为原点到开始滑动的距离，所以向右边滑动为负值
    */
-  private void scrollRight() {
+  private void scrollRight(boolean isFast) {
     contentIsShow = false;
     final int delta = (vContent.getWidth() + vContent.getScrollX() - ivLeft.getWidth());
     // 调用startScroll方法来设置一些滚动的参数，我们在computeScroll()方法中调用scrollTo来滚动item
-    scroller.startScroll(vContent.getScrollX(), 0, -delta, 0, Math.abs(delta));
+    scroller.startScroll(vContent.getScrollX(), 0, -delta, 0,isFast?0: Math.abs(delta));
     postInvalidate(); // 刷新itemView
+  }
+  private void scrollRight() {
+    scrollRight(false);
   }
 
   private void scrollLeft() {

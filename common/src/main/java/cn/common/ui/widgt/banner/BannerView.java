@@ -249,7 +249,6 @@ public class BannerView extends FrameLayout implements OnPageChangeListener {
         scheduledExecutorService = null;
         if (mAdapter != null) {
             mAdapter.clear();
-            mAdapter = null;
         }
 
     }
