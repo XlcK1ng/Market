@@ -97,7 +97,7 @@
 
                 android:paddingRight="10dp"
                 app:icon_src="@drawable/img_question"
-                app:title_text="常见问题" />
+                app:title_text="关于百百购" />
 
             <View
                 android:layout_width="match_parent"

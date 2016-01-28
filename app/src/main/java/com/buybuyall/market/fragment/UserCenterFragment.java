@@ -1,22 +1,11 @@
 package com.buybuyall.market.fragment;
 
-import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.buybuyall.market.R;
-import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
+import com.buybuyall.market.ui.WebActivity;
 import com.buybuyall.market.utils.ToastUtil;
-import com.buybuyall.market.widget.ViewCreator;
-
-import java.util.ArrayList;
-
-import cn.common.ui.widgt.RoundImageView;
-import cn.common.ui.widgt.indicator.IndicatorViewPager;
-import cn.common.utils.DisplayUtil;
 
 /**
  * 描述：我的页面
@@ -33,6 +22,7 @@ public class UserCenterFragment extends StateFragment implements View.OnClickLis
     protected void initView() {
         setContentView(R.layout.fragment_user_center);
         tvHelp = (TextView) findViewById(R.id.tv_help);
+        showContentView();
     }
 
     @Override
@@ -69,10 +59,12 @@ public class UserCenterFragment extends StateFragment implements View.OnClickLis
             case R.id.civ_coupon:
                 break;
             case R.id.civ_contact_us:
+                WebActivity.start(v.getContext(),"联系我们","http://www.baidu.com/");
                 break;
             case R.id.civ_my_address:
                 break;
             case R.id.civ_question:
+                WebActivity.start(v.getContext(),"关于百百购","http://www.mi.com/");
                 break;
         }
         ToastUtil.show("id " + id);
