@@ -1,3 +1,4 @@
+
 package com.buybuyall.market.fragment;
 
 import android.graphics.Color;
@@ -5,12 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
 import com.buybuyall.market.utils.ToastUtil;
+import com.buybuyall.market.widget.LoginPopupWindow;
 import com.buybuyall.market.widget.ViewCreator;
 
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ import cn.common.ui.widgt.indicator.IndicatorViewPager;
 import cn.common.utils.DisplayUtil;
 
 /**
- * 描述：我的页面
- * 作者：jake on 2016/1/2 19:41
+ * 描述：我的页面 作者：jake on 2016/1/2 19:41
  */
 public class MineFragment extends StateFragment implements View.OnClickListener {
     public static MineFragment newInstance() {
@@ -29,8 +29,11 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
     }
 
     private Button btnLogin;
+
     private RoundImageView rivAvatar;
+
     private TextView tvName;
+
     private IndicatorViewPager indicatorView;
 
     @Override
@@ -50,14 +53,14 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
         tabList.add("已购商品");
         tabList.add("个人中心");
         indicatorView.getIndicator().setTabList(tabList);
-        indicatorView.getViewPager().setAdapter(new CommonFragmentPagerAdapter(getChildFragmentManager(), fragmentList));
+        indicatorView.getViewPager().setAdapter(
+                new CommonFragmentPagerAdapter(getChildFragmentManager(), fragmentList));
     }
 
     @Override
     protected void initData() {
         super.initData();
     }
-
 
     @Override
     protected void initEvent() {
@@ -70,11 +73,17 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
 
     }
 
+    private LoginPopupWindow mLoginPopupWindow;
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
             case R.id.btn_login:
+                if (mLoginPopupWindow == null) {
+                    mLoginPopupWindow = new LoginPopupWindow(v.getContext());
+                }
+                mLoginPopupWindow.show(mStatusView,DisplayUtil.dip(49));
                 break;
             case R.id.riv_avatar:
                 break;

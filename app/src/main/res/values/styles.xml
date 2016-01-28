@@ -15,6 +15,11 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_top</item>
         <item name="android:windowExitAnimation">@anim/slide_out_top</item>
     </style>
+    <!-- 上面进出动画样式 -->
+    <style name="slide_bottom_top_animation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_out_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_in_top</item>
+    </style>
 
     <style name="alpha_animation" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/alpha_in</item>
