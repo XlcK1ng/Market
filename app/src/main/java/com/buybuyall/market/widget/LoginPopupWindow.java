@@ -24,8 +24,8 @@ public class LoginPopupWindow {
     public LoginPopupWindow(Context context) {
         mContext = context;
         helper = new PopupWindowHelper(context, R.style.slide_bottom_top_animation);
-        helper.setWidth(DisplayUtil.getSreenDimens().x);
         helper.setView(R.layout.pop_login);
+        helper.setWidth(DisplayUtil.getSreenDimens().x);
     }
 
     public void show(View root) {
