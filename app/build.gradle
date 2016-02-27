@@ -5,13 +5,15 @@ android {
         release {
             keyAlias 'market'
             keyPassword 'market'
-            storeFile file('F:/git/jake/Market/market.keystore')
+//            storeFile file('F:/git/jake/Market/market.keystore')
+            storeFile file('H:/Android/github/Market/market.keystore')
             storePassword 'market'
         }
         debug {
             keyAlias 'market'
             keyPassword 'market'
-            storeFile file('F:/git/jake/Market/market.keystore')
+//            storeFile file('F:/git/jake/Market/market.keystore')
+            storeFile file('H:/Android/github/Market/market.keystore')
             storePassword 'market'
         }
     }

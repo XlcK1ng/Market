@@ -4,6 +4,8 @@ package com.buybuyall.market.fragment;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 import com.buybuyall.market.R;
 import com.buybuyall.market.adapter.CommonFragmentPagerAdapter;
 import com.buybuyall.market.utils.ToastUtil;
-import com.buybuyall.market.widget.LoginPopupWindow;
+import com.buybuyall.market.widget.LoginView;
 import com.buybuyall.market.widget.ViewCreator;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
     @Override
     protected void initView() {
         setContentView(R.layout.fragment_mine);
+        loginView = (LoginView) findViewById(R.id.login_view);
         btnLogin = (Button) findViewById(R.id.btn_login);
         rivAvatar = (RoundImageView) findViewById(R.id.riv_avatar);
         indicatorView = ViewCreator.createIndicatorViewPager(getActivity());
@@ -73,21 +76,40 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
 
     }
 
-    private LoginPopupWindow mLoginPopupWindow;
+    private LoginView loginView;
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
             case R.id.btn_login:
-                if (mLoginPopupWindow == null) {
-                    mLoginPopupWindow = new LoginPopupWindow(v.getContext());
-                }
-                mLoginPopupWindow.show(mStatusView,DisplayUtil.dip(49));
+                showLoginView();
                 break;
             case R.id.riv_avatar:
                 break;
         }
         ToastUtil.show("id " + id);
+    }
+
+    private void showLoginView() {
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, loginView.getHeight());
+        animation.setDuration(500);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                loginView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        loginView.startAnimation(animation);
     }
 }
