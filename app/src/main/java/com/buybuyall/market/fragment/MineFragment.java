@@ -77,7 +77,7 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
     protected void initEvent() {
         super.initEvent();
         btnLogin.setOnClickListener(this);
-        findViewById(R.id.v_login).setOnClickListener(this);
+//        findViewById(R.id.v_login).setOnClickListener(this);
     }
 
     @Override
