@@ -20,31 +20,27 @@ import cn.common.ui.activity.BaseApplication;
  * Created by jakechen on 2015/8/11.
  */
 public class CommonUtil {
-    public static void hideSoftInput(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity
+    /**
+     * 隐藏软键盘
+     */
+    public static void hideSoftInput(Activity context) {
+        InputMethodManager manager = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
-        boolean isOpen = imm.isActive();// isOpen若返回true，则表示输入法打开
-        if (isOpen) {
-            View view = activity.getWindow().peekDecorView();
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (context.getCurrentFocus() != null) {
+            manager.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
+
     }
 
-    public static void showSoftInput(final Activity activity) {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+    /**
+     * 显示软键盘
+     */
 
-            @Override
-            public void run() {
-                InputMethodManager m = (InputMethodManager) activity
-                        .getSystemService(Activity.INPUT_METHOD_SERVICE);
-                boolean isOpen = m.isActive();// isOpen若返回true，则表示输入法打开
-                if (isOpen) {
-                    m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                }
-            }
-
-        }, 500);
+    public static void showSoftInput(Activity activity) {
+        InputMethodManager manager = (InputMethodManager) activity
+                .getSystemService(Activity.INPUT_METHOD_SERVICE);
+        manager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
     /**

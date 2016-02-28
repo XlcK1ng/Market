@@ -30,7 +30,7 @@ public class ResizeLinearLayout extends LinearLayout implements
 
     private int usableHeightPrevious;
 
-    private int height = 0;
+    protected int height = 0;
 
     public ResizeLinearLayout(Context context) {
         this(context, null);
@@ -76,7 +76,10 @@ public class ResizeLinearLayout extends LinearLayout implements
                 }
             } else {
                 ViewGroup.LayoutParams params = getLayoutParams();
-                params.height = height;
+                //避免第一次布局的时候造成布局混乱，导致setVisibility();失效
+                if (params.height > 0) {
+                    params.height = height;
+                }
                 requestLayout();
                 if (onResizeListener != null) {
                     onResizeListener.onKeyboardHide();
@@ -88,7 +91,7 @@ public class ResizeLinearLayout extends LinearLayout implements
 
     /**
      * 当软键盘显示时计算界面高度
-     * 
+     *
      * @param usableHeightSansKeyboard
      * @return
      */

@@ -54,15 +54,18 @@ public class MainActivity extends BaseWorkerFragmentActivity implements
     private TextView tvTitle;
 
     private ImageView ivSearch;
+    private MineFragment mineFragment;
 
     @Override
     public void onBackPressed() {
-        long now = System.currentTimeMillis();
-        if (now - lastClickTime > 2000) {
-            ToastUtil.show("再按一次退出");
-            lastClickTime = now;
-        } else {
-            MarketApplication.getInstance().exitApp();
+        if (!mineFragment.onKeyBack()) {
+            long now = System.currentTimeMillis();
+            if (now - lastClickTime > 2000) {
+                ToastUtil.show("再按一次退出");
+                lastClickTime = now;
+            } else {
+                MarketApplication.getInstance().exitApp();
+            }
         }
     }
 
@@ -112,7 +115,8 @@ public class MainActivity extends BaseWorkerFragmentActivity implements
         list.add(HomeFragment.newInstance());
         list.add(PartyFragment.newInstance());
         list.add(HomeFragment.newInstance());
-        list.add(MineFragment.newInstance());
+        mineFragment = MineFragment.newInstance();
+        list.add(mineFragment);
         vpContent.setAdapter(new CommonFragmentPagerAdapter(getSupportFragmentManager(), list));
     }
 
