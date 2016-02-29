@@ -26,6 +26,7 @@ public abstract class CommonTitleActivity extends BaseTitleActivity {
     private void initTitleBar(View title) {
         ibBack = (ImageButton) title.findViewById(R.id.ib_back);
         tvTitle = (TextView) title.findViewById(R.id.tv_title);
+        ChangeThemeUtils.setStatusBarTextColor(this);
         ChangeThemeUtils.adjustStatusBar(title.findViewById(R.id.iv_status_bar), this);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override

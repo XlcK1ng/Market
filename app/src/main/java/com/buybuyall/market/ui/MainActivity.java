@@ -95,6 +95,7 @@ public class MainActivity extends BaseWorkerFragmentActivity implements
         rbMine = (RadioButton) findViewById(R.id.rb_menu_mine);
         vpContent.setOffscreenPageLimit(4);
         ChangeThemeUtils.adjustStatusBar(findViewById(R.id.iv_status_bar), this);
+        ChangeThemeUtils.setStatusBarTextColor(this);
 
     }
 
