@@ -1,7 +1,6 @@
 
 package cn.common.ui.widgt;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import java.lang.reflect.Field;
 
@@ -95,7 +93,7 @@ public class ResizeLinearLayout extends LinearLayout implements
      * @param usableHeightSansKeyboard
      * @return
      */
-    private int getSoftShowHeight(int usableHeightSansKeyboard, int heightDifference) {
+    protected int getSoftShowHeight(int usableHeightSansKeyboard, int heightDifference) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return usableHeightSansKeyboard - heightDifference + getStatusBarHeight();
         }

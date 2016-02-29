@@ -53,7 +53,7 @@ public class LoginView extends LinearLayout implements View.OnClickListener, Han
         inflate(context, R.layout.view_login, this);
         setOrientation(VERTICAL);
         setBackgroundColor(getResources().getColor(R.color.white));
-        setPadding(DisplayUtil.dip(10), 0, DisplayUtil.dip(10), DisplayUtil.dip(10));
+        setPadding(0, 0, 0, DisplayUtil.dip(10));
         evAccount = (EditText) findViewById(R.id.ev_account);
         evPw = (EditText) findViewById(R.id.ev_pw);
         btnLogin = (Button) findViewById(R.id.btn_login);
@@ -76,7 +76,7 @@ public class LoginView extends LinearLayout implements View.OnClickListener, Han
 
     private void login() {
         if (TextUtils.isEmpty(evAccount.getText())) {
-            ToastUtil.show("请输入登录账号");
+            ToastUtil.show("请输入手机号码");
             return;
         }
         if (TextUtils.isEmpty(evPw.getText())) {

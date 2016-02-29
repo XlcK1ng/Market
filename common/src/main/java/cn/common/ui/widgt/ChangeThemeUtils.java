@@ -12,14 +12,11 @@ import android.view.Window;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import cn.common.utils.BaseToastUtil;
-
 public class ChangeThemeUtils {
   private ChangeThemeUtils() {
   }
 
   public static void setStatusBarTextColor(Activity context) {
-    BaseToastUtil.show(Build.BRAND);
     if (TextUtils.equals(Build.BRAND, "Xiaomi") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       int type = 1;
       Window window = context.getWindow();

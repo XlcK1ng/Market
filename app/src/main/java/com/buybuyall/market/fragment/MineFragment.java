@@ -29,6 +29,7 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
   public static MineFragment newInstance() {
     return new MineFragment();
   }
+
   private boolean isHidingLoginView = false;
   private Button btnLogin;
 
@@ -147,6 +148,16 @@ public class MineFragment extends StateFragment implements View.OnClickListener 
   }
 
 
+  @Override
+  public void setUserVisibleHint(boolean isVisibleToUser) {
+    super.setUserVisibleHint(isVisibleToUser);
+    if (!isVisibleToUser) {
+      if (loginLayout != null && loginLayout.getVisibility() == View.VISIBLE) {
+        loginLayout.setVisibility(View.GONE);
+        loginView.setVisibility(View.GONE);
+      }
+    }
+  }
 
   public boolean onKeyBack() {
     if (loginLayout.getVisibility() == View.VISIBLE) {
